@@ -26,7 +26,9 @@ end
 	composer.gotoScene("home",{effect = "slideLeft", time = 500})
 end
 
-
+local function ques ()	
+	composer.gotoScene("InQue",{effect = "slideLeft", time = 500})
+end
 
 
 -- -----------------------------------------------------------------------------------
@@ -191,6 +193,7 @@ function scene:create( event )
         labelColor = { default={  0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } }
     }
 )
+SignUp:addEventListener("tap", ques) 
 sceneGroup:insert(SignUp)
 
 end

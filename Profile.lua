@@ -12,19 +12,21 @@ local scene = composer.newScene()
 
 local widget = require( "widget" )
  
-
+local function menu()
+ composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
+end
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
  
- local function Canine ()	
-	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
-end
+-- local function Canine ()	
+--	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
+--end
 
  local function dog ()	
-	composer.gotoScene("Profile",{effect = "slideLeft", time = 500})
+	composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500})
 end
  
  
@@ -39,12 +41,16 @@ function scene:create( event )
 	display.setDefault( "background", 0.26666666666, 0.44705882352, 0.76862745098 )
 	
 	
-	Can = display.newText("Canine Enrichment",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
-	sceneGroup:insert(Can)
-	Can:addEventListener("tap", Canine )
+	--Can = display.newText("Canin Enrichment",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
+	--sceneGroup:insert(Can)
+	--Can:addEventListener("tap", Canine )
 	--Writing Message "About"
 	
-	dogP = display.newText("view Profile",display.contentCenterX,display.contentCenterY*0.80, "Comic Sans MS", 30)
+	 m = display.newImage("menu.png", 30, -7 )
+	sceneGroup:insert(m)
+	m:addEventListener("tap", menu )
+	
+	dogP = display.newText("view dog Profile",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
 	sceneGroup:insert(dogP)
 	dogP:addEventListener("tap", dog)
 	--Writing Message "About"

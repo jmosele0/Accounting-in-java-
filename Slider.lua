@@ -54,7 +54,7 @@ function scene:create( event )
 	sceneGroup:insert(Welcome)
 	--Writing Message "About"
      
-	 --back button
+	 --menu button
     m = display.newImage("menu.png", 30, -7 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )

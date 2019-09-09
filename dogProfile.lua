@@ -1,0 +1,361 @@
+----------------------------------------------------------------------------------------
+--
+-- main.lua
+--
+-----------------------------------------------------------------------------------------
+
+local composer = require( "composer" )
+ 
+local scene = composer.newScene()
+ 
+
+local Welcome
+
+local widget = require ("widget")
+
+local function back ()	
+	composer.gotoScene("Profile",{effect = "slideLeft", time = 500})
+end
+ 
+
+local function onSwitchPress( event )
+    local switch = event.target
+    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+end
+
+ 
+-- -----------------------------------------------------------------------------------
+-- Code outside of the scene event functions below will only be executed ONCE unless
+-- the scene is removed entirely (not recycled) via "composer.removeScene()"
+-- -----------------------------------------------------------------------------------
+
+
+
+-- -----------------------------------------------------------------------------------
+-- Scene event functions
+-- -----------------------------------------------------------------------------------
+ 
+-- create()
+function scene:create( event )
+ 
+    local sceneGroup = self.view
+	
+	display.setDefault( "background", 0.26666666666, 0.44705882352 ,0.76862745098  )
+	
+	--Adding Message
+	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
+	sceneGroup:insert(msg)
+	
+	--back button
+	backImage = display.newImage("back.png", 30, -7 )
+	--myImage:translate(140,450)
+	sceneGroup:insert(backImage)
+	backImage:addEventListener("tap", back)
+	
+	local name = native.newTextField(160,100,180,30)
+	name.placeholder = "Name"
+	sceneGroup:insert(name)
+	
+	local age = native.newTextField(160,140,180,30)
+	age.placeholder = "Age"
+	sceneGroup:insert(age)
+	
+	local breed = native.newTextField(160,180,180,30)
+	breed.placeholder = "Breed"
+	sceneGroup:insert(breed)
+	
+	local sex = native.newTextField(160,220,180,30)
+	sex.placeholder = "Sex"
+	sceneGroup:insert(sex)
+	
+	
+	local Text = display.newText( "Have you had pets before?", display.contentCenterX*0.9, display.contentCenterY*0.4, native.systemFont, 18 )
+	sceneGroup:insert(Text)
+ 
+	
+	local radioGroup = display.newGroup()
+ 
+-- Create two associated radio buttons (inserted into the same display group)
+    local no = widget.newSwitch(
+		{
+			left = 90,
+			top = 115,
+			style = "radio",
+			id = "no",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	radioGroup:insert( no )
+	sceneGroup:insert(no)
+	
+	local no = display.newText( "No", display.contentCenterX*0.4, display.contentCenterY*0.55, native.systemFont, 18 )
+	sceneGroup:insert(no)
+ 
+	local yes = widget.newSwitch(
+		{
+			left = 190,
+			top = 115,
+			style = "radio",
+			id = "yes",
+			onPress = onSwitchPress
+			
+			
+		}
+	)
+	radioGroup:insert( yes )
+	sceneGroup:insert(yes)
+	
+	local yes = display.newText( "Yes", display.contentCenterX*1.0, display.contentCenterY*0.55, native.systemFont, 18 )
+	sceneGroup:insert(yes)
+	
+	local t = display.newText( "If Yes then ?", display.contentCenterX*0.9, display.contentCenterY*0.7, native.systemFont, 18 )
+	sceneGroup:insert(t)
+	
+	local rg = display.newGroup()
+ 
+-- Create two associated radio buttons (inserted into the same display group)
+    local dogs = widget.newSwitch(
+		{
+			left = 135,
+			top = 180,
+			style = "radio",
+			id = "dogs",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rg:insert( dogs )
+	sceneGroup:insert(dogs)
+	
+	local dogs = display.newText( "Dogs", display.contentCenterX*0.6, display.contentCenterY*0.8, native.systemFont, 18 )
+	sceneGroup:insert(dogs)
+ 
+	local cats = widget.newSwitch(
+		{
+			left = 135,
+			top = 215,
+			style = "radio",
+			id = "cats",
+			onPress = onSwitchPress
+			
+			
+		}
+	)
+	rg:insert( cats )
+	sceneGroup:insert(cats)
+	
+	local cats = display.newText( "Cats", display.contentCenterX*0.6, display.contentCenterY*0.95, native.systemFont, 18 )
+	sceneGroup:insert(cats)
+	
+	local other = native.newTextField(160,270,180,30)
+	other.placeholder = "Other"
+	sceneGroup:insert(other)
+	
+	local info = display.newText( "What is an obedient dog to you ?", display.contentCenterX*1.0, display.contentCenterY*1.3, native.systemFont, 18 )
+	sceneGroup:insert(info)
+	
+	local rGroup = display.newGroup()
+	
+	local basic = widget.newSwitch(
+		{
+			left = 262,
+			top = 330,
+			style = "radio",
+			id = "basic",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rGroup:insert( basic )
+	sceneGroup:insert(basic)
+	
+	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, display.contentCenterY*1.45, native.systemFont, 18 )
+	sceneGroup:insert(b)
+	
+	local listens = widget.newSwitch(
+		{
+			left = 262,
+			top = 370,
+			style = "radio",
+			id = "listens",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rGroup:insert( listens )
+	sceneGroup:insert(listens)
+	
+	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.6, native.systemFont, 18 )
+	sceneGroup:insert(l)
+	
+	local jump = widget.newSwitch(
+		{
+			left = 262,
+			top = 410,
+			style = "radio",
+			id = "jump",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rGroup:insert( jump )
+	sceneGroup:insert(jump)
+	
+	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.79, native.systemFont, 18 )
+	sceneGroup:insert(j)
+	
+	local submissive = widget.newSwitch(
+		{
+			left = 262,
+			top = 450,
+			style = "radio",
+			id = "submissive",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rGroup:insert( submissive )
+	sceneGroup:insert(submissive)
+	
+	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*1.95, native.systemFont, 18 )
+	sceneGroup:insert(s)
+	
+
+	
+    local imp = display.newText( "Important outcomes of dog training ?", display.contentCenterX*1.0, display.contentCenterY*2.1, native.systemFont, 18 )
+	sceneGroup:insert(imp)
+	
+	local rGroup = display.newGroup()
+	
+	local basic = widget.newSwitch(
+		{
+			left = 262,
+			top = 330,
+			style = "radio",
+			id = "basic",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rGroup:insert( basic )
+	sceneGroup:insert(basic)
+	
+	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, display.contentCenterY*1.45, native.systemFont, 18 )
+	sceneGroup:insert(b)
+	
+	local listens = widget.newSwitch(
+		{
+			left = 262,
+			top = 370,
+			style = "radio",
+			id = "listens",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rGroup:insert( listens )
+	sceneGroup:insert(listens)
+	
+	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.6, native.systemFont, 18 )
+	sceneGroup:insert(l)
+	
+	local jump = widget.newSwitch(
+		{
+			left = 262,
+			top = 410,
+			style = "radio",
+			id = "jump",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rGroup:insert( jump )
+	sceneGroup:insert(jump)
+	
+	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.79, native.systemFont, 18 )
+	sceneGroup:insert(j)
+	
+	local submissive = widget.newSwitch(
+		{
+			left = 262,
+			top = 450,
+			style = "radio",
+			id = "submissive",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rGroup:insert( submissive )
+	sceneGroup:insert(submissive)
+	
+	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*1.95, native.systemFont, 18 )
+	sceneGroup:insert(s)
+
+end
+ 
+ 
+-- show()
+function scene:show( event )
+ 
+    local sceneGroup = self.view
+    local phase = event.phase
+ 
+    if ( phase == "will" ) then
+        -- Code here runs when the scene is still off screen (but is about to come on screen)
+ 
+    elseif ( phase == "did" ) then
+        -- Code here runs when the scene is entirely on screen
+ 
+    end
+end
+ 
+ 
+-- hide()
+function scene:hide( event )
+ 
+    local sceneGroup = self.view
+    local phase = event.phase
+ 
+    if ( phase == "will" ) then
+        -- Code here runs when the scene is on screen (but is about to go off screen)
+ 
+    elseif ( phase == "did" ) then
+	        composer.removeScene("SignUp")
+        -- Code here runs immediately after the scene goes entirely off screen
+ 
+    end
+end
+ 
+ 
+-- destroy()
+function scene:destroy( event )
+ 
+    local sceneGroup = self.view
+    -- Code here runs prior to the removal of scene's view
+ 
+end
+ 
+ 
+-- -----------------------------------------------------------------------------------
+-- Scene event function listeners
+-- -----------------------------------------------------------------------------------
+scene:addEventListener( "create", scene )
+scene:addEventListener( "show", scene )
+scene:addEventListener( "hide", scene )
+scene:addEventListener( "destroy", scene )
+-- -----------------------------------------------------------------------------------
+ 
+return scene
+
+
