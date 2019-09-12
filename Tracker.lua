@@ -15,6 +15,9 @@ local widget = require ("widget")
 
  
 
+local function menu()
+ composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
+end
 
  
 
@@ -37,14 +40,23 @@ function scene:create( event )
     local sceneGroup = self.view
 	local sceneGroup = self.view
 --adding background
-	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight*1.20)
-	bg:setFillColor( 255,255,255)
+	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
+	bg:setFillColor( 0.26666666666, 0.44705882352, 0.76862745098)
+	sceneGroup:insert(bg)
+	
+	bg=display.newRect(display.contentCenterX,display.contentCenterY*1.0,display.contentWidth,display.contentHeight)
+	bg:setFillColor(255,255,255)
 	sceneGroup:insert(bg)
 	
 	--Adding Welcome Message
 	Welcome = display.newText("Experience:",display.contentCenterX*0.80,display.contentCenterY*0.40, "Comic Sans MS", 40)
 	Welcome:setFillColor( 0, 0, 1 )
 	sceneGroup:insert(Welcome)
+	
+	 --menu button
+    m = display.newImage("menu.png", 30, -18)
+	sceneGroup:insert(m)
+	m:addEventListener("tap", menu )
 	
 
 	

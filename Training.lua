@@ -12,37 +12,28 @@ local scene = composer.newScene()
 
 local widget = require( "widget" )
  
-
+local function menu()
+ composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
+end
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
  
- local function Canine ()	
-	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
-end
+-- local function Canine ()	
+--	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
+--end
 
  local function dog ()	
-	composer.gotoScene("Profile",{effect = "slideLeft", time = 500})
-end
-
- local function Tracr ()	
-	composer.gotoScene("Tracker",{effect = "slideLeft", time = 500})
+	composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500})
 end
  
 
- local function logout ()	
-	composer.gotoScene("Login",{effect = "slideLeft", time = 500})
+ local function hyperLink()
+  system.openURL("https://www.youtube.com/channel/UCY_FKzvY-gmO-wOMmI9xAZg/featured?disable_polymer=1")
 end
-
-
- local function Training ()	
-	composer.gotoScene("Training",{effect = "slideLeft", time = 500})
-end
- 
- 
- 
+  
 -- create()
 function scene:create( event )
 	
@@ -51,27 +42,34 @@ function scene:create( event )
 	display.setDefault( "background", 0.26666666666, 0.44705882352, 0.76862745098 )
 	
 	
-	Can = display.newText("Canine Enrichment",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
-	sceneGroup:insert(Can)
-	Can:addEventListener("tap", Canine )
-	--Writing Message "About"
-	Tracker = display.newText("Experience Tracker",display.contentCenterX,display.contentCenterY*0.40, "Comic Sans MS", 30)
-	sceneGroup:insert(Tracker)
-	Tracker:addEventListener("tap", Tracr)
-	
-	dogP = display.newText("view Profile",display.contentCenterX,display.contentCenterY*0.80, "Comic Sans MS", 30)
-	sceneGroup:insert(dogP)
-	dogP:addEventListener("tap", dog)
+	--Can = display.newText("Canin Enrichment",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
+	--sceneGroup:insert(Can)
+	--Can:addEventListener("tap", Canine )
 	--Writing Message "About"
 	
-	logT = display.newText("Log Out",display.contentCenterX,display.contentCenterY*1.20, "Comic Sans MS", 30)
-	sceneGroup:insert(logT)
-	logT:addEventListener("tap", logout)
-	--Writing Message "About"
+	 m = display.newImage("menu.png", 30, -7 )
+	sceneGroup:insert(m)
+	m:addEventListener("tap", menu )
 	
-	T = display.newText("Training",display.contentCenterX,display.contentCenterY*1.0, "Comic Sans MS", 30)
-	sceneGroup:insert(T)
-	T:addEventListener("tap", Training)
+	
+	
+	local Channel = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 50,
+        top = 50,
+        id = "Youtube ",
+        label = "Follow us on Youtube Channel",
+		width='250',
+		height='30',
+        onEvent = userChannel,
+       fillColor = { default={ 0, 1, 4, 0.7 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+sceneGroup:insert(Channel)
+Channel:addEventListener("tap", hyperLink)
+	
 	
 	
 end

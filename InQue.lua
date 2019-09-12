@@ -194,7 +194,7 @@ Skip:addEventListener("tap", skip )
 	local listens = widget.newSwitch(
 		{
 			left = 262,
-			top = 380,
+			top = 370,
 			style = "radio",
 			id = "listens",
 			initialSwitchState = true,
@@ -205,13 +205,13 @@ Skip:addEventListener("tap", skip )
 	rGroup:insert( listens )
 	scrollView:insert(listens)
 	
-	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.65, native.systemFont, 18 )
+	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.6, native.systemFont, 18 )
 	scrollView:insert(l)
 	
 	local jump = widget.newSwitch(
 		{
 			left = 262,
-			top = 430,
+			top = 410,
 			style = "radio",
 			id = "jump",
 			initialSwitchState = true,
@@ -222,30 +222,13 @@ Skip:addEventListener("tap", skip )
 	rGroup:insert( jump )
 	scrollView:insert(jump)
 	
-	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.88, native.systemFont, 18 )
+	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.79, native.systemFont, 18 )
 	scrollView:insert(j)
-	
-	local walks = widget.newSwitch(
-		{
-			left = 262,
-			top = 480,
-			style = "radio",
-			id = "walks",
-			initialSwitchState = true,
-			onPress = onSwitchPress,
-		
-		}
-	)
-	rGroup:insert( walks )
-	scrollView:insert(walks)
-	
-	local w = display.newText( "- Walks on the lead well", display.contentCenterX*0.85, display.contentCenterY*2.08, native.systemFont, 18 )
-	scrollView:insert(w)
 	
 	local submissive = widget.newSwitch(
 		{
 			left = 262,
-			top = 525,
+			top = 450,
 			style = "radio",
 			id = "submissive",
 			initialSwitchState = true,
@@ -256,120 +239,83 @@ Skip:addEventListener("tap", skip )
 	rGroup:insert( submissive )
 	scrollView:insert(submissive)
 	
-	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*2.25, native.systemFont, 18 )
+	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*1.95, native.systemFont, 18 )
 	scrollView:insert(s)
 	
-	local mannered = widget.newSwitch(
-		{
-			left = 262,
-			top = 570,
-			style = "radio",
-			id = "mannered",
-			initialSwitchState = true,
-			onPress = onSwitchPress,
-		
-		}
-	)
-	rGroup:insert( mannered )
-	scrollView:insert(mannered)
 	
-	local m = display.newText( "- Is well mannered in lots\n  of situations", display.contentCenterX*0.85, display.contentCenterY*2.45, native.systemFont, 18 )
-	scrollView:insert(m)
-	
-	local imp = display.newText( "Important outcomes of dog training ?", display.contentCenterX*1.0, display.contentCenterY*2.70, native.systemFont, 18 )
+    local imp = display.newText( "Important outcomes of dog training ?", display.contentCenterX*1.0, display.contentCenterY*2.1, native.systemFont, 18 )
 	scrollView:insert(imp)
 	
-	local rgrp = display.newGroup()
+	local rGroup = display.newGroup()
 	
-	local dogout = widget.newSwitch(
+	local basic = widget.newSwitch(
 		{
 			left = 262,
-			top = 670,
+			top = 330,
 			style = "radio",
-			id = "dogout",
+			id = "basic",
 			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
 	)
-	rgrp:insert( dogout )
-	scrollView:insert(dogout)
+	rGroup:insert( basic )
+	scrollView:insert(basic)
 	
-	local dg = display.newText( "- So I can take my dog out \n  and about with me", display.contentCenterX*0.8, display.contentCenterY*2.90, native.systemFont, 18 )
-	scrollView:insert(dg)
+	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, display.contentCenterY*1.45, native.systemFont, 18 )
+	scrollView:insert(b)
 	
-	local willlistens = widget.newSwitch(
+	local listens = widget.newSwitch(
 		{
 			left = 262,
-			top = 725,
+			top = 370,
 			style = "radio",
-			id = "willlistens",
+			id = "listens",
 			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
 	)
-	rgrp:insert( willlistens )
-	scrollView:insert(willlistens)
+	rGroup:insert( listens )
+	scrollView:insert(listens)
 	
-	local wl = display.newText( "- So they will listens to me", display.contentCenterX*0.8, display.contentCenterY*3.10, native.systemFont, 18 )
-	scrollView:insert(wl)
+	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.6, native.systemFont, 18 )
+	scrollView:insert(l)
 	
-	local charge = widget.newSwitch(
+	local jump = widget.newSwitch(
 		{
 			left = 262,
-			top = 775,
+			top = 410,
 			style = "radio",
-			id = "charge",
+			id = "jump",
 			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
 	)
-	rgrp:insert( charge )
-	scrollView:insert(charge)
+	rGroup:insert( jump )
+	scrollView:insert(jump)
 	
-	local c = display.newText( "- So I can be in charge \n  of my dog ", display.contentCenterX*0.72, display.contentCenterY*3.30, native.systemFont, 18 )
-	scrollView:insert(c)
+	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.79, native.systemFont, 18 )
+	scrollView:insert(j)
 	
-	local wmannered = widget.newSwitch(
+	local submissive = widget.newSwitch(
 		{
 			left = 262,
-			top = 830,
+			top = 450,
 			style = "radio",
-			id = "wmannered",
+			id = "submissive",
 			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
 	)
-	rgrp:insert( wmannered )
-	scrollView:insert(wmannered)
+	rGroup:insert( submissive )
+	scrollView:insert(submissive)
 	
-	local wm = display.newText( "- So they will be well mann-\n  ered in different situations", display.contentCenterX*0.8, display.contentCenterY*3.55, native.systemFont, 18 )
-	scrollView:insert(wm)
-	
-	local communicate = widget.newSwitch(
-		{
-			left = 262,
-			top = 885,
-			style = "radio",
-			id = "communicate",
-			initialSwitchState = true,
-			onPress = onSwitchPress,
-		
-		}
-	)
-	rgrp:insert( communicate )
-	scrollView:insert(communicate)
-	
-	local cm = display.newText( "- To allow me to communicate\n  well with my dog", display.contentCenterX*0.84, display.contentCenterY*3.80, native.systemFont, 18 )
-	scrollView:insert(cm)
-	
-	local Other = native.newTextField(120,970,150,30)
-	Other.placeholder = "Other"
-	scrollView:insert(Other)
- 
+	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*1.95, native.systemFont, 18 )
+	scrollView:insert(s)
+
 end
  
  

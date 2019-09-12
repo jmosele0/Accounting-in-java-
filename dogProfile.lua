@@ -52,25 +52,43 @@ function scene:create( event )
 	sceneGroup:insert(backImage)
 	backImage:addEventListener("tap", back)
 	
+	
+	-- Create the widget for scroll view
+	local scrollView = widget.newScrollView(
+		{
+			top = 70,
+			left = 0,
+			width = display.contentWidth,
+			height = display.contentHeight,
+			topPadding = 0,
+			bottomPadding = 70,
+			horizontalScrollDisabled = true,
+			verticalScrollDisabled = false,
+			listener = scrollListener,
+			backgroundColor = {0.26666666666, 0.44705882352 ,0.76862745098 },
+		}
+	)
+	sceneGroup:insert(scrollView)
+	
 	local name = native.newTextField(160,100,180,30)
 	name.placeholder = "Name"
-	sceneGroup:insert(name)
+	scrollView:insert(name)
 	
 	local age = native.newTextField(160,140,180,30)
 	age.placeholder = "Age"
-	sceneGroup:insert(age)
+	scrollView:insert(age)
 	
 	local breed = native.newTextField(160,180,180,30)
 	breed.placeholder = "Breed"
-	sceneGroup:insert(breed)
+	scrollView:insert(breed)
 	
 	local sex = native.newTextField(160,220,180,30)
 	sex.placeholder = "Sex"
-	sceneGroup:insert(sex)
+	scrollView:insert(sex)
 	
 	
 	local Text = display.newText( "Have you had pets before?", display.contentCenterX*0.9, display.contentCenterY*0.4, native.systemFont, 18 )
-	sceneGroup:insert(Text)
+	scrollView:insert(Text)
  
 	
 	local radioGroup = display.newGroup()
@@ -88,14 +106,14 @@ function scene:create( event )
 		}
 	)
 	radioGroup:insert( no )
-	sceneGroup:insert(no)
+	scrollView:insert(no)
 	
 	local no = display.newText( "No", display.contentCenterX*0.4, display.contentCenterY*0.55, native.systemFont, 18 )
-	sceneGroup:insert(no)
+	scrollView:insert(no)
  
 	local yes = widget.newSwitch(
 		{
-			left = 190,
+			left = 190,20,
 			top = 115,
 			style = "radio",
 			id = "yes",
@@ -105,13 +123,13 @@ function scene:create( event )
 		}
 	)
 	radioGroup:insert( yes )
-	sceneGroup:insert(yes)
+	scrollView:insert(yes)
 	
 	local yes = display.newText( "Yes", display.contentCenterX*1.0, display.contentCenterY*0.55, native.systemFont, 18 )
-	sceneGroup:insert(yes)
+	scrollView:insert(yes)
 	
 	local t = display.newText( "If Yes then ?", display.contentCenterX*0.9, display.contentCenterY*0.7, native.systemFont, 18 )
-	sceneGroup:insert(t)
+	scrollView:insert(t)
 	
 	local rg = display.newGroup()
  
@@ -128,10 +146,10 @@ function scene:create( event )
 		}
 	)
 	rg:insert( dogs )
-	sceneGroup:insert(dogs)
+	scrollView:insert(dogs)
 	
 	local dogs = display.newText( "Dogs", display.contentCenterX*0.6, display.contentCenterY*0.8, native.systemFont, 18 )
-	sceneGroup:insert(dogs)
+	scrollView:insert(dogs)
  
 	local cats = widget.newSwitch(
 		{
@@ -145,17 +163,17 @@ function scene:create( event )
 		}
 	)
 	rg:insert( cats )
-	sceneGroup:insert(cats)
+	scrollView:insert(cats)
 	
 	local cats = display.newText( "Cats", display.contentCenterX*0.6, display.contentCenterY*0.95, native.systemFont, 18 )
-	sceneGroup:insert(cats)
+	scrollView:insert(cats)
 	
 	local other = native.newTextField(160,270,180,30)
 	other.placeholder = "Other"
-	sceneGroup:insert(other)
+	scrollView:insert(other)
 	
 	local info = display.newText( "What is an obedient dog to you ?", display.contentCenterX*1.0, display.contentCenterY*1.3, native.systemFont, 18 )
-	sceneGroup:insert(info)
+	scrollView:insert(info)
 	
 	local rGroup = display.newGroup()
 	
@@ -171,10 +189,10 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( basic )
-	sceneGroup:insert(basic)
+	scrollView:insert(basic)
 	
 	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, display.contentCenterY*1.45, native.systemFont, 18 )
-	sceneGroup:insert(b)
+	scrollView:insert(b)
 	
 	local listens = widget.newSwitch(
 		{
@@ -188,10 +206,10 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( listens )
-	sceneGroup:insert(listens)
+	scrollView:insert(listens)
 	
 	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.6, native.systemFont, 18 )
-	sceneGroup:insert(l)
+	scrollView:insert(l)
 	
 	local jump = widget.newSwitch(
 		{
@@ -205,10 +223,10 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( jump )
-	sceneGroup:insert(jump)
+	scrollView:insert(jump)
 	
 	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.79, native.systemFont, 18 )
-	sceneGroup:insert(j)
+	scrollView:insert(j)
 	
 	local submissive = widget.newSwitch(
 		{
@@ -222,15 +240,15 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( submissive )
-	sceneGroup:insert(submissive)
+	scrollView:insert(submissive)
 	
 	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*1.95, native.systemFont, 18 )
-	sceneGroup:insert(s)
+	scrollView:insert(s)
 	
 
 	
     local imp = display.newText( "Important outcomes of dog training ?", display.contentCenterX*1.0, display.contentCenterY*2.1, native.systemFont, 18 )
-	sceneGroup:insert(imp)
+	scrollView:insert(imp)
 	
 	local rGroup = display.newGroup()
 	
@@ -246,10 +264,10 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( basic )
-	sceneGroup:insert(basic)
+	scrollView:insert(basic)
 	
 	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, display.contentCenterY*1.45, native.systemFont, 18 )
-	sceneGroup:insert(b)
+	scrollView:insert(b)
 	
 	local listens = widget.newSwitch(
 		{
@@ -263,10 +281,10 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( listens )
-	sceneGroup:insert(listens)
+	scrollView:insert(listens)
 	
 	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.6, native.systemFont, 18 )
-	sceneGroup:insert(l)
+	scrollView:insert(l)
 	
 	local jump = widget.newSwitch(
 		{
@@ -280,10 +298,10 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( jump )
-	sceneGroup:insert(jump)
+	scrollView:insert(jump)
 	
 	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.79, native.systemFont, 18 )
-	sceneGroup:insert(j)
+	scrollView:insert(j)
 	
 	local submissive = widget.newSwitch(
 		{
@@ -297,10 +315,10 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( submissive )
-	sceneGroup:insert(submissive)
+	scrollView:insert(submissive)
 	
 	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*1.95, native.systemFont, 18 )
-	sceneGroup:insert(s)
+	scrollView:insert(s)
 
 end
  
