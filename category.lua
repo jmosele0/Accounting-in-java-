@@ -12,6 +12,10 @@ local scene = composer.newScene()
 local widget = require ("widget")
 
 
+local function back ()	
+	composer.gotoScene("Tracker",{effect = "slideLeft", time = 500})
+end
+
  -- ScrollView listener
 local function scrollListener( event )
  
@@ -50,8 +54,14 @@ function scene:create( event )
 	bg:setFillColor( 0.26666666666, 0.44705882352 ,0.76862745098)
 	sceneGroup:insert(bg)
 	
+	--back button
+	backImage = display.newImage("back.png", 30, -7 )
+	--myImage:translate(140,450)
+	sceneGroup:insert(backImage)
+	backImage:addEventListener("tap", back)
+	
 	--title of the scene
-	head = display.newText("Category Information", display.contentCenterX*1.0,display.contentCenterY*0.01,"Forte",30)
+	head = display.newText("Category Information", display.contentCenterX*1.0,display.contentCenterY*0.01,"Forte",20)
 	sceneGroup:insert(head)
 	
 		-- Create the widget for scroll view

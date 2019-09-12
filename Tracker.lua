@@ -19,7 +19,10 @@ local function menu()
  composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
 end
 
- 
+
+local function help()
+ composer.gotoScene("category",{effect = "slideLeft", time = 500})
+end 
 
 --local function Onclick(avg)
       -- Print ("average")
@@ -52,6 +55,12 @@ function scene:create( event )
 	Welcome = display.newText("Experience:",display.contentCenterX*0.80,display.contentCenterY*0.40, "Comic Sans MS", 40)
 	Welcome:setFillColor( 0, 0, 1 )
 	sceneGroup:insert(Welcome)
+	
+	--Adding Welcome Message
+	Help = display.newText("Need help?",display.contentCenterX*1.60,display.contentCenterY*0.20, "Comic Sans MS", 20)
+	Help:setFillColor( 0, 0, 1 )
+	sceneGroup:insert(Help)
+	Help:addEventListener("tap", help)
 	
 	 --menu button
     m = display.newImage("menu.png", 30, -18)

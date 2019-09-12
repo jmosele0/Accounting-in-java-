@@ -68,7 +68,6 @@ function scene:create( event )
 			backgroundColor = {0.26666666666, 0.44705882352 ,0.76862745098 },
 		}
 	)
-	sceneGroup:insert(scrollView)
 	
 	local name = native.newTextField(160,100,180,30)
 	name.placeholder = "Name"
@@ -86,101 +85,81 @@ function scene:create( event )
 	sex.placeholder = "Sex"
 	scrollView:insert(sex)
 	
-	
-	local Text = display.newText( "Have you had pets before?", display.contentCenterX*0.9, display.contentCenterY*0.4, native.systemFont, 18 )
+	local Text = display.newText( "Desexed?", display.contentCenterX*0.7, display.contentCenterY*1.09, native.systemFont, 18 )
 	scrollView:insert(Text)
- 
 	
 	local radioGroup = display.newGroup()
  
 -- Create two associated radio buttons (inserted into the same display group)
-    local no = widget.newSwitch(
+    local yes = widget.newSwitch(
 		{
-			left = 90,
-			top = 115,
+			left = 230,
+			top = 280,
 			style = "radio",
-			id = "no",
+			id = "yes",
 			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
-		}
-	)
-	radioGroup:insert( no )
-	scrollView:insert(no)
-	
-	local no = display.newText( "No", display.contentCenterX*0.4, display.contentCenterY*0.55, native.systemFont, 18 )
-	scrollView:insert(no)
- 
-	local yes = widget.newSwitch(
-		{
-			left = 190,20,
-			top = 115,
-			style = "radio",
-			id = "yes",
-			onPress = onSwitchPress
-			
-			
 		}
 	)
 	radioGroup:insert( yes )
 	scrollView:insert(yes)
 	
-	local yes = display.newText( "Yes", display.contentCenterX*1.0, display.contentCenterY*0.55, native.systemFont, 18 )
-	scrollView:insert(yes)
-	
-	local t = display.newText( "If Yes then ?", display.contentCenterX*0.9, display.contentCenterY*0.7, native.systemFont, 18 )
-	scrollView:insert(t)
-	
-	local rg = display.newGroup()
+	local y = display.newText( "Yes", display.contentCenterX*0.55, display.contentCenterY*1.25, native.systemFont, 18 )
+	scrollView:insert(y)
  
--- Create two associated radio buttons (inserted into the same display group)
-    local dogs = widget.newSwitch(
+	local no = widget.newSwitch(
 		{
-			left = 135,
-			top = 180,
+			left = 230,
+			top = 320,
 			style = "radio",
-			id = "dogs",
-			initialSwitchState = true,
-			onPress = onSwitchPress,
-		
-		}
-	)
-	rg:insert( dogs )
-	scrollView:insert(dogs)
-	
-	local dogs = display.newText( "Dogs", display.contentCenterX*0.6, display.contentCenterY*0.8, native.systemFont, 18 )
-	scrollView:insert(dogs)
- 
-	local cats = widget.newSwitch(
-		{
-			left = 135,
-			top = 215,
-			style = "radio",
-			id = "cats",
+			id = "no",
 			onPress = onSwitchPress
 			
 			
 		}
 	)
-	rg:insert( cats )
-	scrollView:insert(cats)
+	radioGroup:insert( no )
+	scrollView:insert(no)
 	
-	local cats = display.newText( "Cats", display.contentCenterX*0.6, display.contentCenterY*0.95, native.systemFont, 18 )
-	scrollView:insert(cats)
+	local n = display.newText( "No", display.contentCenterX*0.55, display.contentCenterY*1.38, native.systemFont, 18 )
+	scrollView:insert(n)
 	
-	local other = native.newTextField(160,270,180,30)
-	other.placeholder = "Other"
-	scrollView:insert(other)
+	local plan = widget.newSwitch(
+		{
+			left = 230,
+			top = 360,
+			style = "radio",
+			id = "plan",
+			onPress = onSwitchPress
+			
+			
+		}
+	)
+	radioGroup:insert( plan )
+	scrollView:insert(plan)
 	
-	local info = display.newText( "What is an obedient dog to you ?", display.contentCenterX*1.0, display.contentCenterY*1.3, native.systemFont, 18 )
-	scrollView:insert(info)
+	
+	local p = display.newText( "Planning to when \n old enough", display.contentCenterX*0.92, display.contentCenterY*1.55, native.systemFont, 18 )
+	scrollView:insert(p)
+	
+	local DOB = native.newTextField(160,420,180,30)
+	DOB.placeholder = "Date of birth"
+	scrollView:insert(DOB)
+	
+	local dn = native.newTextField(160,460,180,30)
+	dn.placeholder = "How long have you had"
+	scrollView:insert(dn)
 	
 	local rGroup = display.newGroup()
 	
-	local basic = widget.newSwitch(
+	local vc = display.newText( "  Vaccination Status ", display.contentCenterX*0.9, display.contentCenterY*2.1, native.systemFont, 18 )
+	scrollView:insert(vc)
+	
+	local Unvaccinated = widget.newSwitch(
 		{
 			left = 262,
-			top = 330,
+			top = 520,
 			style = "radio",
 			id = "basic",
 			initialSwitchState = true,
@@ -188,137 +167,108 @@ function scene:create( event )
 		
 		}
 	)
-	rGroup:insert( basic )
-	scrollView:insert(basic)
+	rGroup:insert( Unvaccinated )
+	scrollView:insert(Unvaccinated)
 	
-	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, display.contentCenterY*1.45, native.systemFont, 18 )
-	scrollView:insert(b)
+	local Ua = display.newText( "Unvaccinated", display.contentCenterX*0.7, display.contentCenterY*2.25, native.systemFont, 18 )
+	scrollView:insert(Ua)
 	
-	local listens = widget.newSwitch(
+	local over = widget.newSwitch(
 		{
 			left = 262,
-			top = 370,
+			top = 560,
 			style = "radio",
-			id = "listens",
+			id = "over",
 			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
 	)
-	rGroup:insert( listens )
-	scrollView:insert(listens)
+	rGroup:insert( over )
+	scrollView:insert(over)
 	
-	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.6, native.systemFont, 18 )
-	scrollView:insert(l)
+	local ov = display.newText( "Overdue for vaccination", display.contentCenterX*0.95, display.contentCenterY*2.4, native.systemFont, 18 )
+	scrollView:insert(ov)
 	
-	local jump = widget.newSwitch(
+	local unsure = widget.newSwitch(
 		{
 			left = 262,
-			top = 410,
+			top = 600,
 			style = "radio",
-			id = "jump",
+			id = "unsure",
 			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
 	)
-	rGroup:insert( jump )
-	scrollView:insert(jump)
+	rGroup:insert( unsure )
+	scrollView:insert(unsure)
 	
-	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.79, native.systemFont, 18 )
-	scrollView:insert(j)
+	local uh = display.newText( "Unsure of history", display.contentCenterX*0.8, display.contentCenterY*2.55, native.systemFont, 18 )
+	scrollView:insert(uh)
 	
-	local submissive = widget.newSwitch(
+	local going = widget.newSwitch(
 		{
 			left = 262,
-			top = 450,
+			top = 645,
 			style = "radio",
-			id = "submissive",
+			id = "going",
 			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
 	)
-	rGroup:insert( submissive )
-	scrollView:insert(submissive)
+	rGroup:insert( going)
+	scrollView:insert(going)
 	
-	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*1.95, native.systemFont, 18 )
-	scrollView:insert(s)
+	local gp = display.newText( "Going through puppy\n vaccinations", display.contentCenterX*0.9, display.contentCenterY*2.75, native.systemFont, 18 )
+	scrollView:insert(gp)
 	
-
-	
-    local imp = display.newText( "Important outcomes of dog training ?", display.contentCenterX*1.0, display.contentCenterY*2.1, native.systemFont, 18 )
-	scrollView:insert(imp)
-	
-	local rGroup = display.newGroup()
-	
-	local basic = widget.newSwitch(
+	local upto = widget.newSwitch(
 		{
 			left = 262,
-			top = 330,
+			top = 690,
 			style = "radio",
-			id = "basic",
+			id = "upto",
 			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
 	)
-	rGroup:insert( basic )
-	scrollView:insert(basic)
+	rGroup:insert( upto )
+	scrollView:insert(upto)
 	
-	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, display.contentCenterY*1.45, native.systemFont, 18 )
-	scrollView:insert(b)
+	local uv = display.newText( "Up to date with\n vaccinations", display.contentCenterX*0.75, display.contentCenterY*3.0, native.systemFont, 18 )
+	scrollView:insert(uv)
 	
-	local listens = widget.newSwitch(
-		{
-			left = 262,
-			top = 370,
-			style = "radio",
-			id = "listens",
-			initialSwitchState = true,
-			onPress = onSwitchPress,
-		
-		}
-	)
-	rGroup:insert( listens )
-	scrollView:insert(listens)
+	local rg = display.newGroup()
 	
-	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.6, native.systemFont, 18 )
-	scrollView:insert(l)
+	local  cf = display.newText( "  Where did I come from? ", display.contentCenterX*0.9, display.contentCenterY*3.2, native.systemFont, 18 )
+	scrollView:insert(cf)
 	
-	local jump = widget.newSwitch(
-		{
-			left = 262,
-			top = 410,
-			style = "radio",
-			id = "jump",
-			initialSwitchState = true,
-			onPress = onSwitchPress,
-		
-		}
-	)
-	rGroup:insert( jump )
-	scrollView:insert(jump)
+	local rb = display.newText( "Registered breeder", display.contentCenterX*0.8, display.contentCenterY*3.35, native.systemFont, 18 )
+	scrollView:insert(rb)
 	
-	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.79, native.systemFont, 18 )
-	scrollView:insert(j)
+	local pd = display.newText( "Pound", display.contentCenterX*0.49, display.contentCenterY*3.5, native.systemFont, 18 )
+	scrollView:insert(pd)
 	
-	local submissive = widget.newSwitch(
-		{
-			left = 262,
-			top = 450,
-			style = "radio",
-			id = "submissive",
-			initialSwitchState = true,
-			onPress = onSwitchPress,
-		
-		}
-	)
-	rGroup:insert( submissive )
-	scrollView:insert(submissive)
+	local bl = display.newText( "Backyard litter", display.contentCenterX*0.69, display.contentCenterY*3.65, native.systemFont, 18 )
+	scrollView:insert(bl)
 	
-	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*1.95, native.systemFont, 18 )
-	scrollView:insert(s)
+	local frd = display.newText( "Friend ", display.contentCenterX*0.5, display.contentCenterY*3.8, native.systemFont, 18 )
+	scrollView:insert(frd)
+	
+	local fm = display.newText( "Family matter", display.contentCenterX*0.68, display.contentCenterY*3.95, native.systemFont, 18 )
+	scrollView:insert(fm)
+	
+	local ra = display.newText( "Rescue association", display.contentCenterX*0.82, display.contentCenterY*4.1, native.systemFont, 18 )
+	scrollView:insert(ra)
+	
+	local fd = display.newText( "Found dog", display.contentCenterX*0.62, display.contentCenterY*4.25, native.systemFont, 18 )
+	scrollView:insert(fd)
+	
+	local ff = display.newText( "Foster fail", display.contentCenterX*0.61, display.contentCenterY*4.4, native.systemFont, 18 )
+	scrollView:insert(ff)
 
 end
  
@@ -349,7 +299,7 @@ function scene:hide( event )
         -- Code here runs when the scene is on screen (but is about to go off screen)
  
     elseif ( phase == "did" ) then
-	        composer.removeScene("SignUp")
+	        composer.removeScene("dogProfile")
         -- Code here runs immediately after the scene goes entirely off screen
  
     end
