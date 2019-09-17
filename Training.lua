@@ -93,7 +93,7 @@ Channel:addEventListener("tap", hyperLink)
 	
 	
 	
-endzzzzzzzzzzzzznvcx 
+end
 
 
  
@@ -101,6 +101,7 @@ endzzzzzzzzzzzzznvcx
 function scene:show( event )
  
     local sceneGroup = self.view
+	local scrollView = self.view
     local phase = event.phase
  
     if ( phase == "will" ) then
@@ -117,12 +118,14 @@ end
 function scene:hide( event )
  
     local sceneGroup = self.view
+	local scrollView = self.view
     local phase = event.phase
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen)
  
     elseif ( phase == "did" ) then
+	        composer.removeScene("SignUp")
         -- Code here runs immediately after the scene goes entirely off screen
  
     end
@@ -133,6 +136,7 @@ end
 function scene:destroy( event )
  
     local sceneGroup = self.view
+	local scrollView = self.view
     -- Code here runs prior to the removal of scene's view
  
 end
@@ -148,3 +152,5 @@ scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
  
 return scene
+
+
