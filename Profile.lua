@@ -16,6 +16,12 @@ local function menu()
  composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
 end
 
+
+ local function home ()	
+	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+end 
+
+
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -41,19 +47,46 @@ function scene:create( event )
 	display.setDefault( "background", 0.26666666666, 0.44705882352, 0.76862745098 )
 	
 	
-	--Can = display.newText("Canin Enrichment",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
-	--sceneGroup:insert(Can)
-	--Can:addEventListener("tap", Canine )
+bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
+	bg:setFillColor(255,255,255)
+	sceneGroup:insert(bg)
+	
+	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
+	bgr:setFillColor(0.26666666666, 0.44705882352, 0.76862745098)
+	sceneGroup:insert(bgr)
+	
+	--Adding Welcome Message
+	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
+	sceneGroup:insert(Welcome)
 	--Writing Message "About"
 	
-	 m = display.newImage("menu.png", 30, -7 )
+	 m = display.newImage("menu.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
 	
-	dogP = display.newText("view dog Profile",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
+	 --menu button
+    h = display.newImage("home.png", 300, -17 )
+	sceneGroup:insert(h)
+	h:addEventListener("tap", home )
+	
+	
+		local dogP = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 70,
+        top = 200,
+        id = "dogP",
+        label = "View dog Profile",
+		width='200',
+		height='35',
+       fillColor = { default={ 0.26666666666, 0.44705882352, 0.76862745098 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={255,255,255}, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+	
 	sceneGroup:insert(dogP)
 	dogP:addEventListener("tap", dog)
-	--Writing Message "About"
+	
 	
 	
 	

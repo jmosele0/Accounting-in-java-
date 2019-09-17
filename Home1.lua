@@ -33,7 +33,7 @@ local function removeSplash(event)
 splashscreen:removeSelf()
 splashscreen = nil
 end 
-timer.performWithDelay(3000,removeSplash)
+timer.performWithDelay(2000,removeSplash)
 	
 	
 	display.setDefault( "background", 0.26666666666, 0.44705882352, 0.76862745098 )

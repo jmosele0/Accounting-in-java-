@@ -13,6 +13,10 @@ local function menu()
  composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
 end
 
+
+local function home ()	
+	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+end  
  -- ScrollView listener
 local function scrollListener( event )
  
@@ -51,9 +55,15 @@ function scene:create( event )
 	sceneGroup:insert(bg)
 	
 	--title of the scene
-	head = display.newText("Canine Enrichment", display.contentCenterX*0.90,display.contentCenterY*0.05,"Comic Sans MS",20)
+	head = display.newText("Canine Enrichment",165,-12, "Forte",24)
 	--head:setFillColor(1,0,0)
 	sceneGroup:insert(head)
+	
+		 --menu button
+    h = display.newImage("home.png", 300, -7 )
+	sceneGroup:insert(h)
+	h:addEventListener("tap", home )
+	 
 	
 	 m = display.newImage("menu.png", 30, -7 )
 	sceneGroup:insert(m)
@@ -145,7 +155,7 @@ function scene:create( event )
 
 
 ---------------------------End-------------------------]]
-local text = display.newText(text,0,10,270,0,"Helvetica", 14)
+local text = display.newText(text,0,10,270,0,"Arial", 15)
 text:setTextColor(0)
 text.x = display.contentCenterX
 scrollView:insert(text)

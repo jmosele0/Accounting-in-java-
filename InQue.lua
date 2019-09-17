@@ -17,6 +17,10 @@ local function skip()
  composer.gotoScene("Login",{effect = "slideLeft", time = 500})
 end
 
+local function submit()
+ composer.gotoScene("Login",{effect = "slideLeft", time = 500})
+end
+
 
 local function onSwitchPress( event )
     local switch = event.target
@@ -54,8 +58,8 @@ function scene:create( event )
 		width='98',
 		height='30',
         onEvent = userSkip,
-       fillColor = { default={ 0, 1, 4, 0.7 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
+       fillColor = { default={ 255,255,255  }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } },
     }
 )
 sceneGroup:insert(Skip)
@@ -197,7 +201,6 @@ Skip:addEventListener("tap", skip )
 			top = 380,
 			style = "radio",
 			id = "listens",
-			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
@@ -214,7 +217,6 @@ Skip:addEventListener("tap", skip )
 			top = 430,
 			style = "radio",
 			id = "jump",
-			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
@@ -231,7 +233,6 @@ Skip:addEventListener("tap", skip )
 			top = 480,
 			style = "radio",
 			id = "walks",
-			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
@@ -248,7 +249,6 @@ Skip:addEventListener("tap", skip )
 			top = 525,
 			style = "radio",
 			id = "submissive",
-			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
@@ -265,7 +265,6 @@ Skip:addEventListener("tap", skip )
 			top = 570,
 			style = "radio",
 			id = "mannered",
-			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
@@ -304,7 +303,6 @@ Skip:addEventListener("tap", skip )
 			top = 725,
 			style = "radio",
 			id = "willlistens",
-			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
@@ -321,7 +319,6 @@ Skip:addEventListener("tap", skip )
 			top = 775,
 			style = "radio",
 			id = "charge",
-			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
@@ -338,7 +335,6 @@ Skip:addEventListener("tap", skip )
 			top = 830,
 			style = "radio",
 			id = "wmannered",
-			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
@@ -355,7 +351,6 @@ Skip:addEventListener("tap", skip )
 			top = 885,
 			style = "radio",
 			id = "communicate",
-			initialSwitchState = true,
 			onPress = onSwitchPress,
 		
 		}
@@ -369,6 +364,23 @@ Skip:addEventListener("tap", skip )
 	local Other = native.newTextField(120,970,150,30)
 	Other.placeholder = "Other"
 	scrollView:insert(Other)
+	
+	local Submit = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 100,
+        top = 1000,
+        id = "Submit",
+        label = "Submit",
+		width='98',
+		height='30',
+        onEvent = userSubmit,
+       fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 0.26666666666, 0.44705882352, 0.76862745098 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+scrollView:insert(Submit)
+Submit:addEventListener("tap", submit)
  
 end
  

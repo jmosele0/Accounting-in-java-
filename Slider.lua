@@ -35,6 +35,11 @@ local function menu()
  composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
 end
 
+
+local function nota()
+ composer.gotoScene("notes",{effect = "slideLeft", time = 500})
+end
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -44,20 +49,41 @@ function scene:create( event )
  
     local sceneGroup = self.view
 	
-	--adding background
-	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight*1.20)
-	bg:setFillColor( 0.26666666666, 0.44705882352, 0.76862745098 )
+		--adding background
+	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
+	bg:setFillColor( 0.26666666666, 0.44705882352, 0.76862745098)
 	sceneGroup:insert(bg)
 	
+	bgr=display.newRect(display.contentCenterX,display.contentCenterY*1.05,display.contentWidth,display.contentHeight)
+	bgr:setFillColor(255,255,255)
+	sceneGroup:insert(bgr)
+	
 	--Adding Welcome Message
-	Welcome = display.newText("Overall Tracker",display.contentCenterX,display.contentCenterY*0.40, "Comic Sans MS", 40)
+	Welcome = display.newText("Pawsitive Behaviour",170,-16, "Forte",22)
 	sceneGroup:insert(Welcome)
 	--Writing Message "About"
      
+	 --Adding Welcome Message
+	Welcome = display.newText("Overall Tracker",display.contentCenterX*1.0,display.contentCenterY*0.40,  "Forte", 40)
+	Welcome:setFillColor( 0, 0, 1 )
+	sceneGroup:insert(Welcome)
+	
 	 --menu button
-    m = display.newImage("menu.png", 30, -7 )
+    m = display.newImage("menu.png", 30, -16 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
+	
+	 slider = display.newImage("sliderr.png", 50, 250 )
+	sceneGroup:insert(slider)
+	
+	notice = display.newText("Add notes",250,420,  "Forte", 20)
+	notice:setFillColor( 0, 0, 1 )
+	sceneGroup:insert(notice)
+	
+	 --menu button
+    no = display.newImage("notes.png", 260,460)
+	sceneGroup:insert(no)
+	no:addEventListener("tap", nota)
 	 
 -- Slider listener
 local function sliderListener( event )
@@ -68,10 +94,10 @@ end
 local slider = widget.newSlider(
     {
         x = display.contentCenterX*0.30,
-        y = display.contentCenterY,
+        y = display.contentCenterY*1.04,
         orientation = "vertical",
-        height = 200,
-        value = 10,  -- Start slider at 10% (optional)
+        height = 260,
+        value = 0,  -- Start slider at 10% (optional)
         listener = sliderListener,
     }
 )

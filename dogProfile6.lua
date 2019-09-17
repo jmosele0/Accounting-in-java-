@@ -7,26 +7,27 @@
 local composer = require( "composer" )
  
 local scene = composer.newScene()
+ 
+
+local Welcome
 
 local widget = require ("widget")
 
 local function Next()
- composer.gotoScene("dogProfile2",{effect = "slideLeft", time = 500})
+ composer.gotoScene("dogProfile7",{effect = "slideLeft", time = 500})
 end
 
-local function menu ()	
-	composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
-end
 
+local function back ()	
+	composer.gotoScene("dogProfile5",{effect = "slideLeft", time = 500})
+end
 
 local function onSwitchPress( event )
     local switch = event.target
     print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
 end
 
- local function home ()	
-	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
-end 
+ 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -43,60 +44,28 @@ function scene:create( event )
  
     local sceneGroup = self.view
 	
+	display.setDefault( "background", 0.26666666666, 0.44705882352 ,0.76862745098  )
 	
-	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-	bg:setFillColor(0.26666666666, 0.44705882352, 0.76862745098)
-	sceneGroup:insert(bg)
-	
-	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
-	bgr:setFillColor(255,255,255)
-	sceneGroup:insert(bgr)
-	
-	--Adding Welcome Message
-	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
-	
-	sceneGroup:insert(Welcome)
-	
-	 --menu button
-    h = display.newImage("home.png", 300, -17 )
-	sceneGroup:insert(h)
-	h:addEventListener("tap", home )
-	 
-	
-	 m = display.newImage("menu.png", 30, -17 )
-	sceneGroup:insert(m)
-	m:addEventListener("tap", menu )
-	--Writing Message "About"
 	--Adding Message
 	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
 	sceneGroup:insert(msg)
-
-	local name = native.newTextField(160,100,180,30)
-	name.placeholder = "Name"
-	sceneGroup:insert(name)
 	
-	local age = native.newTextField(160,140,180,30)
-	age.placeholder = "Age"
-	sceneGroup:insert(age)
+	--back button
+	backImage = display.newImage("back.png", 30, -7 )
+	--myImage:translate(140,450)
+	sceneGroup:insert(backImage)
+	backImage:addEventListener("tap", back)
 	
-	local breed = native.newTextField(160,180,180,30)
-	breed.placeholder = "Breed"
-	sceneGroup:insert(breed)
+	local txt = display.newText( "* Were the parents or siblings sighted?", display.contentCenterX*1.0, display.contentCenterY*0.4, native.systemFont, 18 )
+	sceneGroup:insert(txt)
 	
-	local sex = native.newTextField(160,220,180,30)
-	sex.placeholder = "Sex"
-	sceneGroup:insert(sex)
-	
-	local Text = display.newText( "* Desexed?", display.contentCenterX*0.7, display.contentCenterY*1.09, native.systemFont, 18 )
-	sceneGroup:insert(Text)
-	
-	local radioGroup = display.newGroup()
+	local rG = display.newGroup()
  
 -- Create two associated radio buttons (inserted into the same display group)
     local yes = widget.newSwitch(
 		{
-			left = 230,
-			top = 280,
+			left = 110,
+			top = 125,
 			style = "radio",
 			id = "yes",
 			initialSwitchState = true,
@@ -104,16 +73,16 @@ function scene:create( event )
 		
 		}
 	)
-	radioGroup:insert( yes )
+	rG:insert( yes )
 	sceneGroup:insert(yes)
 	
-	local y = display.newText( "Yes", display.contentCenterX*0.55, display.contentCenterY*1.25, native.systemFont, 18 )
-	sceneGroup:insert(y)
+	local yn = display.newText( "Yes              No", display.contentCenterX*0.8, display.contentCenterY*0.58, native.systemFont, 18 )
+	sceneGroup:insert(yn)
  
 	local no = widget.newSwitch(
 		{
-			left = 230,
-			top = 320,
+			left = 200,
+			top = 125,
 			style = "radio",
 			id = "no",
 			onPress = onSwitchPress
@@ -121,55 +90,84 @@ function scene:create( event )
 			
 		}
 	)
-	radioGroup:insert( no )
+	rG:insert( no )
 	sceneGroup:insert(no)
 	
-	local n = display.newText( "No", display.contentCenterX*0.55, display.contentCenterY*1.38, native.systemFont, 18 )
-	sceneGroup:insert(n)
+	local cp = display.newText( "* If yes, did you have any concerns\n  about thier personalities?", display.contentCenterX*1.0, display.contentCenterY*0.8, native.systemFont, 18 )
+	sceneGroup:insert(cp)
+ 
+    local rp = display.newGroup()
 	
-	local plan = widget.newSwitch(
+	local Friendly = widget.newSwitch(
 		{
-			left = 230,
-			top = 360,
+			left = 262,
+			top = 230,
 			style = "radio",
-			id = "plan",
-			onPress = onSwitchPress
-			
-			
+			id = "Friendly",
+			onPress = onSwitchPress,
+		
 		}
 	)
-	radioGroup:insert( plan )
-	sceneGroup:insert(plan)
+	rp:insert( Friendly )
+	sceneGroup:insert(Friendly)
+	
+	local VF = display.newText( "Very Friendly", display.contentCenterX*0.7, display.contentCenterY*1.03, native.systemFont, 18 )
+	sceneGroup:insert(VF)
+	
+	local Standoffish = widget.newSwitch(
+		{
+			left = 262,
+			top = 270,
+			style = "radio",
+			id = "Standoffish",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rp:insert( Standoffish )
+	sceneGroup:insert(Standoffish)
+	
+	local SO = display.newText( "Little Stand-offish", display.contentCenterX*0.8, display.contentCenterY*1.2, native.systemFont, 18 )
+	sceneGroup:insert(SO)
+	
+	local Visitors = widget.newSwitch(
+		{
+			left = 262,
+			top = 310,
+			style = "radio",
+			id = "Visitors",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	rp:insert( Visitors )
+	sceneGroup:insert(Visitors)
+	
+	local VS = display.newText( "Did not like visitors", display.contentCenterX*0.84, display.contentCenterY*1.36, native.systemFont, 18 )
+	sceneGroup:insert(VS)
+	
+	local Others = native.newTextField(130,370,140,30)
+	Others.placeholder = "Other"
+	sceneGroup:insert(Others)
 	
 	
-	local p = display.newText( "Planning to when \n old enough", display.contentCenterX*0.92, display.contentCenterY*1.55, native.systemFont, 18 )
-	sceneGroup:insert(p)
-	
-	local DOB = native.newTextField(160,420,180,30)
-	DOB.placeholder = "Date of birth"
-	sceneGroup:insert(DOB)
-	
-	local dn = native.newTextField(160,460,180,30)
-	dn.placeholder = "How long have you had"
-	sceneGroup:insert(dn)
-	
-	
-	 local nxt = widget.newButton(
+    local nxt = widget.newButton(
     {
        shape = "roundedRect",
         left = 120,
-        top = 485,
+        top = 400,
         id = "nxt",
         label = "Next",
 		width='98',
 		height='30',
         onEvent = userNext,
-       fillColor = { default={  0.26666666666, 0.44705882352, 0.76862745098 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={ 255,255,255}, over={ 2, 5, 1.5, 2.2 } },
+       fillColor = { default={ 255,255,255  }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } },
     }
 )
 sceneGroup:insert(nxt)
 nxt:addEventListener("tap", Next )
+	
 
 end
  
@@ -178,7 +176,6 @@ end
 function scene:show( event )
  
     local sceneGroup = self.view
-	local scrollView = self.view
     local phase = event.phase
  
     if ( phase == "will" ) then
@@ -195,7 +192,6 @@ end
 function scene:hide( event )
  
     local sceneGroup = self.view
-	local scrollView = self.view
     local phase = event.phase
  
     if ( phase == "will" ) then
@@ -213,7 +209,6 @@ end
 function scene:destroy( event )
  
     local sceneGroup = self.view
-	local scrollView = self.view
     -- Code here runs prior to the removal of scene's view
  
 end

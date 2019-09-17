@@ -20,6 +20,10 @@ local function menu()
 end
 
 
+local function home()
+ composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+end
+
 local function help()
  composer.gotoScene("category",{effect = "slideLeft", time = 500})
 end 
@@ -52,9 +56,21 @@ function scene:create( event )
 	sceneGroup:insert(bg)
 	
 	--Adding Welcome Message
+	Welcome = display.newText("Pawsitive Behaviour",170,-17,"Comic Sans MS",22)
+	sceneGroup:insert(Welcome)
+	--Writing Message "About"
+	
+	--Adding Welcome Message
 	Welcome = display.newText("Experience:",display.contentCenterX*0.80,display.contentCenterY*0.40, "Comic Sans MS", 40)
 	Welcome:setFillColor( 0, 0, 1 )
 	sceneGroup:insert(Welcome)
+	
+	
+	local notes = native.newTextField(160,150,280,30)
+	notes.placeholder = "Experience"
+	sceneGroup:insert(notes)
+	
+	
 	
 	--Adding Welcome Message
 	Help = display.newText("Need help?",display.contentCenterX*1.60,display.contentCenterY*0.20, "Comic Sans MS", 20)
@@ -63,11 +79,16 @@ function scene:create( event )
 	Help:addEventListener("tap", help)
 	
 	 --menu button
-    m = display.newImage("menu.png", 30, -18)
+    m = display.newImage("menu.png", 30, -19)
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
 	
-
+    
+		 --menu button
+    h = display.newImage("home.png", 300, -19 )
+	sceneGroup:insert(h)
+	h:addEventListener("tap", home )
+	 
 	
     Excellent = widget.newButton(
     {

@@ -5,43 +5,41 @@
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
-
-
 local scene = composer.newScene()
 
 
 local widget = require( "widget" )
  
-local function menu()
- composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
-end
 
-local function home ()	
-	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
-end 
+
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
- 
--- local function Canine ()	
---	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
---end
+ local W
 
- local function dog ()	
-	composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500})
+local widget = require ("widget")
+ 
+local function nott ()	
+	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
 end
  
 
- local function hyperLink()
-  system.openURL("https://www.youtube.com/channel/UCY_FKzvY-gmO-wOMmI9xAZg/featured?disable_polymer=1")
+ local function home ()	
+	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+end 
+
+local function menu()
+ composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
 end
-  
+
 -- create()
 function scene:create( event )
 	
     local sceneGroup = self.view
-	--adding background
+	
+	
+	
 	display.setDefault( "background", 0.26666666666, 0.44705882352, 0.76862745098 )
 	
 	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
@@ -63,38 +61,40 @@ function scene:create( event )
 	h:addEventListener("tap", home )
 	 
 	
-	--Can = display.newText("Canin Enrichment",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
-	--sceneGroup:insert(Can)
-	--Can:addEventListener("tap", Canine )
-	--Writing Message "About"
-	
 	 m = display.newImage("menu.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
 	
-	
-	
-	local Channel = widget.newButton(
-    {
-       shape = "roundedRect",
-        left = 50,
-        top = 120,
-        id = "Youtube ",
-        label = "Follow us on Youtube Channel",
-		width='250',
-		height='30',
-        onEvent = userChannel,
-       fillColor = { default={0.26666666666, 0.44705882352, 0.76862745098}, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
-    }
-)
-sceneGroup:insert(Channel)
-Channel:addEventListener("tap", hyperLink)
+	--Adding Welcome Message
+	W = display.newText("Add notes",display.contentCenterX,display.contentCenterY*0.60,  "Forte", 30)
+	W:setFillColor( 0.26666666666, 0.44705882352, 0.76862745098)
+	sceneGroup:insert(W)
 	
 	
 	
-endzzzzzzzzzzzzznvcx 
+	
+	local notes = native.newTextField(160,200,280,30)
+	notes.placeholder = "Add notes"
+	sceneGroup:insert(notes)
+	
+	
+	
 
+ local submit = widget.newButton(
+    {
+        shape = "roundedRect",
+        left = 70,
+        top = 280,
+        id = "Submit",
+        label = "submit",
+        onEvent = usersubmit,
+       fillColor = { default={0.26666666666, 0.44705882352, 0.76862745098 }, over={ 1, 0.5, 0.8, 4 } },
+       labelColor = { default={ 255,255,255}, over={ 2, 5, 1.5, 2.2 } },
+	}
+)
+sceneGroup:insert(submit)
+submit:addEventListener("tap", nott)
+end
 
  
 -- show()
@@ -123,6 +123,7 @@ function scene:hide( event )
         -- Code here runs when the scene is on screen (but is about to go off screen)
  
     elseif ( phase == "did" ) then
+	  composer.removeScene("Login")
         -- Code here runs immediately after the scene goes entirely off screen
  
     end
@@ -148,3 +149,9 @@ scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
  
 return scene
+
+
+
+
+
+	
