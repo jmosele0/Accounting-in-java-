@@ -19,7 +19,7 @@ end
 
 
 local function back ()	
-	composer.gotoScene("dogProfile4",{effect = "slideLeft", time = 500})
+	composer.gotoScene("dogProfile4",{effect = "slideRight", time = 500})
 end
 
 local function onSwitchPress( event )
@@ -44,10 +44,10 @@ function scene:create( event )
  
     local sceneGroup = self.view
 	
-	display.setDefault( "background", 0.26666666666, 0.44705882352 ,0.76862745098  )
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
 	--Adding Message
-	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
+	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(msg)
 	
 	--back button
@@ -142,8 +142,9 @@ function scene:create( event )
 		width='98',
 		height='30',
         onEvent = userNext,
-       fillColor = { default={ 255,255,255  }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={ 0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } },
+       fillColor = { default={  255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647}, over={ 2, 5, 1.5, 2.2 } },
+
     }
 )
 sceneGroup:insert(nxt)

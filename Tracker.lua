@@ -16,7 +16,7 @@ local widget = require ("widget")
  
 
 local function menu()
- composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
+ composer.gotoScene("Menu",{effect = "slideRight", time = 500})
 end
 
 
@@ -43,26 +43,29 @@ end
  
 -- create()
 function scene:create( event )
- 
     local sceneGroup = self.view
-	local sceneGroup = self.view
---adding background
-	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-	bg:setFillColor( 0.26666666666, 0.44705882352, 0.76862745098)
-	sceneGroup:insert(bg)
+	--adding background
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647)
 	
-	bg=display.newRect(display.contentCenterX,display.contentCenterY*1.0,display.contentWidth,display.contentHeight)
+	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
 	bg:setFillColor(255,255,255)
 	sceneGroup:insert(bg)
 	
+	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
+	bgr:setFillColor(255,155,255)
+	sceneGroup:insert(bgr)
+	
 	--Adding Welcome Message
-	Welcome = display.newText("Pawsitive Behaviour",170,-17,"Comic Sans MS",22)
+	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
 	sceneGroup:insert(Welcome)
 	--Writing Message "About"
 	
+	 
+ 
+	
 	--Adding Welcome Message
-	Welcome = display.newText("Experience:",display.contentCenterX*0.80,display.contentCenterY*0.40, "Comic Sans MS", 40)
-	Welcome:setFillColor( 0, 0, 1 )
+	Welcome = display.newText("Experience:",display.contentCenterX*0.58,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 40)
+	Welcome:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	sceneGroup:insert(Welcome)
 	
 	
@@ -73,8 +76,8 @@ function scene:create( event )
 	
 	
 	--Adding Welcome Message
-	Help = display.newText("Need help?",display.contentCenterX*1.60,display.contentCenterY*0.20, "Comic Sans MS", 20)
-	Help:setFillColor( 0, 0, 1 )
+	Help = display.newText("Need help?",display.contentCenterX*1.60,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 20)
+	Help:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	sceneGroup:insert(Help)
 	Help:addEventListener("tap", help)
 	
@@ -84,10 +87,6 @@ function scene:create( event )
 	m:addEventListener("tap", menu )
 	
     
-		 --menu button
-    h = display.newImage("home.png", 300, -19 )
-	sceneGroup:insert(h)
-	h:addEventListener("tap", home )
 	 
 	
     Excellent = widget.newButton(
@@ -99,7 +98,7 @@ function scene:create( event )
         label = "Excellent",
 		value = "25",
         onEvent = myeventListener,
-        fillColor = { default={ 0, 0, 1, 1 }, over={0,0,0} },
+        fillColor = { default={ 0.4117647059, 0.6823529412, 0.92941176471 }, over={0,0,0} },
         labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
     }
     )	
@@ -115,7 +114,7 @@ function scene:create( event )
         label = "Good",
 		value = "25",
         onEvent = myeventListener,
-        fillColor = { default={ 0, 100, 0 }, over={0,0,0} },
+        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={0,0,0} },
         labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
     }
     )
@@ -132,7 +131,7 @@ function scene:create( event )
         label = "Average",
 		value = "25",
         onEvent = myeventListener,
-        fillColor = { default={ 204, 204, 0}, over={ 0,0,0 } },
+        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647}, over={ 0,0,0 } },
         labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
     }
     )
@@ -147,7 +146,7 @@ function scene:create( event )
         label = "Poor",
 		value = "25",
         onEvent = myeventListener,
-        fillColor = { default={ 255, 0, 0 }, over={ 0,0,0} },
+        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 0,0,0} },
         labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
     }
     )

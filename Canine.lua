@@ -10,7 +10,7 @@ local scene = composer.newScene()
 local widget = require( "widget" )
 
 local function menu()
- composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
+ composer.gotoScene("Menu",{effect = "slideRight", time = 500})
 end
 
 
@@ -47,28 +47,27 @@ end
  local bg
 -- create()
 function scene:create( event )
- 
-    local sceneGroup = self.view
-	local sceneGroup = self.view
-	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight*1.20)
-	bg:setFillColor( 0.26666666666, 0.44705882352, 0.76862745098 )
+        local sceneGroup = self.view
+	--adding background
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647)
+	
+	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
+	bg:setFillColor(255,255,255)
 	sceneGroup:insert(bg)
 	
-	--title of the scene
-	head = display.newText("Canine Enrichment",165,-12, "Forte",24)
-	--head:setFillColor(1,0,0)
-	sceneGroup:insert(head)
+	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
+	bgr:setFillColor(255,155,255)
+	sceneGroup:insert(bgr)
 	
-		 --menu button
-    h = display.newImage("home.png", 300, -7 )
-	sceneGroup:insert(h)
-	h:addEventListener("tap", home )
-	 
+	--Adding Welcome Message
+	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
+	sceneGroup:insert(Welcome)
+	--Writing Message "About"
 	
-	 m = display.newImage("menu.png", 30, -7 )
+
+	 m = display.newImage("menu.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
-	
 	
 	-- Create the widget for scroll view
 	local scrollView = widget.newScrollView(
@@ -108,49 +107,6 @@ function scene:create( event )
 	
 	
 	
-	CANINE ENRICHMENT:
-	We all know we need to walk, run or play with our dogs, to help keep them physically fit and active. 
-    But what about their brains? 
-    Like us, dogs like to use their brains on a daily basis, usually to find food or toys! Enriching your dog’s environment may also stop them from performing unwanted, destructive behaviours. 
-    Use the following tips and tricks to keep your dog’s brain active and focused. 
-
-
-	GET RID OF FOOD BOWL!:
-		■ Dogs are scavengers by nature, therefore they are built to work for their food
-        ■ Using a food bowl does not enrich your dog. It does not have to think about how to get the food
-		■ There are very simple ways of providing mental stimulation to your dog during meal times
-		■ The action of licking and chewing are also  a calming behaviour
-		■ Kong products are amazing commercial products to feed your dog from
-		■ If your dog is new to working for their food, start simple, as you do not want them to get frustrated
-		■ Beginners
-			■ Smear some peanut butter or cream cheese inside your dog’s Kong
-		■ Intermediates
-            ■ Fill your dog’s Kong with biscuits and pack the end with wet food
-        ■ Advanced
-		    ■ Fill the whole toy with wet food
-			■ Tightly pack a combination of wet and dry food
-			■ Freeze your packed Kong
-			
-	MAKE YOUR DOG'S DINNER INTERESTING! 
-        ■ Give them new foods to try in their Kong, like peanut butter, cream cheese, different types of meats, berries or different vegetables
-	DRY FOOD TUMBLERS
-        ■ Tumblers are a great way to give your dog their biscuits
-        ■ Kong and Rogz have variations of tumblers
-	DIY OPTIONS
-		■ Place your dog’s food in a size appropriate cardboard box that they can shred up to get their food
-        ■ You can also smear peanut butter or cream cheese inside the box to keep them interested
-        ■ Place biscuits in muffin tins
-        ■ Smear peanut butter, cream cheese or Kong filler onto their plastic toys
-
-	USE THAT NOSE! 
-        ■ Sniffing burns more calories than walking for dogs
-        ■ It also provides excellent mental stimulation
-        ■ For dogs that love to follow a scent, make a scent trail for then in the backyard
-        ■ Use juice from a tuna, salmon or wet food can
-        ■ Keep your dog inside, trace a scent trail around the yard 
-        ■ Place small pieces of food along the trail to keep your dog invested
-        ■ Let your dog outside and watch them work! 
-
 
 
 

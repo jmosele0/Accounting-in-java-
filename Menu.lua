@@ -44,41 +44,41 @@ end
  local function home ()	
 	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
 end 
+
+ local function hyperLink()
+  system.openURL("https://www.youtube.com/channel/UCY_FKzvY-gmO-wOMmI9xAZg/featured?disable_polymer=1")
+end
  
 -- create()
 function scene:create( event )
-	
     local sceneGroup = self.view
+	--adding background
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647)
 	
 	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
 	bg:setFillColor(255,255,255)
 	sceneGroup:insert(bg)
 	
 	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
-	bgr:setFillColor(0.26666666666, 0.44705882352, 0.76862745098)
+	bgr:setFillColor(255,155,255)
 	sceneGroup:insert(bgr)
 	
 	--Adding Welcome Message
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
 	sceneGroup:insert(Welcome)
 	--Writing Message "About"
-	
-	 --menu button
-    h = display.newImage("home.png", 300, -17 )
-	sceneGroup:insert(h)
-	h:addEventListener("tap", home )
-	 
+
 	 
 	local Tracker = widget.newButton(
     {
        shape = "roundedRect",
-        left = 70,
+        left = 60,
         top = 100,
         id = "Tracker",
         label = "Experience Tracker",
 		width='200',
 		height='35',
-       fillColor = { default={0.26666666666, 0.44705882352, 0.76862745098 }, over={ 1, 0.5, 0.8, 4 } },
+       fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
     }
 )
@@ -88,13 +88,13 @@ function scene:create( event )
 	local Can = widget.newButton(
     {
        shape = "roundedRect",
-        left = 70,
+        left = 60,
         top = 150,
         id = "Can",
         label = "Canine Enrichment",
 		width='200',
 		height='35',
-       fillColor = { default={ 0.26666666666, 0.44705882352, 0.76862745098 }, over={ 1, 0.5, 0.8, 4 } },
+       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={ 255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
     }
 )
@@ -104,13 +104,13 @@ function scene:create( event )
 		local dogP = widget.newButton(
     {
        shape = "roundedRect",
-        left = 70,
+        left = 60,
         top = 200,
         id = "dogP",
-        label = "View Profile",
+        label = "Dogs",
 		width='200',
 		height='35',
-       fillColor = { default={ 0.26666666666, 0.44705882352, 0.76862745098 }, over={ 1, 0.5, 0.8, 4 } },
+       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={255,255,255}, over={ 2, 5, 1.5, 2.2 } },
     }
 )
@@ -121,13 +121,13 @@ function scene:create( event )
 		local logT = widget.newButton(
     {
        shape = "roundedRect",
-        left = 70,
+        left = 60,
         top = 300,
         id = "logT",
         label = "Logout",
 		width='200',
 		height='35',
-       fillColor = { default={0.26666666666, 0.44705882352, 0.76862745098  }, over={ 1, 0.5, 0.8, 4 } },
+       fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647  }, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={ 255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
     }
 )
@@ -138,19 +138,20 @@ function scene:create( event )
 		local T = widget.newButton(
     {
        shape = "roundedRect",
-        left = 70,
+        left = 60,
         top = 250,
         id = "T",
-        label = "Training",
+        label = "YouTube Channel",
 		width='200',
 		height='35',
-       fillColor = { default={0.26666666666, 0.44705882352, 0.76862745098}, over={ 1, 0.5, 0.8, 4 } },
+	onEvent = userChannel,
+       fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
     }
 )
 	
 	sceneGroup:insert(T)
-	T:addEventListener("tap", Training)
+	T:addEventListener("tap", hyperLink)
 	
 	
 end

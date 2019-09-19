@@ -21,11 +21,11 @@ local widget = require( "widget" )
 local widget = require ("widget")
  
  local function home ()	
-	composer.gotoScene("home",{effect = "slideLeft", time = 500})
+	composer.gotoScene("home",{effect = "slideUp", time = 500})
 end
 
 local function login ()	
-	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+	composer.gotoScene("Menu",{effect = "slideUp", time = 500})
 end
  
  
@@ -43,11 +43,11 @@ function scene:create( event )
 	
 	
 	
-	display.setDefault( "background", 0.26666666666, 0.44705882352, 0.76862745098 )
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
 	
 	--Adding Welcome Message
-	W = display.newText("Log-in",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
+	W = display.newText("Log-in",display.contentCenterX,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(W)
 	
 	

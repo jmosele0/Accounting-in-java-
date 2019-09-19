@@ -54,7 +54,7 @@ function scene:create( event )
 	bg:setFillColor( 0.26666666666, 0.44705882352, 0.76862745098)
 	sceneGroup:insert(bg)
 	
-	bgr=display.newRect(display.contentCenterX,display.contentCenterY*1.05,display.contentWidth,display.contentHeight)
+	bgr=display.newRect(display.contentCenterX,display.contentCenterY*1,display.contentWidth,display.contentHeight)
 	bgr:setFillColor(255,255,255)
 	sceneGroup:insert(bgr)
 	
@@ -64,8 +64,8 @@ function scene:create( event )
 	--Writing Message "About"
      
 	 --Adding Welcome Message
-	Welcome = display.newText("Overall Tracker",display.contentCenterX*1.0,display.contentCenterY*0.40,  "Forte", 40)
-	Welcome:setFillColor( 0, 0, 1 )
+	Welcome = display.newText("Overall Tracker",display.contentCenterX*0.8,display.contentCenterY*0.35,  "Arial", 30)
+	Welcome:setFillColor( 0, 0, 0.6 )
 	sceneGroup:insert(Welcome)
 	
 	 --menu button
@@ -76,8 +76,8 @@ function scene:create( event )
 	 slider = display.newImage("sliderr.png", 50, 250 )
 	sceneGroup:insert(slider)
 	
-	notice = display.newText("Add notes",250,420,  "Forte", 20)
-	notice:setFillColor( 0, 0, 1 )
+	notice = display.newText("Add notes",250,420,  "Arial", 20)
+	notice:setFillColor( 0, 0, 0.6 )
 	sceneGroup:insert(notice)
 	
 	 --menu button

@@ -40,10 +40,10 @@ function scene:create( event )
  
     local sceneGroup = self.view
 	
-	display.setDefault( "background", 0.26666666666, 0.44705882352, 0.76862745098 )
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Welcome",display.contentCenterX,display.contentCenterY*0.20, "Comic Sans MS", 30)
+	Welcome = display.newText("Welcome",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(Welcome)
 	
 	local username = native.newTextField(160,100,180,30)
@@ -58,7 +58,7 @@ function scene:create( event )
 	--gender.placeholder = "gender"
 	--sceneGroup:insert(gender)
 	
-	local gender = display.newText("gender:", display.contentCenterX*0.7, display.contentCenterY*0.72, "Comic Sans MS", 20)
+	local gender = display.newText("gender:", display.contentCenterX*0.6, display.contentCenterY*0.72, "Bahnschrift SemiCondensed", 20)
 	gender.placeholder = "gender"
 	sceneGroup:insert(gender)
 	
@@ -97,7 +97,7 @@ function scene:create( event )
 	radioGroup:insert( male )
 	sceneGroup:insert(male)
 	
-	local age = display.newText("age:", display.contentCenterX*0.6, display.contentCenterY*1.0, "Comic Sans MS", 20)
+	local age = display.newText("age:", display.contentCenterX*0.53, display.contentCenterY*1.0, "Bahnschrift SemiCondensed", 20)
 	age.placeholder = "age"
 	sceneGroup:insert(age)
 	
