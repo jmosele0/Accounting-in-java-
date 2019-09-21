@@ -3,7 +3,7 @@
 -- view1.lua
 --
 -----------------------------------------------------------------------------------------
-
+--hi
 local composer = require( "composer" )
 local scene = composer.newScene()
 
