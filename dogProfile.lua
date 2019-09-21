@@ -71,19 +71,19 @@ function scene:create( event )
 	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
 	sceneGroup:insert(msg)
 
-	local name = native.newTextField(160,100,180,30)
+	name = native.newTextField(160,100,180,30)
 	name.placeholder = "Name"
 	sceneGroup:insert(name)
 	
-	local age = native.newTextField(160,140,180,30)
+	age = native.newTextField(160,140,180,30)
 	age.placeholder = "Age"
 	sceneGroup:insert(age)
 	
-	local breed = native.newTextField(160,180,180,30)
+	breed = native.newTextField(160,180,180,30)
 	breed.placeholder = "Breed"
 	sceneGroup:insert(breed)
 	
-	local sex = native.newTextField(160,220,180,30)
+	sex = native.newTextField(160,220,180,30)
 	sex.placeholder = "Sex"
 	sceneGroup:insert(sex)
 	
@@ -93,7 +93,7 @@ function scene:create( event )
 	local radioGroup = display.newGroup()
  
 -- Create two associated radio buttons (inserted into the same display group)
-    local yes = widget.newSwitch(
+    yes = widget.newSwitch(
 		{
 			left = 230,
 			top = 280,
@@ -105,12 +105,12 @@ function scene:create( event )
 		}
 	)
 	radioGroup:insert( yes )
-	sceneGroup:insert(yes)
+	sceneGroup:insert(radioGroup)
 	
 	local y = display.newText( "Yes", display.contentCenterX*0.55, display.contentCenterY*1.25, native.systemFont, 18 )
 	sceneGroup:insert(y)
  
-	local no = widget.newSwitch(
+	no = widget.newSwitch(
 		{
 			left = 230,
 			top = 320,
@@ -122,12 +122,11 @@ function scene:create( event )
 		}
 	)
 	radioGroup:insert( no )
-	sceneGroup:insert(no)
 	
 	local n = display.newText( "No", display.contentCenterX*0.55, display.contentCenterY*1.38, native.systemFont, 18 )
 	sceneGroup:insert(n)
 	
-	local plan = widget.newSwitch(
+	plan = widget.newSwitch(
 		{
 			left = 230,
 			top = 360,
@@ -139,7 +138,7 @@ function scene:create( event )
 		}
 	)
 	radioGroup:insert( plan )
-	sceneGroup:insert(plan)
+	
 	
 	
 	local p = display.newText( "Planning to when \n old enough", display.contentCenterX*0.92, display.contentCenterY*1.55, native.systemFont, 18 )

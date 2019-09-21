@@ -9,6 +9,7 @@ local scene = composer.newScene()
 
 
 local widget = require( "widget" )
+local json=require("json")
  
 
 
@@ -19,13 +20,68 @@ local widget = require( "widget" )
  local W
 
 local widget = require ("widget")
+
+
+
+local function downloadListener( event )
+
+    if (event.isError) then
+	    print ("Couldn't download file")
+		
+	else
+	    local path=system.pathForFile("user.json", system.DocumentsDirectory)
+		local file=io.open(path, "r")
+		local contents=file:read("*a")
+		io.close(file)
+		if (contents=="False") then
+		   print ("username or password incorrect")
+		else
+           userData=json.decode(contents)	
+           composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+        end		   
+    end
+end	
+
+
+
+local function networkListener( event )
+ 
+    if ( event.isError ) then
+        print( "Network error: ", event.response )
+    else
+	print (event.response)
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"
+	local body="Email="..username.text.."&password="..pw.text
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.download( "http://10.1.60.18:2431/pup/test.json", "POST", downloadListener, params,
+	"user.json", system.DocumentsDirectory)
+	
+        
+    end
+end
+
+
  
  local function home ()	
 	composer.gotoScene("home",{effect = "slideLeft", time = 500})
 end
 
 local function login ()	
-	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+    local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"
+	local body="Email="..username.text.."&password="..pw.text
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.request( "http://10.1.60.18:2431/pup/select.php", "POST", networkListener, params)
+	
+	
+	
 end
  
  
@@ -53,14 +109,14 @@ function scene:create( event )
 	
 	
 	
-	local username = native.newTextField(160,200,180,30)
+	username = native.newTextField(160,200,180,30)
 	username.placeholder = "Username"
 	sceneGroup:insert(username)
 	
 
 
 	
-	local pw = native.newTextField(160,240,180,30)
+	pw = native.newTextField(160,240,180,30)
 	pw.placeholder = "password"
 	sceneGroup:insert(pw)
  

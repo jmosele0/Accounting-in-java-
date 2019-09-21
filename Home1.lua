@@ -14,8 +14,14 @@ local function login()
 end
 
  local function newscene()
+ 	print ("also here")
  composer.gotoScene("SignUp",{effect = "slideLeft", time = 500})
-end
+ end
+
+local function answerq()
+	print ("here")
+	composer.gotoScene("InQue",{effect = "slideLeft", time = 500})
+end	
 
 local function menu()
  composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
@@ -50,7 +56,7 @@ local Login = widget.newButton(
         top = 280,
         id = "Login",
         label = "Login",
-        onEvent = userLogin,
+        --onEvent = userLogin,
         fillColor = { default={255,255,255  }, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={ 0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } }
     }
@@ -66,13 +72,29 @@ local SignUp = widget.newButton(
         top = 340,
         id = "SignUp",
         label = "SignUp",
-        onEvent = userSignIn,
+        --onEvent = userSignIn,
         fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={  0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } }
     }
 )
 sceneGroup:insert(SignUp)
 SignUp:addEventListener("tap", newscene)
+
+local initQue = widget.newButton(
+    {
+        shape = "roundedRect",
+        left = 70,
+        top = 50,
+        id = "Questions",
+        label = "Answer questions",
+        --onEvent = user,
+        fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={  0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } }
+    }
+)
+
+sceneGroup:insert(initQue)
+initQue:addEventListener("tap", answerq)
 
 end
 
