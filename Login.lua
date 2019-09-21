@@ -37,7 +37,7 @@ local function downloadListener( event )
 		   print ("username or password incorrect")
 		else
            userData=json.decode(contents)	
-           composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+           composer.gotoScene("Menu",{effect = "slideUp", time = 500})
         end		   
     end
 end	
@@ -67,7 +67,7 @@ end
 
  
  local function home ()	
-	composer.gotoScene("home",{effect = "slideLeft", time = 500})
+	composer.gotoScene("home",{effect = "slideUp", time = 500})
 end
 
 local function login ()	
@@ -79,7 +79,6 @@ local function login ()
     params.headers = headers
     params.body = body
 	network.request( "http://10.1.60.18:2431/pup/select.php", "POST", networkListener, params)
-	
 	
 	
 end
@@ -99,11 +98,11 @@ function scene:create( event )
 	
 	
 	
-	display.setDefault( "background", 0.26666666666, 0.44705882352, 0.76862745098 )
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
 	
 	--Adding Welcome Message
-	W = display.newText("Log-in",display.contentCenterX,display.contentCenterY*0.60, "Comic Sans MS", 30)
+	W = display.newText("Log-in",display.contentCenterX,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(W)
 	
 	

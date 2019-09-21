@@ -24,7 +24,7 @@ local function answerq()
 end	
 
 local function menu()
- composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
+ composer.gotoScene("Menu",{effect = "slideRight", time = 500})
 end
 
 function scene:create( event )
@@ -42,7 +42,7 @@ end
 timer.performWithDelay(2000,removeSplash)
 	
 	
-	display.setDefault( "background", 0.26666666666, 0.44705882352, 0.76862745098 )
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	--adding background
 	
 	--menu = display.newImage( "menu.png", display.contentCenterX*0.60, display.contentCenterY*1.0 )

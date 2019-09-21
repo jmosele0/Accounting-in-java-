@@ -15,7 +15,7 @@ local function Next()
 end
 
 local function menu ()	
-	composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
+	composer.gotoScene("Menu",{effect = "slideRight", time = 500})
 end
 
 
@@ -45,30 +45,30 @@ function scene:create( event )
 	
 	
 	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-	bg:setFillColor(0.26666666666, 0.44705882352, 0.76862745098)
+	bg:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(bg)
-	
+
+	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
+	bg:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
+	sceneGroup:insert(bg)
+
 	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
-	bgr:setFillColor(255,255,255)
+	bgr:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(bgr)
 	
 	--Adding Welcome Message
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
 	
 	sceneGroup:insert(Welcome)
-	
-	 --menu button
-    h = display.newImage("home.png", 300, -17 )
-	sceneGroup:insert(h)
-	h:addEventListener("tap", home )
-	 
+
 	
 	 m = display.newImage("menu.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
+
 	--Writing Message "About"
 	--Adding Message
-	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
+	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(msg)
 
 	name = native.newTextField(160,100,180,30)
@@ -163,8 +163,8 @@ function scene:create( event )
 		width='98',
 		height='30',
         onEvent = userNext,
-       fillColor = { default={  0.26666666666, 0.44705882352, 0.76862745098 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={ 255,255,255}, over={ 2, 5, 1.5, 2.2 } },
+       fillColor = { default={  255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647}, over={ 2, 5, 1.5, 2.2 } },
     }
 )
 sceneGroup:insert(nxt)

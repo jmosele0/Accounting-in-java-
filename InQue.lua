@@ -81,7 +81,7 @@ function scene:create( event )
     params=event.params
     Email=params.Email
 	
-	display.setDefault( "background", 0.26666666666, 0.44705882352 ,0.76862745098  )
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
 		local Skip = widget.newButton(
     {
@@ -102,7 +102,7 @@ Skip:addEventListener("tap", skip )
 
 	
 	--Adding Message
-	local msg = display.newText("Common Questions",display.contentCenterX*0.90,display.contentCenterY*0.05, "Forte", 30)
+	msg = display.newText("Common Questions",display.contentCenterX*0.90,display.contentCenterY*0.05, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(msg)
 
 
@@ -118,7 +118,7 @@ Skip:addEventListener("tap", skip )
 			horizontalScrollDisabled = true,
 			verticalScrollDisabled = false,
 			listener = scrollListener,
-			backgroundColor = {0.26666666666, 0.44705882352 ,0.76862745098 },
+			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647 },
 		}
 	)
 	sceneGroup:insert(scrollView)
