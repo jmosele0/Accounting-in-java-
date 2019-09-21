@@ -22,6 +22,10 @@ SET time_zone = "+00:00";
 -- Database: `pawsitive behaviour`
 --
 
+CREATE DATABASE IF NOT EXISTS `pawsitive behaviour` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `pawsitive behaviour`;
+
+
 -- --------------------------------------------------------
 
 --
