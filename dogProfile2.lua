@@ -13,7 +13,9 @@ local widget = require ("widget")
 
 
 local function Next()
- composer.gotoScene("dogProfile3",{effect = "slideLeft", time = 500})
+	customParams={ownerID=OwnerID, VaccinationStatus=on}
+	composer.gotoScene("dogProfile3",{effect = "slideLeft", time = 500, params=customParams})
+
 end
 
 
@@ -24,7 +26,7 @@ end
 
 local function onSwitchPress( event )
     local switch = event.target
-    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+    on=switch.id
 end
 
  
@@ -43,7 +45,11 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
-	
+
+	local params=event.params
+	OwnerID=params.ownerID
+
+
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
 	--Adding Message
@@ -74,8 +80,9 @@ function scene:create( event )
 		
 		}
 	)
+	on=Unvaccinated.id
 	rGroup:insert( Unvaccinated )
-	sceneGroup:insert(Unvaccinated)
+	sceneGroup:insert(rGroup)
 	
 	local Ua = display.newText( "Unvaccinated", display.contentCenterX*0.7, display.contentCenterY*0.6, native.systemFont, 18 )
 	sceneGroup:insert(Ua)
@@ -91,7 +98,7 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( over )
-	sceneGroup:insert(over)
+	
 	
 	local ov = display.newText( "Overdue for vaccination", display.contentCenterX*0.95, display.contentCenterY*0.8, native.systemFont, 18 )
 	sceneGroup:insert(ov)
@@ -108,7 +115,7 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( unsure )
-	sceneGroup:insert(unsure)
+	
 	
 	local uh = display.newText( "Unsure of history", display.contentCenterX*0.8, display.contentCenterY*1.0, native.systemFont, 18 )
 	sceneGroup:insert(uh)
@@ -124,7 +131,6 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( going)
-	sceneGroup:insert(going)
 	
 	local gp = display.newText( "Going through puppy\n vaccinations", display.contentCenterX*0.9, display.contentCenterY*1.25, native.systemFont, 18 )
 	sceneGroup:insert(gp)
@@ -140,7 +146,6 @@ function scene:create( event )
 		}
 	)
 	rGroup:insert( upto )
-	sceneGroup:insert(upto)
 	
 	local uv = display.newText( "Up to date with\n vaccinations", display.contentCenterX*0.75, display.contentCenterY*1.48, native.systemFont, 18 )
 	sceneGroup:insert(uv)

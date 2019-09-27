@@ -14,7 +14,8 @@ local Welcome
 local widget = require ("widget")
 
 local function Next()
- composer.gotoScene("dogProfile8",{effect = "slideLeft", time = 500})
+	local customParams={dogID=DogID, parentSiblingSighted=ParentSiblingSighted, personalityConcerns=PersonalityConcerns, firstMet=FirstMet}
+ composer.gotoScene("dogProfile8",{effect = "slideLeft", time = 500, params=customParams})
 end
 
 
@@ -24,7 +25,7 @@ end
 
 local function onSwitchPress( event )
     local switch = event.target
-    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+    FirstMet=switch.id
 end
 
  
@@ -43,6 +44,11 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
+
+    local params=event.params
+    DogID=params.dogID
+    ParentSiblingSighted=params.ParentSiblingSighted
+    PersonalityConcerns=params.PersonalityConcerns
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
@@ -72,6 +78,7 @@ function scene:create( event )
 		
 		}
 	)
+	FirstMet=friendly.id
 	rGp:insert( friendly )
 	sceneGroup:insert(friendly)
 	

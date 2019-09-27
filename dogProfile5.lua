@@ -13,8 +13,47 @@ local Welcome
 
 local widget = require ("widget")
 
+
+local function networkListener(event)
+    if ( event.isError ) then
+        print( "Network error: ", event.response )
+    elseif (event.response=="-1") then
+	    print ("error inserting details")
+	else    
+	    customParams={dogID=DogID}
+	    composer.gotoScene("dogProfile6",{effect = "slideLeft", time = 500, params=customParams})
+    end
+end
+
+
+
 local function Next()
- composer.gotoScene("dogProfile6",{effect = "slideLeft", time = 500})
+	local adults=""
+	local children=""
+	local od=""
+	local oa=""
+	if (adultsOn==true) then
+		adults=adultsText
+	end
+	if (childrenOn==true) then
+		children=childrenText
+	end
+	if (odOn==true) then
+		od=odText
+	end
+	if (oaOn==true) then
+		oa=oaText
+	end
+
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"	
+	local body="Adults="..adults.."&Children="..children.."&OtherDogs="..od.."&OtherAnimals="..oa.."&DogID="..DogID
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.request( "http://192.168.123.109:2431/pup/dogfamily.php", "POST", networkListener, params)
+
 end
 
 
@@ -24,7 +63,20 @@ end
 
 local function onSwitchPress( event )
     local switch = event.target
-    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+    if (switch.id=="adults") then
+    	adultsOn=switch.isOn
+
+    elseif(switch.id=="children") then
+        childrenOn=switch.isOn
+
+    elseif(switch.id=="od") then
+        odOn=switch.isOn
+
+    elseif(switch.id=="oa") then
+        oaOn=switch.isOn
+
+    end            	
+
 end
 
  
@@ -43,6 +95,8 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
+    local params=event.params
+    DogID=params.dogID
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
@@ -66,13 +120,15 @@ function scene:create( event )
 		{
 			left = 200,
 			top = 125,
-			style = "radio",
+			style = "checkbox",
 			id = "adults",
-			initialSwitchState = true,
-			onPress = onSwitchPress,
+			initialSwitchState=true,
+			onPress = onSwitchPress
 		
 		}
 	)
+	adultsOn=true
+	adultsText=adults.id
 	radioG:insert( adults )
 	sceneGroup:insert(adults)
 	
@@ -83,13 +139,15 @@ function scene:create( event )
 		{
 			left = 200,
 			top = 175,
-			style = "radio",
+			style = "checkbox",
 			id = "children",
 			onPress = onSwitchPress
 			
 			
 		}
 	)
+	childrenOn=false
+	childrenText=children.id
 	radioG:insert( children )
 	sceneGroup:insert(children)
 	
@@ -100,13 +158,15 @@ function scene:create( event )
 		{
 			left = 200,
 			top = 225,
-			style = "radio",
+			style = "checkbox",
 			id = "od",
 			onPress = onSwitchPress
 			
 			
 		}
 	)
+	odOn=false
+	odText=od.id
 	radioG:insert( od )
 	sceneGroup:insert(od)
 	
@@ -118,13 +178,15 @@ function scene:create( event )
 		{
 			left = 200,
 			top = 275,
-			style = "radio",
+			style = "checkbox",
 			id = "oa",
 			onPress = onSwitchPress
 			
 			
 		}
 	)
+	oaOn=false
+	oaText=oa.id
 	radioG:insert( oa )
 	sceneGroup:insert(oa)
 	

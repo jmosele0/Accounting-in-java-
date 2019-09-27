@@ -13,8 +13,18 @@ local Welcome
 
 local widget = require ("widget")
 
+
+
 local function Next()
- composer.gotoScene("dogProfile7",{effect = "slideLeft", time = 500})
+
+    
+	if (on2=="Other") then
+		on2=Others.text
+	end	
+	local customParams={dogID=DogID, ParentSiblingSighted=on, PersonalityConcerns=on2}
+    composer.gotoScene("dogProfile7",{effect = "slideLeft", time = 500, params=customParams})              
+	
+	
 end
 
 
@@ -24,7 +34,13 @@ end
 
 local function onSwitchPress( event )
     local switch = event.target
-    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+    on=switch.id
+end
+
+local function onSwitchPress2( event )
+    local switch = event.target
+    on2=switch.id
+    
 end
 
  
@@ -43,6 +59,9 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
+
+    local params=event.params
+    DogID=params.dogID
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
@@ -69,12 +88,13 @@ function scene:create( event )
 			style = "radio",
 			id = "yes",
 			initialSwitchState = true,
-			onPress = onSwitchPress,
+			onPress = onSwitchPress
 		
 		}
 	)
+	on=yes.id
 	rG:insert( yes )
-	sceneGroup:insert(yes)
+	sceneGroup:insert(rG)
 	
 	local yn = display.newText( "Yes              No", display.contentCenterX*0.8, display.contentCenterY*0.58, native.systemFont, 18 )
 	sceneGroup:insert(yn)
@@ -91,7 +111,6 @@ function scene:create( event )
 		}
 	)
 	rG:insert( no )
-	sceneGroup:insert(no)
 	
 	local cp = display.newText( "* If yes, did you have any concerns\n  about thier personalities?", display.contentCenterX*1.0, display.contentCenterY*0.8, native.systemFont, 18 )
 	sceneGroup:insert(cp)
@@ -104,12 +123,14 @@ function scene:create( event )
 			top = 230,
 			style = "radio",
 			id = "Friendly",
-			onPress = onSwitchPress,
+			initialSwitchState = true,
+			onPress = onSwitchPress2
 		
 		}
 	)
+    on2=Friendly.id
 	rp:insert( Friendly )
-	sceneGroup:insert(Friendly)
+	sceneGroup:insert(rp)
 	
 	local VF = display.newText( "Very Friendly", display.contentCenterX*0.7, display.contentCenterY*1.03, native.systemFont, 18 )
 	sceneGroup:insert(VF)
@@ -120,13 +141,13 @@ function scene:create( event )
 			top = 270,
 			style = "radio",
 			id = "Standoffish",
-			onPress = onSwitchPress,
+			onPress = onSwitchPress2
 		
 		}
 	)
 	rp:insert( Standoffish )
-	sceneGroup:insert(Standoffish)
-	
+
+
 	local SO = display.newText( "Little Stand-offish", display.contentCenterX*0.8, display.contentCenterY*1.2, native.systemFont, 18 )
 	sceneGroup:insert(SO)
 	
@@ -136,17 +157,37 @@ function scene:create( event )
 			top = 310,
 			style = "radio",
 			id = "Visitors",
-			onPress = onSwitchPress,
+			onPress = onSwitchPress2
 		
 		}
 	)
 	rp:insert( Visitors )
-	sceneGroup:insert(Visitors)
+
 	
 	local VS = display.newText( "Did not like visitors", display.contentCenterX*0.84, display.contentCenterY*1.36, native.systemFont, 18 )
 	sceneGroup:insert(VS)
+
+
+
+    local Other = widget.newSwitch(
+		{
+			left = 262,
+			top = 350,
+			style = "radio",
+			id = "Other",
+			onPress = onSwitchPress2
+		
+		}
+	)
+	rp:insert(Other)
+
+
+	local OtherText = display.newText( "Other", display.contentCenterX*0.5, display.contentCenterY*1.53, native.systemFont, 18 )
+	sceneGroup:insert(OtherText)
+
+
 	
-	local Others = native.newTextField(130,370,140,30)
+	Others = native.newTextField(130,411,140,30)
 	Others.placeholder = "Other"
 	sceneGroup:insert(Others)
 	
@@ -155,7 +196,7 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 120,
-        top = 400,
+        top = 454,
         id = "nxt",
         label = "Next",
 		width='98',

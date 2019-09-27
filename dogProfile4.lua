@@ -13,8 +13,28 @@ local Welcome
 
 local widget = require ("widget")
 
+
+local function networkListener(event)
+    if ( event.isError ) then
+        print( "Network error: ", event.response )
+    elseif (event.response=="-1") then
+	    print ("error inserting details")
+	else    
+	    customParams={dogID=DogID}
+	    composer.gotoScene("dogProfile5",{effect = "slideLeft", time = 500, params=customParams})
+ end
+end
+
+
 local function Next()
- composer.gotoScene("dogProfile5",{effect = "slideLeft", time = 500})
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"	
+	local body="KnowledgeOfBreed="..on.."&DogID="..DogID
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.request( "http://192.168.123.109:2431/pup/generalinfo1.php", "POST", networkListener, params)
 end
 
 
@@ -25,7 +45,7 @@ end
 
 local function onSwitchPress( event )
     local switch = event.target
-    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+    on=switch.id
 end
 
  
@@ -44,6 +64,8 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
+    local params=event.params
+    DogID=params.DogID
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
@@ -73,6 +95,7 @@ function scene:create( event )
 		
 		}
 	)
+	on=lots.id	
 	rgp:insert( lots)
 	sceneGroup:insert(lots)
 	

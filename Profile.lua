@@ -31,8 +31,9 @@ end
 --	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
 --end
 
- local function dog ()	
-	composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500})
+ local function dog ()
+    customParams={ownerID=OwnerID}	
+	composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500, params=customParams})
 end
  
  
@@ -43,6 +44,8 @@ end
 function scene:create( event )
 	
     local sceneGroup = self.view
+    params=event.params
+    OwnerID=params.ownerID
 	--adding background
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	

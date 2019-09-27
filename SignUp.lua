@@ -36,10 +36,12 @@ local function networkListener(event)
  if ( event.isError ) then
         print( "Network error: ", event.response )
  else
-    if (event.response=='1') then
+    if (event.response=='-1') then
     		print ('email has already been taken')
     else
-    	composer.gotoScene("InQue",{effect = "slideLeft", time = 500, params={Email=email.text}})
+    	print(event.response)
+    	local customParams={OwnerID=event.response}
+    	composer.gotoScene("InQue",{effect = "slideLeft", time = 500, params=customParams})
     end
 end
 end
@@ -49,11 +51,11 @@ local function ques ()
     local headers = {}
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     headers["Accept-Language"] = "en-US"	
-	local body="Email="..email.text.."&FirstName="..username.text.."&Password="..pw.text.."&Gender="..on1.."&AgeRange="..on2.."&PostCode="..postcode.text
+	local body="Email="..email.text.."&FirstName="..username.text.."&password="..pw.text.."&Gender="..on1.."&AgeRange="..on2.."&PostCode="..postcode.text
 	local params = {}
     params.headers = headers
     params.body = body
-	network.request( "http://10.1.60.18:2431/pup/insert.php", "POST", networkListener, params)
+	network.request( "http://192.168.123.109:2431/pup/insert.php", "POST", networkListener, params)
 	
 end
 
