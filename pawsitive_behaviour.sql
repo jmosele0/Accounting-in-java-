@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2019 at 02:46 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.8
+-- Generation Time: Sep 19, 2019 at 04:02 PM
+-- Server version: 10.1.24-MariaDB
+-- PHP Version: 7.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `pawsitive behaviour`
 --
+
 CREATE DATABASE IF NOT EXISTS `pawsitive behaviour` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `pawsitive behaviour`;
+
 
 -- --------------------------------------------------------
 
@@ -31,7 +33,7 @@ USE `pawsitive behaviour`;
 --
 
 CREATE TABLE `category` (
-  `CatID` int(50) NOT NULL,
+  `CatID` int(5) NOT NULL,
   `CatDesc` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -42,7 +44,7 @@ CREATE TABLE `category` (
 --
 
 CREATE TABLE `categoryexperience` (
-  `CatID` int(50) NOT NULL,
+  `CatID` int(5) NOT NULL,
   `ExperienceID` int(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -56,13 +58,22 @@ CREATE TABLE `dog` (
   `DogID` int(5) NOT NULL,
   `DogName` varchar(15) NOT NULL,
   `Breed` varchar(20) NOT NULL,
-  `Sex` varchar(5) NOT NULL,
-  `Desexed` tinyint(1) NOT NULL,
+  `Sex` varchar(15) NOT NULL,
+  `Desexed` varchar(15) NOT NULL,
   `HowLongOwned` date NOT NULL,
-  `VacinationStatus` tinyint(1) NOT NULL,
+  `VacinationStatus` varchar(15) NOT NULL,
   `DogOrigin` varchar(20) NOT NULL,
   `OwnerID` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dog`
+--
+
+INSERT INTO `dog` (`DogID`, `DogName`, `Breed`, `Sex`, `Desexed`, `HowLongOwned`, `VacinationStatus`, `DogOrigin`, `OwnerID`) VALUES
+(0, 'jjay', 'Huskey', 'Male', '', '2019-09-01', '1', 'family', 1),
+(2, 'Pupy', 'Bush Dog', 'Fem', '1', '2019-07-09', '0', 'Bush', 2),
+(3, 'waki', '', '', '', '0000-00-00', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -113,7 +124,7 @@ CREATE TABLE `experience` (
 
 CREATE TABLE `generalinfo` (
   `InfoID` int(5) NOT NULL,
-  `ParentSiblingSighted` tinyint(1) NOT NULL,
+  `ParentSiblingSighted` varchar(15) NOT NULL,
   `PersonalityConcerns` varchar(200) NOT NULL,
   `FirstMet` varchar(200) NOT NULL,
   `WhyThatName` varchar(200) NOT NULL,
@@ -127,18 +138,31 @@ CREATE TABLE `generalinfo` (
 --
 
 CREATE TABLE `owner` (
-  `OnwerID` int(5) NOT NULL,
+  `OwnerID` int(5) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `FirstName` varchar(20) NOT NULL,
-  `Gender` varchar(5) NOT NULL,
-  `Couple` tinyint(1) NOT NULL,
+  `Gender` varchar(15) NOT NULL,
+  `Couple` varchar(15) NOT NULL,
   `AgeRange` varchar(8) NOT NULL,
-  `PostCode` varchar(5) NOT NULL,
-  `PrePets` tinyint(1) NOT NULL,
+  `PostCode` int(2) NOT NULL,
+  `PrePets` varchar(15) NOT NULL,
   `PrePetsList` varchar(100) NOT NULL,
-  `ObiedientDog` tinyint(1) NOT NULL,
-  `ExpectedOutcomes` varchar(100) NOT NULL
+  `ObiedientDog` varchar(15) NOT NULL,
+  `ExpectedOutcomes` varchar(100) NOT NULL,
+  `password` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `owner`
+--
+
+INSERT INTO `owner` (`OwnerID`, `Email`, `FirstName`, `Gender`, `Couple`, `AgeRange`, `PostCode`, `PrePets`, `PrePetsList`, `ObiedientDog`, `ExpectedOutcomes`, `password`) VALUES
+(1, 'mail@mail.com', 'nnewuser', 'female', '1', '35', 3422, '1', 'dog, cat, hasmster', 'ObidientDog', 'trained dog', 'password'),
+(2, 'email@mail.com', 'Name', 'Fem', '0', '24', 3423, '0', 'None', 'ObidientDog', 'a disiplined dog', 'password'),
+(3, 'emailme@mail.com', '', '', '', '', 0, '', '', '', '', '$2y$10$xUDWlsWHTSpfp1MDP7TSeeh4k.wwnmA7PPryq2jqDaYM3ecSCJE7u'),
+(4, 'sdfsdf@mail.com', '', '', '', '', 0, '', '', '', '', '$2y$10$CG/lX4oUoIKq.zTlEUyC5eUgL6mYMwTv5w/6YISmJzWS6N2//OVCy'),
+(5, 'newuser@mail.com', '', '', '', '', 42423, '', '', '', '', '$2y$10$6F2FVrIHXskcuZGuQi8NIefBJyB3V/h18vjZ4yB/Gh1BwjeGG9Z.W'),
+(6, 'jmail@mail.com', 'Newuser', 'Male', '1', '35', 3422, '1', 'dog, cat, hasmster', 'ObidientDog', 'trained dog', '');
 
 --
 -- Indexes for dumped tables
@@ -196,7 +220,7 @@ ALTER TABLE `generalinfo`
 -- Indexes for table `owner`
 --
 ALTER TABLE `owner`
-  ADD PRIMARY KEY (`OnwerID`);
+  ADD PRIMARY KEY (`OwnerID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -206,38 +230,37 @@ ALTER TABLE `owner`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `CatID` int(50) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `CatID` int(5) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `dog`
 --
 ALTER TABLE `dog`
-  MODIFY `DogID` int(5) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `DogID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `dogfamily`
 --
 ALTER TABLE `dogfamily`
   MODIFY `DogFamilyID` int(5) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `doglikedislike`
 --
 ALTER TABLE `doglikedislike`
   MODIFY `LikeDislikeID` int(5) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `experience`
 --
 ALTER TABLE `experience`
   MODIFY `ExperienceID` int(5) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `generalinfo`
 --
 ALTER TABLE `generalinfo`
   MODIFY `InfoID` int(5) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT for table `owner`
+--
+ALTER TABLE `owner`
+  MODIFY `OwnerID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --
@@ -258,7 +281,7 @@ ALTER TABLE `categoryexperience`
 -- Constraints for table `dog`
 --
 ALTER TABLE `dog`
-  ADD CONSTRAINT `dog_ibfk_1` FOREIGN KEY (`OwnerID`) REFERENCES `owner` (`OnwerID`);
+  ADD CONSTRAINT `dog_ibfk_1` FOREIGN KEY (`OwnerID`) REFERENCES `owner` (`OwnerID`);
 
 --
 -- Constraints for table `dogfamily`

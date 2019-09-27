@@ -12,8 +12,33 @@ local scene = composer.newScene()
 local widget = require ("widget")
 
 
+local function networkListener(event)
+ if ( event.isError ) then
+        print( "Network error: ", event.response )
+    else
+    	if (event.response=='-1') then
+    		print("error inserting details")
+	    else
+	    	print("yes")
+	        print(event.response) 	
+	        customParams={DogID=event.response}
+	        composer.gotoScene("dogProfile4",{effect = "slideLeft", time = 500, params=customParams})
+	    end
+    end
+end
+
+
 local function Next()
- composer.gotoScene("dogProfile4",{effect = "slideLeft", time = 500})
+
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"	
+	local body="VaccinationStatus="..vacStatus.."&DogOrigin="..on.."&OwnerID="..OwnerID
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.request( "http://192.168.123.109:2431/pup/dog_add.php", "POST", networkListener, params)
+    
 end
 
 
@@ -23,7 +48,7 @@ end
 
 local function onSwitchPress( event )
     local switch = event.target
-    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+    on=switch.id
 end
 
  
@@ -42,7 +67,9 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
-	
+	local params=event.params
+	OwnerID=params.ownerID
+	vacStatus=params.VaccinationStatus
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
 	--Adding Message
@@ -71,8 +98,9 @@ function scene:create( event )
 		
 		}
 	)
+	on=breeder.id	
 	rg:insert( breeder)
-	sceneGroup:insert(breeder)
+	sceneGroup:insert(rg)
 	
 	
 	local rb = display.newText( "Registered breeder", display.contentCenterX*0.8, display.contentCenterY*0.55, native.systemFont, 18 )
@@ -89,7 +117,6 @@ function scene:create( event )
 		}
 	)
 	rg:insert( pound)
-	sceneGroup:insert(pound)
 	
 	local pd = display.newText( "Pound", display.contentCenterX*0.49, display.contentCenterY*0.73, native.systemFont, 18 )
 	sceneGroup:insert(pd)
@@ -105,7 +132,6 @@ function scene:create( event )
 		}
 	)
 	rg:insert( litter)
-	sceneGroup:insert(litter)
 	
 	local bl = display.newText( "Backyard litter", display.contentCenterX*0.69, display.contentCenterY*0.88, native.systemFont, 18 )
 	sceneGroup:insert(bl)
@@ -121,7 +147,6 @@ function scene:create( event )
 		}
 	)
 	rg:insert( friend)
-	sceneGroup:insert(friend)
 	
 	local frd = display.newText( "Friend ", display.contentCenterX*0.5, display.contentCenterY*1.05, native.systemFont, 18 )
 	sceneGroup:insert(frd)
@@ -137,7 +162,6 @@ function scene:create( event )
 		}
 	)
 	rg:insert( member)
-	sceneGroup:insert(member)
 	
 	local fm = display.newText( "Family member", display.contentCenterX*0.72, display.contentCenterY*1.22, native.systemFont, 18 )
 	sceneGroup:insert(fm)
@@ -153,7 +177,6 @@ function scene:create( event )
 		}
 	)
 	rg:insert( rescue)
-	sceneGroup:insert(rescue)
 	
 	local ra = display.newText( "Rescue association", display.contentCenterX*0.82, display.contentCenterY*1.38, native.systemFont, 18 )
 	sceneGroup:insert(ra)
@@ -169,7 +192,6 @@ function scene:create( event )
 		}
 	)
 	rg:insert( found)
-	sceneGroup:insert(found)
 	
 	local fd = display.newText( "Found dog", display.contentCenterX*0.62, display.contentCenterY*1.55, native.systemFont, 18 )
 	sceneGroup:insert(fd)
@@ -185,7 +207,6 @@ function scene:create( event )
 		}
 	)
 	rg:insert( fail)
-	sceneGroup:insert(fail)
 	
 	local ff = display.newText( "Foster fail", display.contentCenterX*0.61, display.contentCenterY*1.72, native.systemFont, 18 )
 	sceneGroup:insert(ff)

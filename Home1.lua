@@ -3,7 +3,7 @@
 -- view1.lua
 --
 -----------------------------------------------------------------------------------------
-
+--hi
 local composer = require( "composer" )
 local scene = composer.newScene()
 
@@ -29,7 +29,7 @@ end
 
 function scene:create( event )
 
-	
+	print(display.contentCenterX)
     
     local sceneGroup = self.view
 splashscreen = display.newImage( "homePage.png",display.contentHeight,display.contentWidth);

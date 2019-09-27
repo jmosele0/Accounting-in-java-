@@ -23,8 +23,9 @@ local widget = require( "widget" )
 	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
 end
 
- local function dog ()	
-	composer.gotoScene("Profile",{effect = "slideLeft", time = 500})
+ local function dog ()
+    local customParams={ownerID=OwnerID}	
+	composer.gotoScene("Profile",{effect = "slideLeft", time = 500, params=customParams})
 end
 
  local function Tracr ()	
@@ -52,6 +53,9 @@ end
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
+    params=event.params
+    OwnerID=params.OwnerID
+    
 	--adding background
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647)
 	
@@ -144,8 +148,8 @@ function scene:create( event )
         label = "YouTube Channel",
 		width='200',
 		height='35',
-	onEvent = userChannel,
-       fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 1, 0.5, 0.8, 4 } },
+	    onEvent = userChannel,
+        fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
     }
 )

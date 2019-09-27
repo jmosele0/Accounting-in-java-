@@ -10,8 +10,32 @@ local scene = composer.newScene()
 
 local widget = require ("widget")
 
+
+
+local function networkListener(event)
+    if ( event.isError ) then
+        print( "Network error: ", event.response )
+    elseif (event.response=="-1") then
+	    print ("error inserting details")
+	else    
+	     composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+    end
+end
+
+
+
 local function submit()
- composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"	
+	local body="ParentSiblingSighted="..ParentSiblingSighted.."&PersonalityConcerns="..PersonalityConcerns
+	.."&FirstMet="..FirstMet.."&WhyThatName="..WhyThatName.."&DogID="..DogID
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.request( "http://192.168.123.109:2431/pup/generalinfo2.php", "POST", networkListener, params)
+
 end
 
 
@@ -21,7 +45,7 @@ end
 
 local function onSwitchPress( event )
     local switch = event.target
-    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+    WhyThatName=switch.id
 end
 
  
@@ -40,6 +64,11 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
+    local params=event.params
+    DogID=params.dogID
+    ParentSiblingSighted=params.parentSiblingSighted
+    PersonalityConcerns=params.personalityConcerns
+    FirstMet=params.firstMet
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
@@ -86,6 +115,7 @@ function scene:create( event )
 		
 		}
 	)
+	WhyThatName=came.id
 	rG:insert( came )
 	scrollView:insert(came)
 	

@@ -21,8 +21,12 @@ local function networkListener(event)
  if ( event.isError ) then
         print( "Network error: ", event.response )
     else
-	print ("success")
-	composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
+    	if (event.response=='-1')then
+	        print ("error adding details")
+	    else    
+	        customParams={OwnerID=event.response}
+	        composer.gotoScene("Menu",{effect = "slideLeft", time = 500, params=customParams})
+	    end    
  end
 end
 
@@ -31,12 +35,11 @@ local function submit()
 	local headers = {}
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     headers["Accept-Language"] = "en-US"	
-	local body="PrePets="..on1.."&PrePetsList="..on2.."&OnedientDog="..on3.."&ExpectedOutcomes="..on4.."&Email="..Email
+	local body="PrePets="..on1.."&PrePetsList="..on2.."&ObedientDog="..on3.."&ExpectedOutcomes="..on4.."&OwnerID="..OwnerID
 	local params = {}
     params.headers = headers
     params.body = body
-	network.request( "http://10.1.60.18:2431/pup/add.php", "POST", networkListener, params)
- composer.gotoScene("Login",{effect = "slideLeft", time = 500})
+	network.request( "http://192.168.123.109:2431/pup/add.php", "POST", networkListener, params)
 end
 
 
@@ -79,7 +82,7 @@ function scene:create( event )
  
     local sceneGroup = self.view
     params=event.params
-    Email=params.Email
+    OwnerID=params.OwnerID
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	

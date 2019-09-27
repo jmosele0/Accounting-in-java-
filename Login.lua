@@ -23,44 +23,19 @@ local widget = require ("widget")
 
 
 
-local function downloadListener( event )
-
-    if (event.isError) then
-	    print ("Couldn't download file")
-		
-	else
-	    local path=system.pathForFile("user.json", system.DocumentsDirectory)
-		local file=io.open(path, "r")
-		local contents=file:read("*a")
-		io.close(file)
-		if (contents=="False") then
-		   print ("username or password incorrect")
-		else
-           userData=json.decode(contents)	
-           composer.gotoScene("Menu",{effect = "slideUp", time = 500})
-        end		   
-    end
-end	
-
-
-
 local function networkListener( event )
  
     if ( event.isError ) then
         print( "Network error: ", event.response )
     else
-	print (event.response)
-	local headers = {}
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept-Language"] = "en-US"
-	local body="Email="..username.text.."&password="..pw.text
-	local params = {}
-    params.headers = headers
-    params.body = body
-	network.download( "http://10.1.60.18:2431/pup/test.json", "POST", downloadListener, params,
-	"user.json", system.DocumentsDirectory)
-	
-        
+	  if (event.response=="") then
+	  	  print ("email or password invalid")
+
+	  else
+	  	  print(event.response)
+	  	  local customParams={OwnerID=event.response}
+	  	  composer.gotoScene("Menu",{effect = "slideUp", time = 500, params=customParams})	  
+	  end      
     end
 end
 
@@ -78,7 +53,7 @@ local function login ()
 	local params = {}
     params.headers = headers
     params.body = body
-	network.request( "http://10.1.60.18:2431/pup/select.php", "POST", networkListener, params)
+	network.request( "http://192.168.123.109:2431/pup/select.php", "POST", networkListener, params)
 	
 	
 end
