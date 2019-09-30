@@ -76,11 +76,12 @@ function scene:create( event )
 	sceneGroup:insert(Welcome)
 	
 	username = native.newTextField(160,100,180,30)
-	username.placeholder = "Username"
+	username.placeholder = "First name"
 	sceneGroup:insert(username)
 	
 	pw = native.newTextField(160,140,180,30)
 	pw.placeholder = "password"
+	pw.isSecure=true
 	sceneGroup:insert(pw)
 	
 	--local gender = native.newTextField(160,180,180,30)

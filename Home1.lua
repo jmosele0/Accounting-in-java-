@@ -32,14 +32,14 @@ function scene:create( event )
 	print(display.contentCenterX)
     
     local sceneGroup = self.view
-splashscreen = display.newImage( "homePage.png",display.contentHeight,display.contentWidth);
+--[[splashscreen = display.newImage( "homePage.png",display.contentHeight,display.contentWidth);
 	splashscreen.x, splashscreen.y = display.contentWidth/2, display.contentHeight/2
  
 local function removeSplash(event)
 splashscreen:removeSelf()
 splashscreen = nil
 end 
-timer.performWithDelay(2000,removeSplash)
+timer.performWithDelay(2000,removeSplash)--]]
 	
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )

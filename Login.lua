@@ -85,6 +85,7 @@ function scene:create( event )
 	
 	username = native.newTextField(160,200,180,30)
 	username.placeholder = "Username"
+	username.hasBackground=true
 	sceneGroup:insert(username)
 	
 
@@ -92,6 +93,8 @@ function scene:create( event )
 	
 	pw = native.newTextField(160,240,180,30)
 	pw.placeholder = "password"
+	pw.isSecure=true
+	pw.hasBackground=true
 	sceneGroup:insert(pw)
  
  local Login = widget.newButton(
