@@ -55,9 +55,4 @@ settings =
 		android = { "LaunchScreen.storyboardc", },
 	},
 	
-    splashScreen = 
-    {
-        enable = true,
-        image = "homePage.png"
-    },
 }

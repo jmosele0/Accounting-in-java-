@@ -11,16 +11,16 @@ local scene = composer.newScene()
 
 
 local widget = require( "widget" )
+local json=require("json")
  
 local function menu()
  composer.gotoScene("Menu",{effect = "slideRight", time = 500})
 end
 
 
- local function home ()	
+local function home ()	
 	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
 end 
-
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -30,22 +30,68 @@ end
 -- local function Canine ()	
 --	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
 --end
-
- local function dog ()
-    customParams={ownerID=OwnerID}	
-	composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500, params=customParams})
-end
- 
- 
- 
- 
  
 -- create()
 function scene:create( event )
 	
     local sceneGroup = self.view
-    params=event.params
-    OwnerID=params.ownerID
+    local params=event.params
+    local OwnerID=params.ownerID
+    local ipAddress=params.address
+
+
+
+    local function networkListener(event)
+    if ( event.isError ) then
+        print( "Network error: ", event.response )
+    elseif (event.response=="-1") then
+	    print ("error inserting details")
+	else    
+		print(event.response)
+	    local details=json.decode(event.response)
+	    local email=details.Email
+	    print (email)
+	    local firstname=details.FirstName
+	    local gender=details.Gender
+	    local agerange=details.AgeRange
+	    local postcode=details.PostCode
+	    local displayEmail = display.newText(email,display.contentCenterX,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 24)
+	    displayEmail:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	    sceneGroup:insert(displayEmail)
+	    local displayName=display.newText(firstname,display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
+	    displayName:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	    sceneGroup:insert(displayName)
+
+
+
+
+end
+end
+
+
+
+local function loadData(Id)
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"	
+	local body="OwnerID="..Id
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.request( ipAddress.."select_profile.php", "POST", networkListener, params)
+end
+
+
+
+
+
+    loadData(OwnerID)
+
+
+
+
+    --print(name)
+
 	--adding background
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
@@ -66,29 +112,9 @@ bg=display.newRect(display.contentCenterX,display.contentCenterY,display.content
 	 m = display.newImage("menu.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
-	
-	
-	
-		local dogP = widget.newButton(
-    {
-       shape = "roundedRect",
-        left = 70,
-        top = 200,
-        id = "dogP",
-        label = "Name of Dog",
-		width='200',
-		height='35',
-       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={255,255,255}, over={ 2, 5, 1.5, 2.2 } },
 
- 
 
-    }
-)
-	
-	sceneGroup:insert(dogP)
-	dogP:addEventListener("tap", dog)
-	
+
 	
 	
 	

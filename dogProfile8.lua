@@ -18,7 +18,9 @@ local function networkListener(event)
     elseif (event.response=="-1") then
 	    print ("error inserting details")
 	else    
-	     composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+		 local customParams={OwnerID=OwnerID,
+		                     address=ipAddress}
+	     composer.gotoScene("Menu",{effect = "slideLeft", time = 500})
     end
 end
 
@@ -34,7 +36,7 @@ local function submit()
 	local params = {}
     params.headers = headers
     params.body = body
-	network.request( "http://192.168.123.109:2431/pup/generalinfo2.php", "POST", networkListener, params)
+	network.request( ipAddress.."generalinfo2.php", "POST", networkListener, params)
 
 end
 
@@ -69,6 +71,8 @@ function scene:create( event )
     ParentSiblingSighted=params.parentSiblingSighted
     PersonalityConcerns=params.personalityConcerns
     FirstMet=params.firstMet
+    ipAddress=params.address
+    OwnerID=params.ownerID
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	

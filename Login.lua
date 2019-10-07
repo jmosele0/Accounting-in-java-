@@ -33,7 +33,8 @@ local function networkListener( event )
 
 	  else
 	  	  print(event.response)
-	  	  local customParams={OwnerID=event.response}
+	  	  local customParams={OwnerID=event.response,
+	  	                      address=ipAddress}
 	  	  composer.gotoScene("Menu",{effect = "slideUp", time = 500, params=customParams})	  
 	  end      
     end
@@ -53,7 +54,7 @@ local function login ()
 	local params = {}
     params.headers = headers
     params.body = body
-	network.request( "http://192.168.123.109:2431/pup/select.php", "POST", networkListener, params)
+	network.request( ipAddress.."select.php", "POST", networkListener, params)
 	
 	
 end
@@ -71,6 +72,9 @@ function scene:create( event )
 	
     local sceneGroup = self.view
 	
+
+	local params=event.params
+	ipAddress=params.address
 	
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
