@@ -87,8 +87,7 @@ function scene:create( event )
 	 
 -- Slider listener
 local function sliderListener( event )
-	local value=event.target
-    print( "Slider at ",value.value, "%" )
+    print( "Slider at ",value, "%" )
 end
  
 -- Create the widget

@@ -21,9 +21,7 @@ local function networkListener(event)
 	    else
 	    	print("yes")
 	        print(event.response) 	
-	        customParams={DogID=event.response,
-	                      address=ipAddress,
-	                      ownerID=OwnerID}
+	        customParams={DogID=event.response}
 	        composer.gotoScene("dogProfile4",{effect = "slideLeft", time = 500, params=customParams})
 	    end
     end
@@ -35,12 +33,11 @@ local function Next()
 	local headers = {}
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     headers["Accept-Language"] = "en-US"	
-	local body="DogName="..DogName.."&Age="..Age.."&Breed="..Breed.."&Sex="..Sex.."&Desexed="..Desexed.."&DOB="..DOB..
-	"&HowLongOwned="..HowLongOwned.."&VaccinationStatus="..VaccinationStatus.."&DogOrigin="..on.."&OwnerID="..OwnerID
+	local body="VaccinationStatus="..vacStatus.."&DogOrigin="..on.."&OwnerID="..OwnerID
 	local params = {}
     params.headers = headers
     params.body = body
-	network.request( ipAddress.."dog_insert.php", "POST", networkListener, params)
+	network.request( "http://192.168.123.109:2431/pup/dog_add.php", "POST", networkListener, params)
     
 end
 
@@ -71,16 +68,8 @@ function scene:create( event )
  
     local sceneGroup = self.view
 	local params=event.params
-	DogName=params.dogName
-	Age=params.age
-    Breed=params.breed
-    Sex=params.sex
-    Desexed=params.desexed
-    DOB=params.dob
-    HowLongOwned=params.howlongowned
-    VaccinationStatus=params.VaccinationStatus
 	OwnerID=params.ownerID
-	ipAddress=params.address
+	vacStatus=params.VaccinationStatus
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
 	--Adding Message
