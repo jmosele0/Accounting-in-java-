@@ -17,61 +17,10 @@ local function skip()
  composer.gotoScene("Login",{effect = "slideLeft", time = 500})
 end
 
-local function networkListener(event)
- if ( event.isError ) then
-        print( "Network error: ", event.response )
-    else
-    	if (event.response=='-1')then
-	        print ("error adding details")
-	    else    
-	        customParams={OwnerID=event.response}
-	        composer.gotoScene("Menu",{effect = "slideLeft", time = 500, params=customParams})
-	    end    
- end
-end
-
-
-local function submit()
-	local headers = {}
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept-Language"] = "en-US"	
-	local body="PrePets="..on1.."&PrePetsList="..on2.."&ObedientDog="..on3.."&ExpectedOutcomes="..on4.."&OwnerID="..OwnerID
-	local params = {}
-    params.headers = headers
-    params.body = body
-	network.request( "http://192.168.123.109:2431/pup/add.php", "POST", networkListener, params)
-end
-
-
-local function onSwitchPress( event )
-    local switch = event.target
-    on1=switch.id
-end
-
-local function onSwitchPress2( event )
-    local switch = event.target
-    on2=switch.id
-end
-
-local function onSwitchPress3( event )
-    local switch = event.target
-    on3=switch.id
-end
-
-local function onSwitchPress4( event )
-    local switch = event.target
-    on4=switch.id
-end
-
- 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
-
-
-
-
 
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
@@ -81,8 +30,72 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
-    params=event.params
-    OwnerID=params.OwnerID
+
+local on1
+local on2
+local on3
+local on4
+
+local params=event.params
+    local Email=params.Email
+    local FirstName=params.FirstName
+    local password=params.password
+    local Gender=params.Gender
+    local AgeRange=params.AgeRange
+    local PostCode=params.PostCode
+    local ipAddress=params.address
+
+
+
+
+
+local function onSwitchPress( event )
+    local switch = event.target
+    if (switch.id=="yes" or switch.id=="no") then
+        on1=switch.id
+
+    elseif (switch.id=="dogs" or switch.id=="cats") then
+        on2=switch.id
+
+    elseif (switch.id=="basic" or switch.id=="listens" or switch.id=="jump" or switch.id=="walks" or switch.id=="submissive"
+    	or switch.id=="mannered") then
+    	on3=switch.id 
+
+    elseif (switch.id=="dogout" or switch.id=="willlistens" or switch.id=="charge" or switch.id=="wmannered"
+        or switch.id=="communicate") then
+        on4=switch.id	       
+    end
+
+end    
+
+
+    local function networkListener(event)
+ if ( event.isError ) then
+        print( "Network error: ", event.response )
+    elseif (event.response=='-1')then
+	     print ("error adding details")
+	else    
+	     customParams={OwnerID=event.response,
+	                   address=ipAddress
+	                  }
+	     composer.gotoScene("Menu",{effect = "slideLeft", time = 500, params=customParams})
+	end    
+end    
+
+
+
+local function submit()
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"	
+	local body="Email="..Email.."&FirstName="..FirstName.."&password="..password.."&Gender="..Gender.."&AgeRange="..AgeRange.."&PostCode="..
+	PostCode.."&PrePets="..on1.."&PrePetsList="..on2.."&ObedientDog="..on3.."&ExpectedOutcomes="..on4
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.request(ipAddress.."insert.php", "POST", networkListener, params)
+end
+
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
@@ -133,14 +146,14 @@ Skip:addEventListener("tap", skip )
 	local radioGroup = display.newGroup()
  
 -- Create two associated radio buttons (inserted into the same display group)
-    no = widget.newSwitch(
+    local no = widget.newSwitch(
 		{
 			left = 90,
 			top = 115,
 			style = "radio",
 			id = "no",
 			initialSwitchState = true,
-			onPress = onSwitchPress,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -151,7 +164,7 @@ Skip:addEventListener("tap", skip )
 	local no = display.newText( "No", display.contentCenterX*0.4, display.contentCenterY*0.55, native.systemFont, 18 )
 	scrollView:insert(no)
  
-	yes = widget.newSwitch(
+	local yes = widget.newSwitch(
 		{
 			left = 190,
 			top = 115,
@@ -174,14 +187,14 @@ Skip:addEventListener("tap", skip )
 	local rg = display.newGroup()
  
 -- Create two associated radio buttons (inserted into the same display group)
-    dogs = widget.newSwitch(
+    local dogs = widget.newSwitch(
 		{
 			left = 135,
 			top = 180,
 			style = "radio",
 			id = "dogs",
 			initialSwitchState = true,
-			onPress = onSwitchPress2
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -192,13 +205,13 @@ Skip:addEventListener("tap", skip )
 	local dogs = display.newText( "Dogs", display.contentCenterX*0.6, display.contentCenterY*0.8, native.systemFont, 18 )
 	scrollView:insert(dogs)
  
-	cats = widget.newSwitch(
+	local cats = widget.newSwitch(
 		{
 			left = 135,
 			top = 215,
 			style = "radio",
 			id = "cats",
-			onPress = onSwitchPress2
+			onPress = onSwitchPress
 			
 			
 		}
@@ -218,14 +231,14 @@ Skip:addEventListener("tap", skip )
 	
 	local rGroup = display.newGroup()
 	
-	basic = widget.newSwitch(
+	local basic = widget.newSwitch(
 		{
 			left = 262,
 			top = 330,
 			style = "radio",
 			id = "basic",
 			initialSwitchState = true,
-			onPress = onSwitchPress3,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -236,13 +249,13 @@ Skip:addEventListener("tap", skip )
 	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, display.contentCenterY*1.45, native.systemFont, 18 )
 	scrollView:insert(b)
 	
-	listens = widget.newSwitch(
+	local listens = widget.newSwitch(
 		{
 			left = 262,
 			top = 380,
 			style = "radio",
 			id = "listens",
-			onPress = onSwitchPress3,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -251,13 +264,13 @@ Skip:addEventListener("tap", skip )
 	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.65, native.systemFont, 18 )
 	scrollView:insert(l)
 	
-	jump = widget.newSwitch(
+	local jump = widget.newSwitch(
 		{
 			left = 262,
 			top = 430,
 			style = "radio",
 			id = "jump",
-			onPress = onSwitchPress3,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -266,13 +279,13 @@ Skip:addEventListener("tap", skip )
 	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.88, native.systemFont, 18 )
 	scrollView:insert(j)
 	
-	walks = widget.newSwitch(
+	local walks = widget.newSwitch(
 		{
 			left = 262,
 			top = 480,
 			style = "radio",
 			id = "walks",
-			onPress = onSwitchPress3,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -281,13 +294,13 @@ Skip:addEventListener("tap", skip )
 	local w = display.newText( "- Walks on the lead well", display.contentCenterX*0.85, display.contentCenterY*2.08, native.systemFont, 18 )
 	scrollView:insert(w)
 	
-	submissive = widget.newSwitch(
+	local submissive = widget.newSwitch(
 		{
 			left = 262,
 			top = 525,
 			style = "radio",
 			id = "submissive",
-			onPress = onSwitchPress3,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -296,13 +309,13 @@ Skip:addEventListener("tap", skip )
 	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*2.25, native.systemFont, 18 )
 	scrollView:insert(s)
 	
-	mannered = widget.newSwitch(
+	local mannered = widget.newSwitch(
 		{
 			left = 262,
 			top = 570,
 			style = "radio",
 			id = "mannered",
-			onPress = onSwitchPress3,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -316,14 +329,14 @@ Skip:addEventListener("tap", skip )
 	
 	local rgrp = display.newGroup()
 	
-	dogout = widget.newSwitch(
+	local dogout = widget.newSwitch(
 		{
 			left = 262,
 			top = 670,
 			style = "radio",
 			id = "dogout",
 			initialSwitchState = true,
-			onPress = onSwitchPress4,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -334,7 +347,7 @@ Skip:addEventListener("tap", skip )
 	local dg = display.newText( "- So I can take my dog out \n  and about with me", display.contentCenterX*0.8, display.contentCenterY*2.90, native.systemFont, 18 )
 	scrollView:insert(dg)
 	
-	willlistens = widget.newSwitch(
+	local willlistens = widget.newSwitch(
 		{
 			left = 262,
 			top = 725,
@@ -349,13 +362,13 @@ Skip:addEventListener("tap", skip )
 	local wl = display.newText( "- So they will listens to me", display.contentCenterX*0.8, display.contentCenterY*3.10, native.systemFont, 18 )
 	scrollView:insert(wl)
 	
-	charge = widget.newSwitch(
+	local charge = widget.newSwitch(
 		{
 			left = 262,
 			top = 775,
 			style = "radio",
 			id = "charge",
-			onPress = onSwitchPress4,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -364,13 +377,13 @@ Skip:addEventListener("tap", skip )
 	local c = display.newText( "- So I can be in charge \n  of my dog ", display.contentCenterX*0.72, display.contentCenterY*3.30, native.systemFont, 18 )
 	scrollView:insert(c)
 	
-	wmannered = widget.newSwitch(
+	local wmannered = widget.newSwitch(
 		{
 			left = 262,
 			top = 830,
 			style = "radio",
 			id = "wmannered",
-			onPress = onSwitchPress4,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -385,7 +398,7 @@ Skip:addEventListener("tap", skip )
 			top = 885,
 			style = "radio",
 			id = "communicate",
-			onPress = onSwitchPress4,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -394,11 +407,11 @@ Skip:addEventListener("tap", skip )
 	local cm = display.newText( "- To allow me to communicate\n  well with my dog", display.contentCenterX*0.84, display.contentCenterY*3.80, native.systemFont, 18 )
 	scrollView:insert(cm)
 	
-	Other = native.newTextField(120,970,150,30)
+	local Other = native.newTextField(120,970,150,30)
 	Other.placeholder = "Other"
 	scrollView:insert(Other)
 	
-	Submit = widget.newButton(
+	local Submit = widget.newButton(
     {
        shape = "roundedRect",
         left = 100,
