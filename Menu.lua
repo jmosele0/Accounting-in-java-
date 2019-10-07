@@ -23,16 +23,9 @@ local widget = require( "widget" )
 	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
 end
 
- local function profile ()
-    local customParams={ownerID=OwnerID,
-                        address=ipAddress}	
-	composer.gotoScene("Profile",{effect = "slideLeft", time = 500, params=customParams})
-end
-
  local function dog ()
-    customParams={ownerID=OwnerID,
-                  address=ipAddress}  
-    composer.gotoScene("dogList",{effect = "slideLeft", time = 500, params=customParams})
+    local customParams={ownerID=OwnerID}	
+	composer.gotoScene("Profile",{effect = "slideLeft", time = 500, params=customParams})
 end
 
  local function Tracr ()	
@@ -40,9 +33,8 @@ end
 end
  
 
- local function logout ()
-    local customParams={address=ipAddress}	
-	composer.gotoScene("Login",{effect = "slideLeft", time = 500, params=customParams})
+ local function logout ()	
+	composer.gotoScene("Login",{effect = "slideLeft", time = 500})
 end
 
 
@@ -63,7 +55,6 @@ function scene:create( event )
     local sceneGroup = self.view
     params=event.params
     OwnerID=params.OwnerID
-    ipAddress=params.address
     
 	--adding background
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647)
@@ -81,51 +72,12 @@ function scene:create( event )
 	sceneGroup:insert(Welcome)
 	--Writing Message "About"
 
-        local userP = widget.newButton(
-    {
-       shape = "roundedRect",
-        left = 60,
-        top = 100,
-        id = "userP",
-        label = "Profile",
-        width='200',
-        height='35',
-       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={255,255,255}, over={ 2, 5, 1.5, 2.2 } },
-    }
-)
-    
-    sceneGroup:insert(userP)
-    userP:addEventListener("tap", profile)
-
-
-
-
-    local dogP = widget.newButton(
-    {
-       shape = "roundedRect",
-        left = 60,
-        top = 150,
-        id = "dogP",
-        label = "dogs",
-        width='200',
-        height='35',
-       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={255,255,255}, over={ 2, 5, 1.5, 2.2 } },
-    }
-)
-
-    sceneGroup:insert(dogP)
-    dogP:addEventListener("tap", dog)
-
-
-
 	 
 	local Tracker = widget.newButton(
     {
        shape = "roundedRect",
         left = 60,
-        top = 200,
+        top = 100,
         id = "Tracker",
         label = "Experience Tracker",
 		width='200',
@@ -141,7 +93,7 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 60,
-        top = 250,
+        top = 150,
         id = "Can",
         label = "Canine Enrichment",
 		width='200',
@@ -153,6 +105,22 @@ function scene:create( event )
 	sceneGroup:insert(Can)
 	Can:addEventListener("tap", Canine )
 	
+		local dogP = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 60,
+        top = 200,
+        id = "dogP",
+        label = "Dogs",
+		width='200',
+		height='35',
+       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={255,255,255}, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+	
+	sceneGroup:insert(dogP)
+	dogP:addEventListener("tap", dog)
 	
 		local logT = widget.newButton(
     {
@@ -175,7 +143,7 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 60,
-        top = 350,
+        top = 250,
         id = "T",
         label = "YouTube Channel",
 		width='200',

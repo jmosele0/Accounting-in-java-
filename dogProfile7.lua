@@ -14,8 +14,7 @@ local Welcome
 local widget = require ("widget")
 
 local function Next()
-	local customParams={dogID=DogID, parentSiblingSighted=ParentSiblingSighted, personalityConcerns=PersonalityConcerns, firstMet=FirstMet,
-	address=ipAddress, ownerID=OwnerID}
+	local customParams={dogID=DogID, parentSiblingSighted=ParentSiblingSighted, personalityConcerns=PersonalityConcerns, firstMet=FirstMet}
  composer.gotoScene("dogProfile8",{effect = "slideLeft", time = 500, params=customParams})
 end
 
@@ -50,8 +49,6 @@ function scene:create( event )
     DogID=params.dogID
     ParentSiblingSighted=params.ParentSiblingSighted
     PersonalityConcerns=params.PersonalityConcerns
-    ipAddress=params.address
-    OwnerID=params.ownerID
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
