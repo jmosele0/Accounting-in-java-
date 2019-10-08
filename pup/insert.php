@@ -11,10 +11,10 @@ $Gender=$_POST['Gender'];
 $Couple=NULL;
 $AgeRange=$_POST['AgeRange'];
 $PostCode=$_POST['PostCode'];
-$PrePets=NULL;
-$PrePetsList=NULL;
-$ObedientDog=NULL;
-$ExpectedOutcomes=NULL;
+$PrePets=$_POST['PrePets'];
+$PrePetsList=$_POST['PrePetsList'];
+$ObedientDog=$_POST['ObedientDog'];
+$ExpectedOutcomes=$_POST['ExpectedOutcomes'];
 $password=$_POST['password'];
 $insert_statement=$dbase->prepare("INSERT INTO owner (OwnerID, Email, FirstName, Gender, Couple, AgeRange, PostCode, PrePets, PrePetsList, ObedientDog, ExpectedOutcomes, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $insert_statement->bind_param("isssssisssss", $OwnerID, $Email, $FirstName, $Gender, $Couple, $AgeRange, $PostCode, $PrePets,

@@ -14,7 +14,8 @@ local Welcome
 local widget = require ("widget")
 
 local function skip()
- composer.gotoScene("Login",{effect = "slideLeft", time = 500})
+	local customParams={address=ipAddress}
+ composer.gotoScene("Login",{effect = "slideLeft", time = 500, params=customParams})
 end
 
 -- -----------------------------------------------------------------------------------
@@ -43,7 +44,7 @@ local params=event.params
     local Gender=params.Gender
     local AgeRange=params.AgeRange
     local PostCode=params.PostCode
-    local ipAddress=params.address
+    ipAddress=params.address
 
 
 
