@@ -72,8 +72,16 @@ function scene:create( event )
     m = display.newImage("menu.png", 30, -16 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
+
+	local paint = {
+    type = "gradient",
+    color1 = { 1, 0, 0.4 },
+    color2 = { 1, 0, 0, 0.2 },
+    direction = "down"
+}
 	
-	 slider = display.newImage("sliderr.png", 50, 250 )
+	 slider = display.newRect( 50, 250, 40, 260 )
+	 slider.fill=paint
 	sceneGroup:insert(slider)
 	
 	notice = display.newText("Add notes",250,420,  "Arial", 20)

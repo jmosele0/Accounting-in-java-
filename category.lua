@@ -13,7 +13,7 @@ local widget = require ("widget")
 
 
 local function back ()	
-	composer.gotoScene("Tracker",{effect = "slideLeft", time = 500})
+	composer.gotoScene("Tracker",{effect = "slideRight", time = 500})
 end
 
  -- ScrollView listener

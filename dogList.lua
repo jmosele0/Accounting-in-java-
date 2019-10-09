@@ -33,6 +33,57 @@ function scene:create( event )
     local params=event.params
     local OwnerID=params.ownerID
     local ipAddress=params.address
+    local x=0
+
+    display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
+
+
+    local function dog()
+      local customParams={OwnerID=OwnerID,
+                          address=ipAddress}
+      composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500, params=customParams})
+    end
+
+
+
+    local function scrollListener( event )
+ 
+    local phase = event.phase
+    local direction = event.direction
+  
+  -- If the scrollview has reached it's scroll limit.
+  if event.limitReached then
+    if "up"== direction then
+      print("Reached Top Limit")
+    elseif "down" == direction then
+      print("Reached Bottom Limit")
+    end
+  end
+  
+  return true
+end
+
+
+
+    local scrollView = widget.newScrollView(
+    {
+      top = 0,
+      left = 0,
+      width = display.contentWidth,
+      height = display.contentHeight,
+      topPadding = 70,
+      bottomPadding = 0,
+      horizontalScrollDisabled = true,
+      verticalScrollDisabled = false,
+      listener = scrollListener,
+      backgroundColor = {1, 1, 1 },
+    }
+  )
+
+    sceneGroup:insert(scrollView)
+    x=x+1
+    print("scrollView x="..x)
+    print("scrollView added")
 
 
 
@@ -57,7 +108,8 @@ function scene:create( event )
                 local value=dogs[index][fields[index2]]
                   local displayValue = display.newText(value,display.contentCenterX,display.contentCenterY*y, "Bahnschrift SemiCondensed", 24)
                   displayValue:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-                  sceneGroup:insert(displayValue)
+                  scrollView:insert(displayValue)
+                  print(scrollView.numChildren)
                   y=y+0.2
                 end             
                end
@@ -78,15 +130,7 @@ function scene:create( event )
 
 
     loadData(OwnerID, ipAddress)
-
-
-
-    display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
     
-    
-    bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-    bg:setFillColor(255,255,255)
-    sceneGroup:insert(bg)
     
     bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
     bgr:setFillColor(255,255,255)
@@ -100,6 +144,26 @@ function scene:create( event )
      m = display.newImage("menu.png", 30, -17 )
     sceneGroup:insert(m)
     m:addEventListener("tap", menu )
+
+    local dogP = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 200,
+        top = 50,
+        id = "dogP",
+        label = "add dog +",
+        width='100',
+        height='35',
+       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={0,0,0}, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+
+    sceneGroup:insert(dogP)
+    x=x+1
+    print("button x="..x)
+    print("button added")
+    dogP:addEventListener("tap", dog)
     -- Code here runs when the scene is first created but has not yet appeared on screen
  
 end

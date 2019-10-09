@@ -35,6 +35,10 @@ end
  composer.gotoScene("SignUp",{effect = "slideLeft", time = 500, params=customParams})
  end
 
+ local function slider()
+ composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+ end
+
 	
 
 	print(display.contentCenterX)
@@ -77,6 +81,24 @@ local SignUp = widget.newButton(
 )
 sceneGroup:insert(SignUp)
 SignUp:addEventListener("tap", newscene)
+
+
+local Slider = widget.newButton(
+    {
+        shape = "roundedRect",
+        left = 70,
+        top = 400,
+        id = "SignUp",
+        label = "SignUp",
+        --onEvent = userSignIn,
+        fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={  0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } }
+    }
+)
+sceneGroup:insert(Slider)
+Slider:addEventListener("tap", slider)
+
+
 
 end
 
