@@ -73,17 +73,6 @@ function scene:create( event )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
 
-	local paint = {
-    type = "gradient",
-    color1 = { 1, 0, 0.4 },
-    color2 = { 1, 0, 0, 0.2 },
-    direction = "down"
-}
-	
-	 slider = display.newRect( 50, 250, 40, 260 )
-	 slider.fill=paint
-	sceneGroup:insert(slider)
-	
 	notice = display.newText("Add notes",250,420,  "Arial", 20)
 	notice:setFillColor( 0, 0, 0.6 )
 	sceneGroup:insert(notice)
@@ -100,10 +89,10 @@ local function sliderListener( event )
 end
  
 -- Create the widget
-local slider = widget.newSlider(
+--[[local slider = widget.newSlider(
     {
-        x = display.contentCenterX*0.30,
-        y = display.contentCenterY*1.04,
+        x = 50,
+        y = 250,
         orientation = "vertical",
         height = 260,
         value = 0,  -- Start slider at 10% (optional)
@@ -111,8 +100,28 @@ local slider = widget.newSlider(
     }
 )
 sceneGroup:insert(slider)
-slider: addEventListener("touch", sliderListener)	
+slider: addEventListener("touch", sliderListener)--]]
+
+
+tier1 = display.newCircle( 50, 250, 20)
+	tier1:setFillColor(0, 0.4, 1, 1)
+	sceneGroup:insert(tier1)	
+
+tier2 = display.newCircle( 100, 250, 20 )
+	tier2:setFillColor(0, 0.4, 1, 0.8)
+	sceneGroup:insert(tier2)
+
+tier3 = display.newCircle( 150, 250, 20 )
+	tier3:setFillColor(0, 0.4, 1, 0.6)
+	sceneGroup:insert(tier3)						
 	
+tier4 = display.newCircle( 200, 250, 20 )
+	tier4:setFillColor(0, 0.4, 1, 0.4)
+	sceneGroup:insert(tier4)
+
+tier5 = display.newCircle( 250, 250, 20 )
+	tier5:setFillColor(0, 0.4, 1, 0.2)
+	sceneGroup:insert(tier5)		
 	--HomePage = display.newText("HomePage",display.contentCenterX*0.90,display.contentCenterY*2.0, "Comic Sans MS", 25)
 	--sceneGroup:insert(HomePage)
 	--HomePage:addEventListener("tap", newscene)

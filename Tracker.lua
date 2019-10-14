@@ -75,9 +75,9 @@ function scene:create( event )
 	sceneGroup:insert(Welcome)
 	
 	
-	local notes = native.newTextField(160,150,280,30)
-	notes.placeholder = "Experience"
-	sceneGroup:insert(notes)
+	local exp = native.newTextField(160,150,280,30)
+	exp.placeholder = "Experience"
+	sceneGroup:insert(exp)
 	
 	
 	
@@ -164,6 +164,10 @@ function scene:create( event )
 	)
 	 radioGroup:insert(moderatelyAnxious)
 
+	  local moderatelyAnxiousText = display.newText("Moderately anxious",172, 345, "Bahnschrift SemiCondensed", 20)
+	 moderatelyAnxiousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	 sceneGroup:insert(moderatelyAnxiousText)
+
 	 local extremelyAnxious = widget.newSwitch(
 		{
 			left = 40,
@@ -175,6 +179,29 @@ function scene:create( event )
 		}
 	)
 	 radioGroup:insert(extremelyAnxious)
+
+	 local extremelyAnxiousText = display.newText("Extremely anxious",172, 385, "Bahnschrift SemiCondensed", 20)
+	 extremelyAnxiousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	 sceneGroup:insert(extremelyAnxiousText)
+     
+
+     local Submit = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 120,
+        top = 460,
+        id = "Submit",
+        label = "Submit",
+		width='98',
+		height='30',
+        onEvent = userSubmit,
+       fillColor = { default={  255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647}, over={ 2, 5, 1.5, 2.2 } },
+
+    }
+)
+
+     sceneGroup:insert(Submit)
 
 --average:addEventListener("tap", Onclick)
 
