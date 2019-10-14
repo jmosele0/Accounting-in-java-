@@ -28,10 +28,10 @@ local function help()
  composer.gotoScene("category",{effect = "slideLeft", time = 500})
 end 
 
-local function onSwitchPress( event )
-    local switch = event.target
-    on=switch.id
+local function previous()
+ composer.gotoScene("experience_list",{effect = "slideLeft", time = 500})
 end
+
 
 --local function Onclick(avg)
       -- Print ("average")
@@ -49,7 +49,6 @@ end
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
-    local radioGroup=display.newGroup()
 	--adding background
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647)
 	
@@ -57,9 +56,7 @@ function scene:create( event )
 	bg:setFillColor(255,255,255)
 	sceneGroup:insert(bg)
 	
-	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
-	bgr:setFillColor(255,155,255)
-	sceneGroup:insert(bgr)
+	
 	
 	--Adding Welcome Message
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
@@ -70,7 +67,7 @@ function scene:create( event )
  
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Experience:",display.contentCenterX*0.58,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 40)
+	Welcome = display.newText("Experience:",display.contentCenterX*0.67,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 40)
 	Welcome:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	sceneGroup:insert(Welcome)
 	
@@ -82,7 +79,7 @@ function scene:create( event )
 	
 	
 	--Adding Welcome Message
-	Help = display.newText("Need help?",display.contentCenterX*1.60,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 20)
+	Help = display.newText("Need help?",display.contentCenterX*1.40,display.contentCenterY*0.25, "Bahnschrift SemiCondensed", 20)
 	Help:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	sceneGroup:insert(Help)
 	Help:addEventListener("tap", help)
@@ -91,90 +88,79 @@ function scene:create( event )
     m = display.newImage("menu.png", 30, -19)
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
-
-
-	sceneGroup:insert(radioGroup)
 	
-    
+    --Adding Welcome Message
+	ex = display.newText("View Previous Experiences",display.contentCenterX*1.30,display.contentCenterY*0.10, "Bahnschrift SemiCondensed", 20)
+	ex:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	sceneGroup:insert(ex)
+	ex:addEventListener("tap", previous)
+	
+	
 	 
-	
-    local happy = widget.newSwitch(
-		{
-			left = 40,
-			top = 210,
-			style = "radio",
-			id = "Happy",
-			initialSwitchState = false,
-			onPress = onSwitchPress,
-		
-		}
-	)
-	 radioGroup:insert(happy)
-
-	 on=happy.id
-
-	local happyText = display.newText("Happy",120, 225, "Bahnschrift SemiCondensed", 20)
-	happyText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	sceneGroup:insert(happyText)
+    Excellent = widget.newButton(
+    {
+        shape = "roundedRect",
+        left = 20,
+        top = 180,
+        id = "review",
+        label = "Happy and Relaxed",
+		value = "25",
+        onEvent = myeventListener,
+        fillColor = { default={ 0.4117647059, 0.6823529412, 0.92941176471 }, over={0,0,0} },
+        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+    )	
+	 sceneGroup:insert(Excellent)
 	
 	
-	local startedNervous = widget.newSwitch(
-		{
-			left = 40,
-			top = 250,
-			style = "radio",
-			id = "startedNervous",
-			onPress = onSwitchPress,
-		
-		}
-	)
-	 radioGroup:insert(startedNervous)
-
-	 local startedNervousText = display.newText("Started off nervous",172, 265, "Bahnschrift SemiCondensed", 20)
-	startedNervousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	sceneGroup:insert(startedNervousText)
+	good = widget.newButton(
+    {
+        shape = "roundedRect",
+        left = 20,
+        top = 240,
+        id = "review",
+        label = "Mildly Nervous",
+		value = "25",
+        onEvent = myeventListener,
+        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={0,0,0} },
+        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+    )
+	 sceneGroup:insert(good)
 	
 	
 	
-	local mildlyNervous = widget.newSwitch(
-		{
-			left = 40,
-			top = 290,
-			style = "radio",
-			id = "mildlyNervous",
-			onPress = onSwitchPress,
-		
-		}
-	)
-	 radioGroup:insert(mildlyNervous)
+	average = widget.newButton(
+    {
+        shape = "roundedRect",
+        left = 20,
+        top = 300,
+        id = "review",
+        label = "Moderately Nervous",
+		value = "25",
+        onEvent = myeventListener,
+        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647}, over={ 0,0,0 } },
+        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+    )
+    sceneGroup:insert(average)
 
-	 local mildlyNervousText = display.newText("Mildly nervous",154.5, 305, "Bahnschrift SemiCondensed", 20)
-	 mildlyNervousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	 sceneGroup:insert(mildlyNervousText)
+	poor = widget.newButton(
+    {
+        shape = "roundedRect",
+        left = 20,
+        top = 360,
+        id = "review",
+        label = "Extremely Nervous",
+		value = "25",
+        onEvent = myeventListener,
+        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 0,0,0} },
+        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+    )
+	sceneGroup:insert(poor)
+	
 
-	local moderatelyAnxious = widget.newSwitch(
-		{
-			left = 40,
-			top = 330,
-			style = "radio",
-			id = "moderatelyAnxious",
-			onPress = onSwitchPress,
-		
-		}
-	)
-	 radioGroup:insert(moderatelyAnxious)
-
-	 local extremelyAnxious = widget.newSwitch(
-		{
-			left = 40,
-			top = 370,
-			style = "radio",
-			id = "extremelyAnxious",
-			onPress = onSwitchPress,
-		
-		}
-	)
-	 radioGroup:insert(extremelyAnxious)
 
 --average:addEventListener("tap", Onclick)
 
