@@ -40,6 +40,10 @@ function scene:create( event )
     local ipAddress=params.address
 
 
+local on1
+local on2
+local on3
+local on4
 
     local function networkListener(event)
     if ( event.isError ) then
@@ -58,33 +62,142 @@ function scene:create( event )
 		local displaymail = display.newText('Email -',display.contentCenterX*0.38,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 30)
 	    displaymail:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	    sceneGroup:insert(displaymail)
-	    local displayEmail = display.newText(email,display.contentCenterX*1.2,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 24)
-	    displayEmail:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	    local displayEmail =  native.newTextField(200,100,120,30)
+	    displayEmail.placeholder = email
 	    sceneGroup:insert(displayEmail)
 		local displayame=display.newText('Name -',display.contentCenterX*0.38,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
 	    displayame:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	    sceneGroup:insert(displayame)
-		 local displayName=display.newText(firstname,display.contentCenterX*1.2,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 24)
-	    displayName:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		local displayName = native.newTextField(200,50,120,30)
+		displayName.placeholder = firstname
 	    sceneGroup:insert(displayName)
-		local displayender=display.newText('Gender -',display.contentCenterX*0.40,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 30)
-	    displayender:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	    sceneGroup:insert(displayender)
-	    local displayGender=display.newText(gender,display.contentCenterX*1.2,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 24)
-	    displayGender:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	    sceneGroup:insert(displayGender)
-		local displayge=display.newText('AgeRange -',display.contentCenterX*0.48,display.contentCenterY*0.80, "Bahnschrift SemiCondensed", 30)
+		local displayge=display.newText('AgeRange -',display.contentCenterX,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 30)
 	    displayge:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	    sceneGroup:insert(displayge)
-		local displayAge=display.newText(agerange,display.contentCenterX*1.2,display.contentCenterY*0.80, "Bahnschrift SemiCondensed", 24)
-	    displayAge:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	    sceneGroup:insert(displayAge)
-		local displayode=display.newText('Postcode -',display.contentCenterX*0.46,display.contentCenterY*1.0, "Bahnschrift SemiCondensed", 30)
+		local rGroup = display.newGroup()
+	
+	local under18 = widget.newSwitch(
+		{
+			left = 205,
+			top = 175,
+			style = "radio",
+			id = agerange,
+			initialSwitchState = true,
+			onPress = onSwitchPress
+		
+		}
+	)
+	local on2=under18.id
+	rGroup:insert( under18 )
+	sceneGroup:insert(rGroup)
+	
+	local u18 = display.newText( " > 18", display.contentCenterX*1.0, display.contentCenterY*0.80, native.systemFont, 18 )
+	u18:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	sceneGroup:insert(u18)
+	
+	local bet18to30 = widget.newSwitch(
+		{
+			left = 205,
+			top = 210,
+			style = "radio",
+			id = "bet18to30",
+			onPress = onSwitchPress
+		
+		}
+	)
+	rGroup:insert( bet18to30 )
+	
+	
+	local bet18to30 = display.newText( " 18-30 ", display.contentCenterX*1.0, display.contentCenterY*0.95, native.systemFont, 18 )
+	bet18to30:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	sceneGroup:insert(bet18to30)
+	
+	local bet30to50 = widget.newSwitch(
+		{
+			left = 205,
+			top = 245,
+			style = "radio",
+			id = "bet30to50",
+			onPress = onSwitchPress
+		
+		}
+	)
+	rGroup:insert( bet30to50 )
+	
+	
+	local bet30to50 = display.newText( " 30-50 ", display.contentCenterX*1.0, display.contentCenterY*1.10, native.systemFont, 18 )
+	bet30to50:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	sceneGroup:insert(bet30to50)
+	
+	
+	local over50 = widget.newSwitch(
+		{
+			left = 205,
+			top = 280,
+			style = "radio",
+			id = "over50",
+			onPress = onSwitchPress
+		
+		}
+	)
+	rGroup:insert( over50 )
+	
+	
+	local over50 = display.newText( " 50 + ", display.contentCenterX*1.0, display.contentCenterY*1.25, native.systemFont, 18 )
+	over50:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	sceneGroup:insert(over50)
+		local displayode=display.newText('Postcode -',display.contentCenterX*0.48,display.contentCenterY*1.45, "Bahnschrift SemiCondensed", 30)
 	    displayode:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	    sceneGroup:insert(displayode)
-		local displayCode=display.newText(postcode,display.contentCenterX*1.2,display.contentCenterY*1.0, "Bahnschrift SemiCondensed", 24)
-	    displayCode:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		local displayCode = native.newTextField(210,350,140,30)
+	    displayCode.placeholder= postcode
 	    sceneGroup:insert(displayCode)
+	
+	local function onSwitchPress( event )
+        local switch = event.target
+        if(switch.id=="under 18" or switch.id=="bet18to30" or switch.id=="bet30to50" or switch.id=="over50") then
+            on2=switch.id    
+        end
+    end
+
+local function onSwitchPress2(event)
+    local switch=event.target
+	on2=switch.id
+    end	
+
+
+
+
+		
+	 local function update ()	
+    local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"	
+	local body="Email="..displayEmail.text.."&FirstName="..displayName.text.."&AgeRange="..on2.."&OwnerID="..OwnerID.."&PostCode="..
+	displayCode.text
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.request(ipAddress.."update.php", "POST", networkListener, params)
+    	composer.gotoScene("Update",{effect = "slideLeft", time = 500, params=customParams})
+    
+end
+	
+	
+	local upProfile = widget.newButton(
+    {
+        shape = "roundedRect",
+        left = 70,
+        top = 460,
+        id = "update",
+        label = "Update",
+        onEvent = ProfileUpdate,
+        fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={  0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } }
+    }
+)
+upProfile:addEventListener("tap", update) 
+sceneGroup:insert(upProfile)
 		
 
 
@@ -137,26 +250,7 @@ bg=display.newRect(display.contentCenterX,display.contentCenterY,display.content
 	m:addEventListener("tap", menu )
 
 
- local function edit ()	
-    	 local customParams={ownerID=OwnerID,
-                        address=ipAddress}
-    	composer.gotoScene("EditProfile",{effect = "slideLeft", time = 500, params=customParams})
-    
-end
-	local EDITP = widget.newButton(
-    {
-        shape = "roundedRect",
-        left = 120,
-        top = 300,
-        id = "edit",
-        label = "Edit details",
-        onEvent = userSignUp,
-        fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={  0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } }
-    }
-)
-EDITP:addEventListener("tap", edit) 
-sceneGroup:insert(EDITP)
+
 	
 	
 	
