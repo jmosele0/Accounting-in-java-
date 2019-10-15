@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2019 at 03:16 PM
+-- Generation Time: Oct 15, 2019 at 12:32 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -27,13 +27,47 @@ USE `pawsitive behaviour`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `canineenrichment`
+--
+
+CREATE TABLE `canineenrichment` (
+  `CanineID` int(2) NOT NULL,
+  `CanineTitle` varchar(50) NOT NULL,
+  `CanineContent` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `canineenrichment`
+--
+
+INSERT INTO `canineenrichment` (`CanineID`, `CanineTitle`, `CanineContent`) VALUES
+(1, 'Intro', 'We all know we need to walk, run or play with our dogs, to help keep them physically fit and active. \r\nBut what about their brains? \r\nLike us, dogs like to use their brains on a daily basis, usually to find food or toys! Enriching your dog’s environment may also stop them from performing unwanted, destructive behaviours. \r\nUse the following tips and tricks to keep your dog’s brain active and focused. \r\n'),
+(2, 'Get rid of that food bowl!! ', 'Dogs are scavengers by nature, therefore they are built to work for their food\r\nUsing a food bowl does not enrich your dog. It does not have to think about how to get the food\r\nThere are very simple ways of providing mental stimulation to your dog during meal times\r\nThe action of licking and chewing are also  a calming behaviour\r\nKong products are amazing commercial products to feed your dog from\r\nIf your dog is new to working for their food, start simple, as you do not want them to get frustrated\r\nBeginners\r\nSmear some peanut butter or cream cheese inside your dog’s Kong\r\nIntermediates\r\nFill your dog’s Kong with biscuits and pack the end with wet food\r\nAdvanced\r\nFill the whole toy with wet food\r\nTightly pack a combination of wet and dry food\r\nFreeze your packed Kong\r\n'),
+(3, 'Make your dogs dinner interesting! ', 'Give them new foods to try in their Kong, like peanut butter, cream cheese, different types of meats, berries or different vegetables\r\n\r\nDry food Tumblers\r\nTumblers are a great way to give your dog their biscuits\r\nKong and Rogz have variations of tumblers\r\n\r\nDIY options\r\nPlace your dog’s food in a size appropriate cardboard box that they can shred up to get their food\r\nYou can also smear peanut butter or cream cheese inside the box to keep them interested\r\nPlace biscuits in muffin tins\r\nSmear peanut butter, cream cheese or Kong filler onto their plastic toys\r\n'),
+(4, 'Use that nose! ', 'Sniffing burns more calories than walking for dogs\r\nIt also provides excellent mental stimulation\r\nFor dogs that love to follow a scent, make a scent trail for then in the backyard\r\nUse juice from a tuna, salmon or wet food can\r\nKeep your dog inside, trace a scent trail around the yard \r\nPlace small pieces of food along the trail to keep your dog invested\r\nLet your dog outside and watch them work! \r\n');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
   `CatID` int(5) NOT NULL,
-  `CatDesc` varchar(200) NOT NULL
+  `CatDesc` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`CatID`, `CatDesc`) VALUES
+(8, 'Extremely Nervous'),
+(4, 'Happy and Relaxed'),
+(6, 'Mildly Nervous'),
+(7, 'Moderately Nervous '),
+(5, 'Start off nervous, but became more comfortable '),
+(9, 'uncertains');
 
 -- --------------------------------------------------------
 
@@ -55,14 +89,12 @@ CREATE TABLE `categoryexperience` (
 CREATE TABLE `dog` (
   `DogID` int(5) NOT NULL,
   `DogName` varchar(15) NOT NULL,
-  `Age` int(2) NOT NULL,
   `Breed` varchar(20) NOT NULL,
   `Sex` varchar(15) NOT NULL,
   `Desexed` varchar(15) NOT NULL,
-  `DOB` date NOT NULL,
-  `HowLongOwned` varchar(10) NOT NULL,
-  `VaccinationStatus` varchar(15) DEFAULT NULL,
-  `DogOrigin` varchar(20) DEFAULT NULL,
+  `HowLongOwned` varchar(100) NOT NULL,
+  `VacinationStatus` varchar(15) NOT NULL,
+  `DogOrigin` varchar(20) NOT NULL,
   `OwnerID` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -70,38 +102,15 @@ CREATE TABLE `dog` (
 -- Dumping data for table `dog`
 --
 
-INSERT INTO `dog` (`DogID`, `DogName`, `Age`, `Breed`, `Sex`, `Desexed`, `DOB`, `HowLongOwned`, `VaccinationStatus`, `DogOrigin`, `OwnerID`) VALUES
-(0, 'jjay', 0, 'Huskey', 'Male', '', '0000-00-00', '2019-09-01', '1', 'family', 1),
-(2, 'Pupy', 0, 'Bush Dog', 'Fem', '1', '0000-00-00', '2019-07-09', '0', 'Bush', 2),
-(3, 'waki', 0, '', '', '', '0000-00-00', '0000-00-00', '', '', 1),
-(4, 'jet', 9, 'chi', 'male', 'no', '2010-04-04', '4', 'over', 'pound', 19),
-(5, 'terry', 2, 'daschund', 'male', 'no', '2017-06-05', '2 years', 'over', 'pound', 19),
-(6, 'jeff', 8, 'german shepard', 'male', 'yes', '2011-06-06', '8 years', 'Unvaccinated', 'pound', 18),
-(7, 'max', 4, 'German Shepherd', 'male', 'yes', '2015-04-04', '4 years', 'Unvaccinated', 'pound', 18),
-(38, 'jack', 3, 'Bull mastiff', 'male', 'no', '2016-03-02', '3 years', 'Unvaccinated', 'lots', 7),
-(39, 'jack', 9, 'jack russell', 'male', 'no', '2010-04-04', '9 years', 'Unvaccinated', 'lots', 7),
-(40, 'jex', 9, 'jack russell', 'male', 'no', '2010-04-04', '9 years', 'Unvaccinated', 'lots', 7),
-(41, 'jack', 8, 'jack russell', 'male ', 'yes', '2011-01-01', '8 years', 'Unvaccinated', 'lots', 7),
-(42, 'jex', 2, 'golden retriever', 'male', 'yes', '2017-04-04', '2 years', 'Unvaccinated', 'lots', 7),
-(43, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(44, 'jeff', 4, 'golden retriever', 'male', 'yes', '2015-06-06', '4 years', 'Unvaccinated', 'lots', 7),
-(45, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(46, '', 0, '', '', 'no', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(47, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'breeder', 24),
-(48, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(49, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(50, '', 0, '', '', 'lots', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(51, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(52, '', 0, '', '', 'lots', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(53, '', 0, '', '', 'lots', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(54, '', 0, '', '', 'lots', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(55, '', 0, '', '', 'lots', '0000-00-00', '', 'Unvaccinated', 'lots', 7),
-(56, 'jack', 1, 'jack russell', 'male', 'yes', '2018-03-03', '1 year', 'over', 'pound', 7),
-(57, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'breeder', 7),
-(58, 'max', 6, 'German Shepherd', 'male', 'yes', '2013-04-04', '6 years', 'upto', 'breeder', 36),
-(59, 'max', 9, 'golden retriever', 'male', 'yes', '2010-05-05', '9 years', 'Unvaccinated', 'breeder', 37),
-(60, 'jake', 2, 'shitzu', 'male', 'no', '2017-04-04', '2 years', 'Unvaccinated', 'breeder', 37),
-(61, 'jake', 2, 'shitzu', 'male', 'no', '2017-04-04', '2 years', 'Unvaccinated', 'yes', 37);
+INSERT INTO `dog` (`DogID`, `DogName`, `Breed`, `Sex`, `Desexed`, `HowLongOwned`, `VacinationStatus`, `DogOrigin`, `OwnerID`) VALUES
+(2, 'Pupy', 'Bush Dog', 'Fem', '1', '2019-07-09', '0', 'Bush', 2),
+(3, 'waki', '', '', '', '0000-00-00', '', '', 1),
+(4, 'dog1', 'little', 'M', 'No', '0000-00-00', 'good', 'family', 7),
+(5, 'dog2', 'little', 'F', 'no', '0000-00-00', 'good', 'family', 8),
+(6, 'dog3', 'LITTL', 'M', 'No', '0000-00-00', 'good', 'fam', 9),
+(7, 'dog4', 'little', 'f', 'no', '0000-00-00', 'good', 'fam', 10),
+(8, 'dog5', 'LITTLE', 'M', 'NO', '0000-00-00', 'GOOD', 'FAM', 11),
+(9, 'dog no 6', 'huskey', 'male', 'No', 'been a few months', 'good', 'family', 12);
 
 -- --------------------------------------------------------
 
@@ -118,24 +127,6 @@ CREATE TABLE `dogfamily` (
   `DogID` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `dogfamily`
---
-
-INSERT INTO `dogfamily` (`DogFamilyID`, `Adults`, `Children`, `OtherDogs`, `OtherAnimals`, `DogID`) VALUES
-(23, 'adults', 'children', '', '', 39),
-(24, 'adults', '', '', '', 40),
-(25, 'adults', '', '', '', 41),
-(26, 'adults', '', '', '', 42),
-(27, 'adults', '', '', '', 43),
-(28, 'adults', 'children', '', '', 44),
-(29, 'adults', 'children', '', '', 57),
-(30, 'adults', 'children', '', '', 57),
-(31, 'adults', 'children', '', '', 58),
-(32, 'adults', '', '', '', 59),
-(33, 'adults', '', '', '', 60),
-(34, 'adults', '', '', '', 60);
-
 -- --------------------------------------------------------
 
 --
@@ -146,8 +137,15 @@ CREATE TABLE `doglikedislike` (
   `LikeDislikeID` int(5) NOT NULL,
   `DogID` int(5) NOT NULL,
   `Subject` varchar(200) NOT NULL,
-  `LikeOrDislike` varchar(7) NOT NULL
+  `LikeOrDislike` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `doglikedislike`
+--
+
+INSERT INTO `doglikedislike` (`LikeDislikeID`, `DogID`, `Subject`, `LikeOrDislike`) VALUES
+(1, 5, '', 'food and toys');
 
 -- --------------------------------------------------------
 
@@ -157,9 +155,10 @@ CREATE TABLE `doglikedislike` (
 
 CREATE TABLE `experience` (
   `ExperienceID` int(5) NOT NULL,
-  `ExperienceName` varchar(50) NOT NULL,
+  `ExperienceName` varchar(200) NOT NULL,
   `ExperienceNotes` varchar(200) NOT NULL,
-  `DogID` int(5) NOT NULL
+  `DogID` int(5) NOT NULL,
+  `CatDesc` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -170,41 +169,95 @@ CREATE TABLE `experience` (
 
 CREATE TABLE `generalinfo` (
   `InfoID` int(5) NOT NULL,
-  `KnowledgeOfBreed` varchar(4) NOT NULL,
-  `ParentSiblingSighted` varchar(15) DEFAULT NULL,
-  `PersonalityConcerns` varchar(200) DEFAULT NULL,
-  `FirstMet` varchar(200) DEFAULT NULL,
-  `WhyThatName` varchar(200) DEFAULT NULL,
+  `ParentSiblingSighted` varchar(15) NOT NULL,
+  `PersonalityConcerns` varchar(200) NOT NULL,
+  `FirstMet` varchar(200) NOT NULL,
+  `WhyThatName` varchar(200) NOT NULL,
   `DogID` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `generalinfo`
+-- Table structure for table `logs`
 --
 
-INSERT INTO `generalinfo` (`InfoID`, `KnowledgeOfBreed`, `ParentSiblingSighted`, `PersonalityConcerns`, `FirstMet`, `WhyThatName`, `DogID`) VALUES
-(30, 'lots', NULL, NULL, NULL, NULL, 39),
-(31, 'lots', NULL, NULL, NULL, NULL, 40),
-(32, 'lots', NULL, NULL, NULL, NULL, 41),
-(33, 'lots', 'yes', 'Friendly', 'friendly', 'came', 42),
-(34, 'lots', NULL, NULL, NULL, NULL, 43),
-(35, 'lots', 'yes', 'Friendly', 'friendly', 'came', 44),
-(36, 'lots', NULL, NULL, NULL, NULL, 45),
-(37, 'lots', NULL, NULL, NULL, NULL, 46),
-(38, 'lots', NULL, NULL, NULL, NULL, 47),
-(39, 'lots', NULL, NULL, NULL, NULL, 48),
-(40, 'lots', NULL, NULL, NULL, NULL, 49),
-(41, 'lots', NULL, NULL, NULL, NULL, 51),
-(42, 'lots', NULL, NULL, NULL, NULL, 51),
-(43, 'lots', NULL, NULL, NULL, NULL, 51),
-(44, 'lots', NULL, NULL, NULL, NULL, 51),
-(45, 'lots', NULL, NULL, NULL, NULL, 0),
-(46, 'lots', 'yes', 'Friendly', 'friendly', 'came', 57),
-(47, 'yes', 'yes', 'Friendly', 'friendly', 'came', 57),
-(48, 'lots', 'yes', 'Friendly', 'friendly', 'came', 58),
-(49, 'lots', 'yes', 'Friendly', 'friendly', 'came', 59),
-(50, 'lots', 'yes', 'Friendly', 'friendly', 'came', 60),
-(51, 'yes', 'yes', 'Friendly', 'friendly', 'came', 60);
+CREATE TABLE `logs` (
+  `log_id` int(5) NOT NULL,
+  `log_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `log_action` varchar(30) NOT NULL,
+  `log_details` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`log_id`, `log_time`, `log_action`, `log_details`) VALUES
+(1, '2019-10-02 05:55:44', 'Searched User', 'Term user was searched.'),
+(2, '2019-10-02 06:08:05', 'Searched User', 'Term user was searched.'),
+(3, '2019-10-02 06:09:14', 'Added User', 'User profile with Email: user@id8.com was Added.'),
+(4, '2019-10-02 07:01:45', 'Searched Dog', 'Term dog was searched.'),
+(5, '2019-10-02 07:39:23', 'Searched Dog', 'Term dog was searched.'),
+(6, '2019-10-02 07:39:34', 'Searched User', 'Term user was searched.'),
+(7, '2019-10-02 07:41:08', 'Viewed Profile', 'User profile with OwnerID: 12 was viewed.'),
+(8, '2019-10-03 07:10:49', 'Successful login', 'user logged in'),
+(9, '2019-10-03 07:12:15', 'Searched User', 'Term user was searched.'),
+(10, '2019-10-03 07:12:24', 'Viewed Profile', 'User profile with OwnerID: 13 was viewed.'),
+(11, '2019-10-03 07:13:04', 'Viewed Profile', 'User profile with OwnerID: 13 was viewed.'),
+(12, '2019-10-03 07:13:11', 'Searched User', 'Term user was searched.'),
+(13, '2019-10-04 13:52:43', 'Successful login', 'user logged in'),
+(14, '2019-10-04 13:53:09', 'Searched User', 'Term user7@id.com was searched.'),
+(15, '2019-10-04 13:57:25', 'Searched User', 'Term user7@id.com was searched.'),
+(16, '2019-10-04 13:58:41', 'Searched User', 'Term user7@id.com was searched.'),
+(17, '2019-10-04 13:59:28', 'Searched User', 'Term user7@id.com was searched.'),
+(18, '2019-10-04 14:02:09', 'Searched User', 'Term user7@id.com was searched.'),
+(19, '2019-10-04 14:03:13', 'Searched User', 'Term user7@id.com was searched.'),
+(20, '2019-10-04 14:03:45', 'Searched User', 'Term user7@id.com was searched.'),
+(21, '2019-10-04 14:03:47', 'Searched User', 'Term user7@id.com was searched.'),
+(22, '2019-10-04 14:04:52', 'Searched User', 'Term user7@id.com was searched.'),
+(23, '2019-10-04 14:05:23', 'Searched User', 'Term user7@id.com was searched.'),
+(24, '2019-10-04 14:07:31', 'Searched User', 'Term user7@id.com was searched.'),
+(25, '2019-10-04 14:14:59', 'Searched User', 'Term user7@id.com was searched.'),
+(26, '2019-10-04 14:15:24', 'Searched User', 'Term user7@id.com was searched.'),
+(27, '2019-10-04 14:16:33', 'Searched User', 'Term user7@id.com was searched.'),
+(28, '2019-10-04 14:16:51', 'Searched User', 'Term user7@id.com was searched.'),
+(29, '2019-10-04 14:17:09', 'Searched User', 'Term user7@id.com was searched.'),
+(30, '2019-10-04 14:19:20', 'Searched User', 'Term usr was searched.'),
+(31, '2019-10-04 14:19:46', 'Searched User', 'Term user was searched.'),
+(32, '2019-10-06 14:30:59', 'Successful login', 'user logged in'),
+(33, '2019-10-06 14:31:09', 'Searched User', 'Term user7@id.com was searched.'),
+(34, '2019-10-06 14:31:55', 'Searched User', 'Term user7@id.com was searched.'),
+(35, '2019-10-06 14:42:56', 'Searched User', 'Term user7@id.com was searched.'),
+(36, '2019-10-06 14:51:10', 'Searched User', 'Term user7@id.com was searched.'),
+(37, '2019-10-06 14:51:33', 'Searched User', 'Term user was searched.'),
+(38, '2019-10-06 15:13:27', 'Searched Dog', 'Term dog was searched.'),
+(39, '2019-10-06 15:15:18', 'Searched Dog', 'Term dog was searched.'),
+(40, '2019-10-06 15:18:41', 'Searched Dog', 'Term dog was searched.'),
+(41, '2019-10-06 15:30:00', 'Searched Dog', 'Term food was searched.'),
+(42, '2019-10-06 15:32:59', 'Searched Dog', 'Term f was searched.'),
+(43, '2019-10-06 15:36:08', 'Searched Dog', 'Term good was searched.'),
+(44, '2019-10-08 13:20:15', 'Successful login', 'user logged in'),
+(45, '2019-10-08 14:19:38', 'Searched Dog', 'Term happy was searched.'),
+(46, '2019-10-08 14:28:26', 'Searched Dog', 'Term happy was searched.'),
+(47, '2019-10-08 14:29:48', 'Searched Dog', 'Term happy was searched.'),
+(48, '2019-10-09 04:47:56', 'Successful login', 'user logged in'),
+(49, '2019-10-09 06:12:19', 'Successful login', 'user logged in'),
+(50, '2019-10-10 06:34:20', 'Successful login', 'user logged in'),
+(51, '2019-10-10 06:35:04', 'Searched User', 'Term user was searched.'),
+(52, '2019-10-10 06:48:10', 'Searched User', 'Term user was searched.'),
+(53, '2019-10-10 07:14:33', 'Viewed Profile', 'User profile with OwnerID: 14 was viewed.'),
+(54, '2019-10-12 05:26:20', 'Successful login', 'user logged in'),
+(55, '2019-10-12 05:27:14', 'Searched User', 'Term user was searched.'),
+(56, '2019-10-12 05:27:18', 'Viewed Profile', 'User profile with OwnerID: 9 was viewed.'),
+(57, '2019-10-12 05:28:27', 'Searched User', 'Term user was searched.'),
+(58, '2019-10-12 05:28:31', 'Viewed Profile', 'User profile with OwnerID: 14 was viewed.'),
+(59, '2019-10-12 05:28:52', 'Edited Profile', 'User profile with Email: user@id8.com was updated.'),
+(60, '2019-10-12 05:28:59', 'Searched User', 'Term user was searched.'),
+(61, '2019-10-12 05:29:03', 'Viewed Profile', 'User profile with OwnerID: 14 was viewed.'),
+(62, '2019-10-14 14:57:57', 'Successful login', 'user logged in'),
+(63, '2019-10-14 16:26:09', 'Searched User', 'Term user was searched.'),
+(64, '2019-10-14 16:27:36', 'Searched User', 'Term user was searched.');
 
 -- --------------------------------------------------------
 
@@ -216,64 +269,67 @@ CREATE TABLE `owner` (
   `OwnerID` int(5) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `FirstName` varchar(20) NOT NULL,
+  `LastName` varchar(30) DEFAULT NULL,
   `Gender` varchar(15) NOT NULL,
-  `Couple` varchar(15) DEFAULT NULL,
+  `Couple` varchar(15) NOT NULL,
   `AgeRange` varchar(8) NOT NULL,
   `PostCode` int(2) NOT NULL,
-  `PrePets` varchar(15) DEFAULT NULL,
-  `PrePetsList` varchar(100) DEFAULT NULL,
-  `ObedientDog` varchar(15) DEFAULT NULL,
-  `ExpectedOutcomes` varchar(100) DEFAULT NULL,
-  `password` varchar(256) NOT NULL
+  `PrePets` varchar(15) NOT NULL,
+  `PrePetsList` varchar(100) NOT NULL,
+  `ObiedientDog` varchar(50) NOT NULL,
+  `ExpectedOutcomes` varchar(100) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `joining_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `owner`
 --
 
-INSERT INTO `owner` (`OwnerID`, `Email`, `FirstName`, `Gender`, `Couple`, `AgeRange`, `PostCode`, `PrePets`, `PrePetsList`, `ObedientDog`, `ExpectedOutcomes`, `password`) VALUES
-(1, 'mail@mail.com', 'nnewuser', 'female', '1', '35', 3422, '1', 'dog, cat, hasmster', 'ObidientDog', 'trained dog', 'password'),
-(2, 'email@mail.com', 'Name', 'Fem', '0', '24', 3423, '0', 'None', 'ObidientDog', 'a disiplined dog', 'password'),
-(3, 'emailme@mail.com', '', '', '', '', 0, '', '', '', '', '$2y$10$xUDWlsWHTSpfp1MDP7TSeeh4k.wwnmA7PPryq2jqDaYM3ecSCJE7u'),
-(4, 'sdfsdf@mail.com', '', '', '', '', 0, '', '', '', '', '$2y$10$CG/lX4oUoIKq.zTlEUyC5eUgL6mYMwTv5w/6YISmJzWS6N2//OVCy'),
-(5, 'newuser@mail.com', '', '', '', '', 42423, '', '', '', '', '$2y$10$6F2FVrIHXskcuZGuQi8NIefBJyB3V/h18vjZ4yB/Gh1BwjeGG9Z.W'),
-(6, 'jmail@mail.com', 'Newuser', 'Male', '1', '35', 3422, '1', 'dog, cat, hasmster', 'ObidientDog', 'trained dog', ''),
-(7, 'Jack@mail.com', 'Jack', 'Male', NULL, '18-30', 2234, 'no', 'nein', 'walks without a', 'Doesn\'t jump up on people', 'jack1012'),
-(8, 'Jack@gmail.com', 'Jack', 'Male', NULL, '18-30', 2234, 'no', 'nein', 'walks without a', 'Doesn\'t jump up on people', 'jack1012'),
-(9, 'Jack@ggmail.com', 'Jack', 'Male', NULL, '18-30', 0, 'no', 'nein', 'walks without a', 'Doesn\'t jump up on people', 'jack1012'),
-(14, 'jeff@mail.com', 'jeffrey', 'male', NULL, 'bet18to3', 9988, NULL, NULL, NULL, NULL, 'jeff1012'),
-(15, 'Jack@dmail.com', 'Jack', 'Male', NULL, '18-30', 0, 'no', 'nein', 'walks without a', 'Doesn\'t jump up on people', 'jack1012'),
-(16, 'Jack@amail.com', 'Jack', 'Male', NULL, '18-30', 0, 'no', 'nein', 'walks without a', 'Doesn\'t jump up on people', 'jack1012'),
-(17, 'jack@geomail.com', 'jack', 'male', NULL, 'bet18to3', 9878, NULL, NULL, NULL, NULL, 'jack1012'),
-(18, 'jeff@male.com', 'jeff', 'male', NULL, 'over50', 5004, 'no', 'dogs', 'basic', 'dogout', 'jeff1012'),
-(19, 'jack@lemony.com', 'jack', 'male', NULL, 'bet18to3', 9999, 'no', 'dogs', 'basic', 'dogout', 'jack1012'),
-(20, 'jack@bail.com', 'jack', 'male', NULL, 'bet18to3', 5544, 'no', 'dogs', 'basic', 'dogout', 'jack1012'),
-(22, 'jeck@mail.com', 'jeck', 'male', NULL, 'bet18to3', 4444, 'no', 'dogs', 'basic', 'dogout', 'jeck1012'),
-(23, 'j', 'j', 'female', NULL, 'bet18to3', 8, NULL, NULL, NULL, NULL, 'j'),
-(24, 'jas@mail.com', 'jasmine', 'female', NULL, 'bet18to3', 3333, 'no', 'cats', 'basic', 'dogout', 'jas1012'),
-(25, 'u', 'u', 'female', NULL, 'under 18', 9, 'no', 'dogs', 'basic', 'dogout', 'u'),
-(26, 'i', 'i', 'female', NULL, 'under 18', 8, 'no', 'dogs', 'basic', 'dogout', 'i'),
-(27, 'jj', 'i', 'female', NULL, 'under 18', 8, 'no', 'dogs', 'basic', 'dogout', 'o'),
-(28, 'o', 'o', 'female', NULL, 'under 18', 9, 'no', 'dogs', 'basic', 'dogout', 'o'),
-(29, 'r', 'i', 'female', NULL, 'under 18', 6, 'no', 'dogs', 'basic', 'dogout', 'y'),
-(30, 'jack@gail.com', 'jack', 'male', NULL, 'bet18to3', 7878, 'no', 'dogs', 'basic', 'dogout', 'jack1012'),
-(31, 'jerry@springer.com', 'jerry', 'male', NULL, 'over50', 9999, 'no', 'dogs', 'basic', 'dogout', 'jerry1012'),
-(32, 'oo', 'oo', 'female', NULL, 'under 18', 99, 'no', 'dogs', 'basic', 'dogout', 'oo'),
-(33, 't', 'i', 'female', NULL, 'under 18', 0, 'no', 'dogs', 'basic', 'dogout', 'u'),
-(34, 'tr', 'ii', 'female', NULL, 'under 18', 0, 'yes', 'dogs', 'listens', 'dogout', 'ii'),
-(35, 'yy', 'yy', 'female', NULL, 'under 18', 88, 'yes', 'cats', 'jump', 'willlistens', 'yy'),
-(36, 'jackie@mail.com', 'jackie', 'female', NULL, 'under 18', 8888, 'no', 'dogs', 'basic', 'dogout', 'jack1012'),
-(37, 'jack@jackk.com', 'jack', 'female', NULL, 'under 18', 5555, 'no', 'dogs', 'basic', 'dogout', 'jack1012');
+INSERT INTO `owner` (`OwnerID`, `Email`, `FirstName`, `LastName`, `Gender`, `Couple`, `AgeRange`, `PostCode`, `PrePets`, `PrePetsList`, `ObiedientDog`, `ExpectedOutcomes`, `password`, `joining_date`) VALUES
+(1, 'mail@mail.com', 'nnewuser', NULL, 'female', '1', '35', 3422, '1', 'dog, cat, hasmster', 'ObidientDog', 'trained dog', 'password', '2019-09-24 15:47:36'),
+(2, 'email@mail.com', 'Name', NULL, 'Fem', '0', '24', 3423, '0', 'None', 'ObidientDog', 'a disiplined dog', 'password', '2019-09-24 15:47:36'),
+(3, 'emailme@mail.com', '', NULL, '', '', '', 0, '', '', '', '', '$2y$10$xUDWlsWHTSpfp1MDP7TSeeh4k.wwnmA7PPryq2jqDaYM3ecSCJE7u', '2019-09-24 15:47:36'),
+(4, 'sdfsdf@mail.com', '', NULL, '', '', '', 0, '', '', '', '', '$2y$10$CG/lX4oUoIKq.zTlEUyC5eUgL6mYMwTv5w/6YISmJzWS6N2//OVCy', '2019-09-24 15:47:36'),
+(5, 'newuser@mail.com', '', NULL, '', '', '', 42423, '', '', '', '', '$2y$10$6F2FVrIHXskcuZGuQi8NIefBJyB3V/h18vjZ4yB/Gh1BwjeGG9Z.W', '2019-09-24 15:47:36'),
+(7, 'user@id.com', 'user1', NULL, 'gender1', 'yes', '18-30', 24234, 'yes', 'cats, dogs', 'yes', 'listen commands', '$2y$10$wNSEUPwpT1hkTIZegQFr7uVZSfptyJsrz06dcmcMb2w8VBO8vsEIy', '2019-09-25 04:25:54'),
+(8, 'user2@id.com', 'user2', NULL, 'male', 'no', '30+', 242, 'no', '', 'yes', 'listen', '$2y$10$vktM5O6JqR1KaKVuuOTptuLuP2qoSf0OstOdxc.pbrDspkxtcxIlm', '2019-09-25 04:26:59'),
+(9, 'user3@id.com', 'user3', NULL, 'female', 'yes', '30+', 2342, 'yes', 'dog', 'yes', 'listen', '$2y$10$B7OZa18fUv02.xIu.okNT.36fHPs/RSscGd3H.d4fvrexNclf.s/K', '2019-09-25 04:27:40'),
+(10, 'user4@id.com', 'user4', NULL, 'male', 'yes', '20+', 24234, 'yes', 'bird', 'yes', 'listen', '$2y$10$qn/bTPvR1as9TpQ4.CpIsuIDkAIUEU9sJs2k6eDkbkG7VCeDCjg3G', '2019-09-25 04:28:23'),
+(11, 'user5@id.com', 'user5', NULL, 'MALE', 'yes', '20+', 4243, 'yes', 'cats', 'yes', 'listen', '$2y$10$ZH2aHQCBuMnwdv9P7bZH4uxyptajV2GJObE1VRO1bgObLevw1vbOi', '2019-09-25 04:29:12'),
+(12, 'user6@id.com', 'user6', '', 'yes', '', '30 - 50', 2234, 'No', '', 'Walks on the le', 'listen', '$2y$10$622NZRSwUzA.D86xkqEtbuZOnAcczWforL.VEi0be2hBPuxZFftui', '2019-09-25 07:49:19'),
+(13, 'user7@id.com', 'user 7', 'user', 'male', 'yes', '18 - 30', 2423, 'Yes', 'all kinds', 'Does not Jump up on people', 'user 7', '$2y$10$GHI5CSQnB4JB54xk7yu.AOMTopAOXh5tQGCSTIz7MssP6TYEx0S7q', '2019-09-30 11:35:48'),
+(14, 'user@id8.com', 'user8', 'LastName', 'yes', '', '18 - 30', 2432, 'Yes', 'lots of pets', 'Walks on the lead well', 'user8', '$2y$10$gSczvVskxO.Lf9JSfX6Vw.Bo82A5N.42BVxRriSEFa0q290jq94pa', '2019-10-02 06:09:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `training`
+--
+
+CREATE TABLE `training` (
+  `trainingID` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `content` tinytext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `canineenrichment`
+--
+ALTER TABLE `canineenrichment`
+  ADD PRIMARY KEY (`CanineID`),
+  ADD UNIQUE KEY `CanineTitle` (`CanineTitle`);
+
+--
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
-  ADD PRIMARY KEY (`CatID`);
+  ADD PRIMARY KEY (`CatID`),
+  ADD UNIQUE KEY `CatDesc` (`CatDesc`);
 
 --
 -- Indexes for table `categoryexperience`
@@ -308,7 +364,8 @@ ALTER TABLE `doglikedislike`
 --
 ALTER TABLE `experience`
   ADD PRIMARY KEY (`ExperienceID`),
-  ADD KEY `DogID` (`DogID`);
+  ADD KEY `DogID` (`DogID`),
+  ADD KEY `CatDesc` (`CatDesc`);
 
 --
 -- Indexes for table `generalinfo`
@@ -318,36 +375,52 @@ ALTER TABLE `generalinfo`
   ADD KEY `DogID` (`DogID`);
 
 --
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`log_id`);
+
+--
 -- Indexes for table `owner`
 --
 ALTER TABLE `owner`
-  ADD PRIMARY KEY (`OwnerID`),
-  ADD UNIQUE KEY `Email` (`Email`);
+  ADD PRIMARY KEY (`OwnerID`);
+
+--
+-- Indexes for table `training`
+--
+ALTER TABLE `training`
+  ADD PRIMARY KEY (`trainingID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `canineenrichment`
+--
+ALTER TABLE `canineenrichment`
+  MODIFY `CanineID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `CatID` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `CatID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `dog`
 --
 ALTER TABLE `dog`
-  MODIFY `DogID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `DogID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `dogfamily`
 --
 ALTER TABLE `dogfamily`
-  MODIFY `DogFamilyID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `DogFamilyID` int(5) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `doglikedislike`
 --
 ALTER TABLE `doglikedislike`
-  MODIFY `LikeDislikeID` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `LikeDislikeID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `experience`
 --
@@ -357,27 +430,32 @@ ALTER TABLE `experience`
 -- AUTO_INCREMENT for table `generalinfo`
 --
 ALTER TABLE `generalinfo`
-  MODIFY `InfoID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `InfoID` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `log_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `owner`
 --
 ALTER TABLE `owner`
-  MODIFY `OwnerID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `OwnerID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `training`
+--
+ALTER TABLE `training`
+  MODIFY `trainingID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `category`
---
-ALTER TABLE `category`
-  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`CatID`) REFERENCES `categoryexperience` (`CatID`);
-
---
 -- Constraints for table `categoryexperience`
 --
 ALTER TABLE `categoryexperience`
-  ADD CONSTRAINT `categoryexperience_ibfk_1` FOREIGN KEY (`ExperienceID`) REFERENCES `experience` (`ExperienceID`);
+  ADD CONSTRAINT `categoryexperience_ibfk_1` FOREIGN KEY (`CatID`) REFERENCES `category` (`CatID`),
+  ADD CONSTRAINT `categoryexperience_ibfk_2` FOREIGN KEY (`ExperienceID`) REFERENCES `experience` (`ExperienceID`);
 
 --
 -- Constraints for table `dog`
@@ -401,7 +479,8 @@ ALTER TABLE `doglikedislike`
 -- Constraints for table `experience`
 --
 ALTER TABLE `experience`
-  ADD CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`DogID`) REFERENCES `dog` (`DogID`);
+  ADD CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`DogID`) REFERENCES `dog` (`DogID`),
+  ADD CONSTRAINT `experience_ibfk_2` FOREIGN KEY (`CatDesc`) REFERENCES `category` (`CatDesc`);
 
 --
 -- Constraints for table `generalinfo`
