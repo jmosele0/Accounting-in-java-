@@ -38,7 +38,7 @@ function scene:create( event )
 
 
 	
-	display.setDefault( "background", 0.26666666666, 0.44705882352 ,0.76862745098  )
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
 	--Adding Message
 	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
@@ -56,7 +56,7 @@ function scene:create( event )
 			horizontalScrollDisabled = true,
 			verticalScrollDisabled = false,
 			listener = scrollListener,
-			backgroundColor = {0.26666666666, 0.44705882352 ,0.76862745098 },
+			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647 },
 		}
 	)
 	sceneGroup:insert(scrollView)
@@ -65,7 +65,6 @@ function scene:create( event )
 	scrollView:insert(txt)
 	
 	local Gp = display.newGroup()
-	Gp.alpha=0.4
 	
 	local fadults = widget.newSwitch(
 		{

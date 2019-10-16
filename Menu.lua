@@ -55,7 +55,7 @@ end
 end 
 
  local function hyperLink()
-  system.openURL("https://www.youtube.com/channel/UCY_FKzvY-gmO-wOMmI9xAZg/featured?disable_polymer=1")
+  composer.gotoScene("channel",{effect = "slideLeft", time = 500})
 end
  
 -- create()

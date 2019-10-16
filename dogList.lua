@@ -35,8 +35,7 @@ function scene:create( event )
     local ipAddress=params.address
     local x=0
 
-    display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
-
+    display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 ) 
 
     local function dog()
       local customParams={OwnerID=OwnerID,

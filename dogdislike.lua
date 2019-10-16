@@ -14,6 +14,11 @@ local widget = require ("widget")
 local json=require("json")
 
 
+local OwnerID
+local ipAddress
+local DogID
+
+
 local function onSwitchPress( event )
     local switch = event.target
     if (switch.disabled==true and switch.isOn==false) then
@@ -30,8 +35,10 @@ local function networkListener(event)
     	if (event.response=='-1') then
     		print("error inserting details")
 	    else
-	    	print("yes")
-	        print(event.response) 	
+	        local customParams={address=ipAddress,
+	                            ownerID=OwnerID,
+	                            dogID=DogID} 
+	        composer.gotoScene("dogProfile6",{effect = "slideLeft", time = 500, params=customParams})                    	
 	    end
     end
 end
@@ -67,8 +74,6 @@ local function submit(event)
         end
     end
 
-	print(dislike)
-	print (str2)	
 	local body="doglikes="..str.."&dogdislikes="..str2.."&DogID="..button.dog
 	local params = {}
     params.headers = headers
@@ -89,13 +94,15 @@ end
 -- -----------------------------------------------------------------------------------
  
 -- create()
+
+
 function scene:create( event )
  
     local sceneGroup = self.view
     local params=event.params
-    local OwnerID=params["OwnerID"]
-    local ipAddress=params["address"]
-    local DogID=params["dogID"]
+    OwnerID=params["OwnerID"]
+    ipAddress=params["address"]
+    DogID=params["dogID"]
     local textX={124.8, 128, 126.4, 134.4, 118.4, 124.8, 121.6, 126.4, 108.8, 84, 86.4, 88}
     local textY=64.8
     local radioX=262
@@ -104,7 +111,7 @@ function scene:create( event )
     "Other animals", "New situations", "Swimming", "Toys", "Fetch", "Food"}
 
 	
-	display.setDefault( "background", 0.26666666666, 0.44705882352 ,0.76862745098  )
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
 	--Adding Message
 	local msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.1, "Forte", 30)
@@ -129,7 +136,7 @@ function scene:create( event )
 			horizontalScrollDisabled = true,
 			verticalScrollDisabled = false,
 			listener = scrollListener,
-			backgroundColor = {0.26666666666, 0.44705882352 ,0.76862745098 },
+			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647 },
 		}
 	)
 
