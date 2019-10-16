@@ -23,7 +23,7 @@ local function networkListener(event)
 	    customParams={dogID=DogID,
 	                  address=ipAddress,
 	                  ownerID=OwnerID}
-	    composer.gotoScene("doglike",{effect = "slideLeft", time = 500, params=customParams})
+	    composer.gotoScene("dogProfile6",{effect = "slideLeft", time = 500, params=customParams})
     end
 end
 

@@ -22,9 +22,6 @@ local function home ()
 	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
 end 
 
-
-
-
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -41,43 +38,38 @@ function scene:create( event )
     local params=event.params
     local OwnerID=params.ownerID
     local ipAddress=params.address
-    local email=params.email
-    local firstname=params.firstname
-    local gender=params.gender
-    local agerange=params.agerange
-    local postcode=params.postcode
+
 
 local on1
+local on2
+local on3
+local on4
 
-local function onSwitchPress(event)
-    local switch=event.target
-	on1=switch.id
-    end	
-
-
-
- display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
-	
-	
-local bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-	bg:setFillColor(255,255,255)
-	sceneGroup:insert(bg)
-	
-	local bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
-	bgr:setFillColor(255,255,255)
-	sceneGroup:insert(bgr)
-  
+    local function networkListener(event)
+    if ( event.isError ) then
+        print( "Network error: ", event.response )
+    elseif (event.response=="-1") then
+	    print ("error inserting details")
+	else    
+		print(event.response)
+	    local details=json.decode(event.response)
+	    local email=details.Email
+	    print (email)
+	    local firstname=details.FirstName
+	    local gender=details.Gender
+	    local agerange=details.AgeRange
+	    local postcode=details.PostCode
 		local displaymail = display.newText('Email -',display.contentCenterX*0.38,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 30)
 	    displaymail:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	    sceneGroup:insert(displaymail)
 	    local displayEmail =  native.newTextField(200,100,120,30)
-	    displayEmail.text = email
+	    displayEmail.placeholder = email
 	    sceneGroup:insert(displayEmail)
 		local displayame=display.newText('Name -',display.contentCenterX*0.38,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
 	    displayame:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	    sceneGroup:insert(displayame)
 		local displayName = native.newTextField(200,50,120,30)
-		displayName.text = firstname
+		displayName.placeholder = firstname
 	    sceneGroup:insert(displayName)
 		local displayge=display.newText('AgeRange -',display.contentCenterX,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 30)
 	    displayge:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
@@ -95,7 +87,7 @@ local bg=display.newRect(display.contentCenterX,display.contentCenterY,display.c
 		
 		}
 	)
-	on1=under18.id
+	local on2=under18.id
 	rGroup:insert( under18 )
 	sceneGroup:insert(rGroup)
 	
@@ -158,46 +150,36 @@ local bg=display.newRect(display.contentCenterX,display.contentCenterY,display.c
 	    displayode:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	    sceneGroup:insert(displayode)
 		local displayCode = native.newTextField(210,350,140,30)
-	    displayCode.text= postcode
+	    displayCode.placeholder= postcode
 	    sceneGroup:insert(displayCode)
 	
+	local function onSwitchPress( event )
+        local switch = event.target
+        if(switch.id=="under 18" or switch.id=="bet18to30" or switch.id=="bet30to50" or switch.id=="over50") then
+            on2=switch.id    
+        end
+    end
 
-   
+local function onSwitchPress2(event)
+    local switch=event.target
+	on2=switch.id
+    end	
 
-    local function networkListener(event)
-    	 if ( event.isError ) then
-              print( "Network error: ", event.response )
-         elseif (event.response=="-1") then
-	          print ("error inserting details")
-	     else 
-	     	  displayEmail:removeSelf()
-	     	  displayEmail=nil
-	     	  displayName:removeSelf()
-	     	  displayName=nil
-	     	  displayCode:removeSelf()
-	     	  displayCode=nil
-	     	  composer.removeScene("Profile")
-	     	  local customParams={ownerID=OwnerID,
-	     	                      address=ipAddress}
-	          composer.gotoScene("Profile", {params=customParams}) 
-	          composer.removeScene("EditProfile")  
-	     end
-	end          
 
 
 
 		
-	local function update ()	
+	 local function update ()	
     local headers = {}
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     headers["Accept-Language"] = "en-US"	
-	local body="Email="..displayEmail.text.."&FirstName="..displayName.text.."&AgeRange="..on1.."&OwnerID="..OwnerID.."&PostCode="..
+	local body="Email="..displayEmail.text.."&FirstName="..displayName.text.."&AgeRange="..on2.."&OwnerID="..OwnerID.."&PostCode="..
 	displayCode.text
 	local params = {}
     params.headers = headers
     params.body = body
 	network.request(ipAddress.."update.php", "POST", networkListener, params)
-    	
+    	composer.gotoScene("Update",{effect = "slideLeft", time = 500, params=customParams})
     
 end
 	
@@ -219,11 +201,44 @@ sceneGroup:insert(upProfile)
 		
 
 
+end
+end
+
+
+
+local function loadData(Id)
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"	
+	local body="OwnerID="..Id
+	local params = {}
+    params.headers = headers
+    params.body = body
+	network.request( ipAddress.."select_profile.php", "POST", networkListener, params)
+end
+
+
+
+
+
+    loadData(OwnerID)
+
+
 
 
     --print(name)
 
 	--adding background
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
+	
+	
+bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
+	bg:setFillColor(255,255,255)
+	sceneGroup:insert(bg)
+	
+	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
+	bgr:setFillColor(255,255,255)
+	sceneGroup:insert(bgr)
 	
 	--Adding Welcome Message
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)

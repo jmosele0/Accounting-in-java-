@@ -39,11 +39,6 @@ function scene:create( event )
     local OwnerID=params.ownerID
     local ipAddress=params.address
 
-    local email
-    local firstname
-    local gender
-    local agerange
-    local postcode
 
 
     local function networkListener(event)
@@ -53,13 +48,13 @@ function scene:create( event )
 	    print ("error inserting details")
 	else    
 		print(event.response)
-	    details=json.decode(event.response)
-	    email=details.Email
+	    local details=json.decode(event.response)
+	    local email=details.Email
 	    print (email)
-	    firstname=details.FirstName
-	    gender=details.Gender
-	    agerange=details.AgeRange
-	    postcode=details.PostCode
+	    local firstname=details.FirstName
+	    local gender=details.Gender
+	    local agerange=details.AgeRange
+	    local postcode=details.PostCode
 		local displaymail = display.newText('Email -',display.contentCenterX*0.38,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 30)
 	    displaymail:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	    sceneGroup:insert(displaymail)
@@ -118,13 +113,10 @@ end
 
 
 
-
-
-
     --print(name)
 
 	--adding background
-
+	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
 	
 bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
@@ -134,8 +126,6 @@ bg=display.newRect(display.contentCenterX,display.contentCenterY,display.content
 	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
 	bgr:setFillColor(255,255,255)
 	sceneGroup:insert(bgr)
-
-	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
 	--Adding Welcome Message
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
@@ -149,12 +139,7 @@ bg=display.newRect(display.contentCenterX,display.contentCenterY,display.content
 
  local function edit ()	
     	 local customParams={ownerID=OwnerID,
-                        address=ipAddress,
-                        email=email,
-                        firstname=firstname,
-                        gender=gender,
-                        agerange=agerange,
-                        postcode=postcode}
+                        address=ipAddress}
     	composer.gotoScene("EditProfile",{effect = "slideLeft", time = 500, params=customParams})
     
 end

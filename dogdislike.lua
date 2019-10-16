@@ -10,70 +10,14 @@ local scene = composer.newScene()
 
 local widget = require ("widget")
 
-local json=require("json")
-
+local function submit()
+ composer.gotoScene("",{effect = "slideLeft", time = 500})
+end
 
 local function onSwitchPress( event )
     local switch = event.target
-    if (switch.disabled==true and switch.isOn==false) then
-	    switch:setState({isOn=true})
-	    print(switch.isOn)
-	end	
+    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
 end
-
-
-local function networkListener(event)
- if ( event.isError ) then
-        print( "Network error: ", event.response )
-    else
-    	if (event.response=='-1') then
-    		print("error inserting details")
-	    else
-	    	print("yes")
-	        print(event.response) 	
-	    end
-    end
-end
-
-local function submit(event)
-	local button=event.target
-	local headers = {}
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept-Language"] = "en-US"	
-	local i
-	local j=1
-	local array={}
-	for i=1, #button.dislike, 1 do
-		if (button.dislike[i].isOn) then
-			array[j]=button.dislike[i].id
-			j=j+1
-		end
-	end
-	i=1
-	local str=button.like[1]
-	if (#button.like>1) then
-	    while (i<#button.like) do
-		       str=str..","..button.like[i+1]
-		       i=i+1
-		end
-	end	
-	i=1
-    local str2=array[1]
-    if (#array>1) then
-        while (i<#array) do
-               str2=str2..","..array[i+1]
-               i=i+1
-        end
-    end
-
-	print(dislike)
-	print (str2)	
-	local body="doglikes="..str.."&dogdislikes="..str2.."&DogID="..button.dog
-	local params = {}
-    params.headers = headers
-    params.body = body
-	network.request( button.address.."doglike.php", "POST", networkListener, params)
-end	
 
  
 -- -----------------------------------------------------------------------------------
@@ -91,30 +35,12 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
-    local params=event.params
-    local OwnerID=params["OwnerID"]
-    local ipAddress=params["address"]
-    local DogID=params["dogID"]
-    local textX={124.8, 128, 126.4, 134.4, 118.4, 124.8, 121.6, 126.4, 108.8, 84, 86.4, 88}
-    local textY=64.8
-    local radioX=262
-    local radioY=45
-    local things={"Familiar adults", "Familiar children", "Unfamiliar adults", "Unfamiliar children", "Familiar dogs", "Unfamiliar dogs",
-    "Other animals", "New situations", "Swimming", "Toys", "Fetch", "Food"}
-
 	
 	display.setDefault( "background", 0.26666666666, 0.44705882352 ,0.76862745098  )
 	
 	--Adding Message
-	local msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.1, "Forte", 30)
+	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
 	sceneGroup:insert(msg)
-
-	local txt = display.newText( "* What does your dog Dislike?", display.contentCenterX, display.contentCenterY*0.25, native.systemFont, 18 )
-	sceneGroup:insert(txt)
-
-	local radioGroup1=display.newGroup()
-	local radioGroup2=display.newGroup()
-	radioGroup2.alpha=0.4
 	
 	-- Create the widget for scroll view
 	local scrollView = widget.newScrollView(
@@ -131,46 +57,207 @@ function scene:create( event )
 			backgroundColor = {0.26666666666, 0.44705882352 ,0.76862745098 },
 		}
 	)
-
-
-	scrollView:insert(radioGroup1)
-	scrollView:insert(radioGroup2)
-
-	local doglikes={}
-	local dogthings={}
-    local k=1
-    local l=1
-
-    local i
-	for i=1, #things, 1 do
-		local switches=widget.newSwitch(
+	sceneGroup:insert(scrollView)
+	
+	local txt = display.newText( "* What do your dog Dislike?", display.contentCenterX*1.0, display.contentCenterY*0.1, native.systemFont, 18 )
+	scrollView:insert(txt)
+	
+	local Gp = display.newGroup()
+	
+	local fadults = widget.newSwitch(
 		{
-			left=radioX,
-			top=radioY,
-			style="checkbox",
-			id=things[i],
-			onPress=onSwitchPress,
-
+			left = 262,
+			top = 45,
+			style = "checkbox",
+			id = "fadults",
+			initialSwitchState = true,
+			onPress = onSwitchPress,
+		
 		}
-		)
-		local text = display.newText( things[i], textX[i], textY, native.systemFont, 18 )
-		if (params[things[i]]==true) then
-			switches.disabled=true
-			switches:setState({isOn=true})
-			radioGroup2:insert(switches)
-            radioGroup2:insert(text)
-			doglikes[k]=things[i]
-			k=k+1
-		else
-			radioGroup1:insert(switches)
-			radioGroup1:insert(text)
-			dogthings[l]=switches
-			l=l+1
-		end
-		radioY=radioY+40
-		textY=textY+38.4
-	end	
-
+	)
+	Gp:insert( fadults )
+	scrollView:insert(fadults)
+	
+	local fa = display.newText( "Familiar Adults ", display.contentCenterX*0.78, display.contentCenterY*0.27, native.systemFont, 18 )
+	scrollView:insert(fa)
+	
+   local fchildren = widget.newSwitch(
+		{
+			left = 262,
+			top = 85,
+			style = "checkbox",
+			id = "fchildren",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert( fchildren )
+	scrollView:insert(fchildren)
+	
+	local fc = display.newText( "Familiar Children", display.contentCenterX*0.8, display.contentCenterY*0.43, native.systemFont, 18 )
+	scrollView:insert(fc)
+	
+	  local uadults = widget.newSwitch(
+		{
+			left = 262,
+			top = 125,
+			style = "checkbox",
+			id = "uadults",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert( uadults )
+	scrollView:insert(uadults)
+	
+	local ua = display.newText( "Unfamiliar Adults", display.contentCenterX*0.79, display.contentCenterY*0.59, native.systemFont, 18 )
+	scrollView:insert(ua)
+	
+	local uchildren = widget.newSwitch(
+		{
+			left = 262,
+			top = 165,
+			style = "checkbox",
+			id = "uchildren",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert( uchildren )
+	scrollView:insert(uchildren)
+	
+	local uc = display.newText( "Unfamiliar Children", display.contentCenterX*0.84, display.contentCenterY*0.75, native.systemFont, 18 )
+	scrollView:insert(uc)
+	
+		local fdog = widget.newSwitch(
+		{
+			left = 262,
+			top = 205,
+			style = "checkbox",
+			id = "fdog",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert( fdog)
+	scrollView:insert(fdog)
+	
+	local fd = display.newText( "Familiar Dogs", display.contentCenterX*0.74, display.contentCenterY*0.92, native.systemFont, 18 )
+	scrollView:insert(fd)
+	
+	local udog = widget.newSwitch(
+		{
+			left = 262,
+			top = 245,
+			style = "checkbox",
+			id = "udog",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert(udog)
+	scrollView:insert(udog)
+	
+	local ud = display.newText( "Unfamiliar Dogs", display.contentCenterX*0.78, display.contentCenterY*1.08, native.systemFont, 18 )
+	scrollView:insert(ud)
+	
+	local oanimals = widget.newSwitch(
+		{
+			left = 262,
+			top = 285,
+			style = "checkbox",
+			id = "otheranimals",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert( oanimals)
+	scrollView:insert(oanimals)
+	
+	local oa = display.newText( "Other Animals", display.contentCenterX*0.76, display.contentCenterY*1.25, native.systemFont, 18 )
+	scrollView:insert(oa)
+	
+	local news = widget.newSwitch(
+		{
+			left = 262,
+			top = 325,
+			style = "checkbox",
+			id = "news",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert(news)
+	scrollView:insert(news)
+	
+	local ns = display.newText( "New Situattions", display.contentCenterX*0.79, display.contentCenterY*1.42, native.systemFont, 18 )
+	scrollView:insert(ns)
+	
+	local swimming = widget.newSwitch(
+		{
+			left = 262,
+			top = 365,
+			style = "checkbox",
+			id = "swimming",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert(swimming)
+	scrollView:insert(swimming)
+	
+	local smg = display.newText( "Swimming", display.contentCenterX*0.68, display.contentCenterY*1.58, native.systemFont, 18 )
+	scrollView:insert(smg)
+	
+		local toys = widget.newSwitch(
+		{
+			left = 262,
+			top = 405,
+			style = "checkbox",
+			id = "toys",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert(toys)
+	scrollView:insert(toys)
+	
+	local ty = display.newText( "Playing with toys", display.contentCenterX*0.82, display.contentCenterY*1.75, native.systemFont, 18 )
+	scrollView:insert(ty)
+	
+	local fetch = widget.newSwitch(
+		{
+			left = 262,
+			top = 445,
+			style = "checkbox",
+			id = "fetch",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert(fetch)
+	scrollView:insert(fetch)
+	
+	local ftc = display.newText( "Fetch", display.contentCenterX*0.54, display.contentCenterY*1.93, native.systemFont, 18 )
+	scrollView:insert(ftc)
+	
+	local food = widget.newSwitch(
+		{
+			left = 262,
+			top = 485,
+			style = "checkbox",
+			id = "food",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	Gp:insert(food)
+	scrollView:insert(food)
+	
+	local fod = display.newText( "Food", display.contentCenterX*0.55, display.contentCenterY*2.1, native.systemFont, 18 )
+	scrollView:insert(fod)
+	
+	
 	local Submit = widget.newButton(
     {
        shape = "roundedRect",
@@ -180,18 +267,15 @@ function scene:create( event )
         label = "Submit",
 		width='98',
 		height='30',
-        onPress = submit,
-        fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
+        onEvent = userSubmit,
+       fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={ 0.26666666666, 0.44705882352, 0.76862745098 }, over={ 2, 5, 1.5, 2.2 } },
     }
 )
+scrollView:insert(Submit)
+Submit:addEventListener("tap", submit)
+ 
 
-	Submit.like=doglikes
-	Submit.dislike=dogthings
-	Submit.address=ipAddress
-	Submit.dog=DogID
-    scrollView:insert(Submit)
-    sceneGroup:insert(scrollView)
  
 end 
 -- show()
