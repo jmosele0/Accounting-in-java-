@@ -66,6 +66,7 @@ function scene:create( event )
 	HowLongOwned=params.HowLongOwned
 	OwnerID=params.ownerID
 	ipAddress=params.address
+	print(#params)
 
 
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )

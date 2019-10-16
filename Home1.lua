@@ -36,7 +36,11 @@ end
  end
 
  local function slider()
- composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
+ 	local customParams={}
+ 	customParams["address"]=ipAddress
+ 	customParams["OwnerID"]=7
+ 	customParams["dogID"]=44
+ composer.gotoScene("dogdislike",{effect = "slideLeft", time = 500, params=customParams})
  end
 
 	
