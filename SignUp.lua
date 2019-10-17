@@ -41,6 +41,8 @@ function scene:create( event )
 	local username = native.newTextField(160,100,180,30)
 	username.placeholder = "First name"
 	sceneGroup:insert(username)
+
+
 	
 	local pw = native.newTextField(160,140,180,30)
 	pw.placeholder = "password"
@@ -198,6 +200,19 @@ end
 
     local function ques ()	
     	print(email.text)
+		if username.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif pw.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif email.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif postcode.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	else
 	local customParams={Email=email.text,
     	                    FirstName=username.text,
     	                    password=pw.text,
@@ -206,7 +221,7 @@ end
     	                    PostCode=postcode.text,
     	                    address=ipAddress}
     	composer.gotoScene("InQue",{effect = "slideLeft", time = 500, params=customParams})
-    
+    end
 end
 	
 	
@@ -282,5 +297,3 @@ scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
  
 return scene
-
-
