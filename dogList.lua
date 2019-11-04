@@ -12,6 +12,18 @@ local scene = composer.newScene()
 end
 
 
+local function location(event)
+  local scroll=event.target
+  print(event.x.." "..event.y)
+end
+
+
+local function groups(event)
+  local group=event.target
+  print(group.id)
+end
+
+
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -70,7 +82,7 @@ end
       left = 0,
       width = display.contentWidth,
       height = display.contentHeight,
-      topPadding = 70,
+      topPadding = 0,
       bottomPadding = 0,
       horizontalScrollDisabled = true,
       verticalScrollDisabled = false,
@@ -93,27 +105,36 @@ end
                print ("error loading dogs")
           else
                local index
-               local fields={"DogName", "Age", "Breed", "Sex", "Desexed", "DOB", "HowLongOwned", "VaccinationStatus", "DogOrigin"}
+               local fields={"DogName", "Age", "Breed"}
                local index2
                local fieldLength=#fields
-               local y=0.2
+               local y=160
                print(event.response)
                local dogs=json.decode(event.response)
                print(dogs)
                local length=#dogs 
                print(length)
                for index=1, length, 1 do
+                local group=display.newGroup()
+                group.id=dogs[index]["DogName"]
+                group.x=160
+                group.y=y
+                group:addEventListener("tap", groups)
+                local offset=-10
                 for index2=1, fieldLength, 1 do
                 local value=dogs[index][fields[index2]]
-                  local displayValue = display.newText(value,display.contentCenterX,display.contentCenterY*y, "Bahnschrift SemiCondensed", 24)
+                  local displayValue = display.newText(value, 0, offset, "Bahnschrift SemiCondensed", 24)
                   displayValue:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-                  scrollView:insert(displayValue)
-                  print(scrollView.numChildren)
-                  y=y+0.2
-                end             
+                  group:insert(displayValue)
+                  scrollView:insert(group)
+                  offset=offset+30
+                end
+                y=y+130             
                end
           end
     end
+
+    scrollView:addEventListener("tap", location)
 
 
     local function loadData(Id, address)

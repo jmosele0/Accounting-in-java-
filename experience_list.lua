@@ -10,6 +10,8 @@ local scene = composer.newScene()
 
 local widget = require ("widget")
 
+local json=require("json")
+
 local function submit()
  composer.gotoScene("",{effect = "slideLeft", time = 500})
 end
@@ -20,8 +22,14 @@ local function onSwitchPress( event )
 end
 
 local function back ()	
-	composer.gotoScene("Tracker",{effect = "slideRight", time = 500})
+	composer.gotoScene("Menu",{effect = "slideRight", time = 500})
 end 
+
+
+
+
+
+  
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -37,11 +45,15 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
-	
+
+    local params=event.params
+    local ipAddress=params.address
+    local ownerID=params.ownerID
+
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
 	--Adding Message
-	msg = display.newText("Your experience:",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
+	msg = display.newText("Dog experiences:",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
 	sceneGroup:insert(msg)
 	
 	--back button
@@ -66,12 +78,66 @@ function scene:create( event )
 		}
 	)
 	sceneGroup:insert(scrollView)
-	
-	local txt = display.newText( "(fetch experience from database ", display.contentCenterX*1.0, display.contentCenterY*0.1, native.systemFont, 18 )
-	scrollView:insert(txt)
-	
-	
-    
+
+
+	local function addText(experiences)
+
+	if (experiences==-1) then
+		local text=display.newText("No experiences to show",display.contentCenterX,display.contentCenterY, "Bahnschrift SemiCondensed", 24)	
+		scrollView:insert(text)
+
+	else 
+	    local i
+	    local j
+	    local k
+	    local columns={"DogName", "ExperienceName", "ExperienceNotes", "CatDesc"}
+	    y=0.2
+	    local exp=#experiences
+	    for i=1, exp, 1 do
+	    	local exp2=#experiences[i]
+	    	for j=1, exp2, 1 do
+	    		for k=1, #columns, 1 do
+	    		    local text=display.newText(experiences[i][j][columns[k]],display.contentCenterX+20,display.contentCenterY*y, "Bahnschrift SemiCondensed", 24, "center")
+	    		    text.width=250
+	    		    scrollView:insert(text)
+	    		    y=y+0.2
+	    		end
+	    		y=y+0.2
+	    	end	    
+	    end
+	end
+end
+
+
+    local function networkListener(event)
+          if ( event.isError ) then
+               print( "Network error: ", event.response )
+          elseif (event.response==-1) then
+               print ("error loading dogs")
+               experiences=-1
+          else
+               print(event.response)
+          	   local experiences=json.decode(event.response)
+          	   addText(experiences)
+          end
+   end       	   
+
+
+local function loadExperiences(Id, address)
+	 local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"    
+    local body="OwnerID="..Id
+    local params = {}
+    params.headers = headers
+    params.body = body
+    network.request( address.."load_experiences.php", "POST", networkListener, params)
+end
+
+loadExperiences(ownerID, ipAddress)
+
+
+
 
  
 end 
@@ -101,7 +167,6 @@ function scene:hide( event )
         -- Code here runs when the scene is on screen (but is about to go off screen)
  
     elseif ( phase == "did" ) then
-	        composer.removeScene("SignUp")
         -- Code here runs immediately after the scene goes entirely off screen
  
     end

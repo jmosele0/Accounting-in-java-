@@ -30,13 +30,15 @@ end
 end
 
  local function dog ()
-    customParams={ownerID=OwnerID,
+    local customParams={ownerID=OwnerID,
                   address=ipAddress}  
     composer.gotoScene("dogList",{effect = "slideLeft", time = 500, params=customParams})
 end
 
- local function Tracr ()	
-	composer.gotoScene("Tracker",{effect = "slideLeft", time = 500})
+ local function Tracr ()
+    local customParams={ownerID=OwnerID,
+                        address=ipAddress}	
+	composer.gotoScene("Tracker",{effect = "slideLeft", time = 500, params=customParams})
 end
  
 

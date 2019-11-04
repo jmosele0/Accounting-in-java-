@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2019 at 08:03 PM
+-- Generation Time: Oct 20, 2019 at 04:50 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -56,6 +56,17 @@ CREATE TABLE `category` (
   `CatID` int(5) NOT NULL,
   `CatDesc` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`CatID`, `CatDesc`) VALUES
+(2, 'Happy and relaxed'),
+(3, 'Started off nervous'),
+(4, 'Mildly nervous'),
+(5, 'Moderately nervous'),
+(6, 'Extremely nervous');
 
 -- --------------------------------------------------------
 
@@ -160,7 +171,14 @@ INSERT INTO `dog` (`DogID`, `DogName`, `Age`, `Breed`, `Sex`, `Desexed`, `DOB`, 
 (95, 'max', 2, 'golden retriever', 'male', 'yes', '2017-04-04', '2 years', 'over', 'pound', 9),
 (96, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'breeder', 9),
 (97, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'breeder', 9),
-(98, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'breeder', 9);
+(98, '', 0, '', '', 'yes', '0000-00-00', '', 'Unvaccinated', 'breeder', 9),
+(99, 'jas', 0, 'shitzu', 'male', 'plan', '0000-00-00', '6 months', 'going', 'breeder', 24),
+(100, 'jas', 0, 'shitzu', 'male', 'plan', '0000-00-00', '10 months', 'going', 'pound', 24),
+(101, 'jas', 0, 'shitzu', 'male', 'plan', '0000-00-00', '10 months', 'going', 'no', 24),
+(102, 'jeff', 3, 'bull mastif', 'male', 'no', '2016-03-03', '3 years', 'over', 'pound', 38),
+(103, 'max', 9, 'german shepherd', 'male', 'yes', '2010-03-03', '9 years', 'over', 'pound', 39),
+(104, 'tommy', 1, 'husky', 'male', 'no', '2019-01-02', '4 months', 'unsure', 'friend', 41),
+(105, 'tommy1', 1, 'huskyy', 'male', 'no', '2019-02-02', '5 months', 'over', 'litter', 41);
 
 -- --------------------------------------------------------
 
@@ -229,7 +247,14 @@ INSERT INTO `dogfamily` (`DogFamilyID`, `Adults`, `Children`, `OtherDogs`, `Othe
 (67, 'adults', 'children', '', '', 95),
 (68, 'adults', '', '', '', 96),
 (69, 'adults', '', '', '', 97),
-(70, 'adults', '', '', '', 98);
+(70, 'adults', '', '', '', 98),
+(71, 'adults', 'children', '', '', 99),
+(72, 'adults', 'children', '', '', 100),
+(73, 'adults', 'children', '', '', 100),
+(74, 'adults', 'children', '', '', 102),
+(75, 'adults', '', '', '', 103),
+(76, 'adults', '', 'od', '', 104),
+(77, 'adults', 'children', '', '', 105);
 
 -- --------------------------------------------------------
 
@@ -262,7 +287,44 @@ INSERT INTO `doglikedislike` (`LikeDislikeID`, `DogID`, `Subject`, `LikeOrDislik
 (11, 98, 'Familiar adults', 'like'),
 (12, 98, 'Familiar children', 'like'),
 (13, 98, 'Unfamiliar adults', 'like'),
-(14, 98, 'Unfamiliar children', 'dislike');
+(14, 98, 'Unfamiliar children', 'dislike'),
+(15, 99, 'Familiar adults', 'like'),
+(16, 99, 'Familiar children', 'like'),
+(17, 99, 'Unfamiliar adults', 'like'),
+(18, 99, 'Unfamiliar children', 'dislike'),
+(19, 99, 'Familiar dogs', 'dislike'),
+(20, 99, 'Unfamiliar dogs', 'dislike'),
+(21, 100, 'Familiar adults', 'like'),
+(22, 100, 'Familiar children', 'like'),
+(23, 100, 'Unfamiliar adults', 'like'),
+(24, 100, 'Unfamiliar children', 'dislike'),
+(25, 100, 'Familiar dogs', 'dislike'),
+(26, 100, 'Unfamiliar dogs', 'dislike'),
+(27, 100, 'Familiar adults', 'like'),
+(28, 100, 'Familiar children', 'like'),
+(29, 100, 'Unfamiliar adults', 'like'),
+(30, 100, 'Unfamiliar children', 'dislike'),
+(31, 100, 'Familiar dogs', 'dislike'),
+(32, 100, 'Unfamiliar dogs', 'dislike'),
+(33, 102, 'Familiar adults', 'like'),
+(34, 102, 'Familiar children', 'like'),
+(35, 102, 'Unfamiliar adults', 'like'),
+(36, 102, 'Unfamiliar children', 'like'),
+(37, 102, 'Familiar dogs', 'like'),
+(38, 102, 'Swimming', 'dislike'),
+(39, 103, 'Familiar adults', 'like'),
+(40, 103, 'Familiar children', 'like'),
+(41, 103, 'Unfamiliar adults', 'dislike'),
+(42, 103, 'Unfamiliar children', 'dislike'),
+(43, 103, 'Familiar dogs', 'dislike'),
+(44, 104, 'Familiar adults', 'like'),
+(45, 104, 'Familiar dogs', 'like'),
+(46, 104, 'Unfamiliar children', 'dislike'),
+(47, 104, 'Unfamiliar dogs', 'dislike'),
+(48, 105, 'Familiar adults', 'like'),
+(49, 105, 'Familiar dogs', 'like'),
+(50, 105, 'Unfamiliar adults', 'dislike'),
+(51, 105, 'Swimming', 'dislike');
 
 -- --------------------------------------------------------
 
@@ -276,6 +338,13 @@ CREATE TABLE `experience` (
   `ExperienceNotes` varchar(200) NOT NULL,
   `DogID` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `experience`
+--
+
+INSERT INTO `experience` (`ExperienceID`, `ExperienceName`, `ExperienceNotes`, `DogID`) VALUES
+(1, 'Large dog', 'Jas played with a golden retriever and had a good time', 99);
 
 -- --------------------------------------------------------
 
@@ -355,7 +424,14 @@ INSERT INTO `generalinfo` (`InfoID`, `KnowledgeOfBreed`, `ParentSiblingSighted`,
 (84, 'some', NULL, NULL, NULL, NULL, 95),
 (85, 'lots', NULL, NULL, NULL, NULL, 96),
 (86, 'lots', NULL, NULL, NULL, NULL, 97),
-(87, 'lots', NULL, NULL, NULL, NULL, 98);
+(87, 'lots', NULL, NULL, NULL, NULL, 98),
+(88, 'lots', NULL, NULL, NULL, NULL, 99),
+(89, 'some', 'no', 'Friendly', 'friendly', 'came', 100),
+(90, 'no', 'no', 'Friendly', 'friendly', 'came', 100),
+(91, 'some', 'no', 'Friendly', 'standoffish', 'outgoing', 102),
+(92, 'some', 'no', 'Friendly', 'friendly', 'came', 103),
+(93, 'some', 'yes', 'Standoffish', 'standoffish', 'onlyone', 104),
+(94, 'some', 'yes', 'Standoffish', 'friendly', 'activity', 105);
 
 -- --------------------------------------------------------
 
@@ -497,7 +573,11 @@ INSERT INTO `owner` (`OwnerID`, `Email`, `FirstName`, `Gender`, `Couple`, `AgeRa
 (34, 'tr', 'ii', 'female', NULL, 'under 18', 0, 'yes', 'dogs', 'listens', 'dogout', 'ii'),
 (35, 'yy', 'yy', 'female', NULL, 'under 18', 88, 'yes', 'cats', 'jump', 'willlistens', 'yy'),
 (36, 'jackie@mail.com', 'jackie', 'female', NULL, 'under 18', 8888, 'no', 'dogs', 'basic', 'dogout', 'jack1012'),
-(37, '', '', 'female', NULL, 'under 18', 0, 'no', 'dogs', 'basic', 'dogout', 'jack1012');
+(37, '', '', 'female', NULL, 'under 18', 0, 'no', 'dogs', 'basic', 'dogout', 'jack1012'),
+(38, 'zack@gmail.com', 'zack', 'female', NULL, 'bet18to3', 6077, 'yes', 'dogs', 'basic', 'dogout', 'zack1012'),
+(39, 'mail@email1.com', 'usernamee', 'female', NULL, 'bet18to3', 5545, 'no', 'dogs', 'basic', 'dogout', 'passeord'),
+(40, 'jack@bmail.com', 'jack', 'female', NULL, 'under 18', 9999, 'yes', 'dogs', 'basic', 'dogout', 'jack1012'),
+(41, 'r@j.com', 'rajwinder', 'female', NULL, 'under 18', 5656, 'no', 'dogs', 'jump', 'dogout', 'raj');
 
 -- --------------------------------------------------------
 
@@ -602,32 +682,32 @@ ALTER TABLE `canineenrichment`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `CatID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `CatID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `dog`
 --
 ALTER TABLE `dog`
-  MODIFY `DogID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `DogID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 --
 -- AUTO_INCREMENT for table `dogfamily`
 --
 ALTER TABLE `dogfamily`
-  MODIFY `DogFamilyID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `DogFamilyID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 --
 -- AUTO_INCREMENT for table `doglikedislike`
 --
 ALTER TABLE `doglikedislike`
-  MODIFY `LikeDislikeID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `LikeDislikeID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `experience`
 --
 ALTER TABLE `experience`
-  MODIFY `ExperienceID` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `ExperienceID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `generalinfo`
 --
 ALTER TABLE `generalinfo`
-  MODIFY `InfoID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `InfoID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 --
 -- AUTO_INCREMENT for table `logs`
 --
@@ -637,7 +717,7 @@ ALTER TABLE `logs`
 -- AUTO_INCREMENT for table `owner`
 --
 ALTER TABLE `owner`
-  MODIFY `OwnerID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `OwnerID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `training`
 --
@@ -648,16 +728,11 @@ ALTER TABLE `training`
 --
 
 --
--- Constraints for table `category`
---
-ALTER TABLE `category`
-  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`CatID`) REFERENCES `categoryexperience` (`CatID`);
-
---
 -- Constraints for table `categoryexperience`
 --
 ALTER TABLE `categoryexperience`
-  ADD CONSTRAINT `categoryexperience_ibfk_1` FOREIGN KEY (`ExperienceID`) REFERENCES `experience` (`ExperienceID`);
+  ADD CONSTRAINT `categoryexperience_ibfk_1` FOREIGN KEY (`ExperienceID`) REFERENCES `experience` (`ExperienceID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `categoryexperience_ibfk_2` FOREIGN KEY (`CatID`) REFERENCES `category` (`CatID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dog`

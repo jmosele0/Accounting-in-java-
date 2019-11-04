@@ -116,7 +116,7 @@ function scene:create( event )
 	rGroup:insert( under18 )
 	sceneGroup:insert(rGroup)
 	
-	local u18 = display.newText( " > 18", display.contentCenterX*1.0, display.contentCenterY*1.007, native.systemFont, 18 )
+	local u18 = display.newText( " < 18", display.contentCenterX*1.0, display.contentCenterY*1.007, native.systemFont, 18 )
 	sceneGroup:insert(u18)
 	
 	local bet18to30 = widget.newSwitch(
