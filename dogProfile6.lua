@@ -21,7 +21,7 @@ local function Next()
 	if (on2=="Other") then
 		on2=Others.text
 	end	
-	local customParams={dogID=DogID, ParentSiblingSighted=on, PersonalityConcerns=on2}
+	local customParams={dogID=DogID, ParentSiblingSighted=on, PersonalityConcerns=on2, address=ipAddress, ownerID=OwnerID}
     composer.gotoScene("dogProfile7",{effect = "slideLeft", time = 500, params=customParams})              
 	
 	
@@ -62,7 +62,8 @@ function scene:create( event )
 
     local params=event.params
     DogID=params.dogID
-	
+	ipAddress=params.address
+	OwnerID=params.ownerID
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
 	--Adding Message

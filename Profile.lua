@@ -11,16 +11,16 @@ local scene = composer.newScene()
 
 
 local widget = require( "widget" )
+local json=require("json")
  
 local function menu()
  composer.gotoScene("Menu",{effect = "slideRight", time = 500})
 end
 
 
- local function home ()	
+local function home ()	
 	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
 end 
-
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -30,15 +30,6 @@ end
 -- local function Canine ()	
 --	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
 --end
-
- local function dog ()
-    customParams={ownerID=OwnerID}	
-	composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500, params=customParams})
-end
- 
- 
- 
- 
  
 -- create()
 function scene:create( event )
@@ -62,6 +53,7 @@ function scene:create( event )
 	    print ("error inserting details")
 	else    
 		print(event.response)
+<<<<<<< HEAD
 	    details=json.decode(event.response)
 	    email=details.Email
 	    print (email)
@@ -99,7 +91,6 @@ function scene:create( event )
 		local displayCode=display.newText(postcode,display.contentCenterX*1.2,display.contentCenterY*1.0, "Bahnschrift SemiCondensed", 24)
 	    displayCode:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	    sceneGroup:insert(displayCode)
-		
 
 
 end
@@ -123,11 +114,6 @@ end
 
 
     loadData(OwnerID)
-
-
-
-
-
 
 
     --print(name)

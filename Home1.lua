@@ -37,22 +37,16 @@ end
  composer.gotoScene("SignUp",{effect = "slideLeft", time = 500, params=customParams})
  end
 
- local function slider()
- 	local customParams={}
- 	customParams["address"]=ipAddress
- 	customParams["OwnerID"]=7
- 	customParams["dogID"]=44
- composer.gotoScene("dogdislike",{effect = "slideLeft", time = 500, params=customParams})
- end
+
+    
+    local sceneGroup = self.view
 
 	
 	
 display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	--adding background
 	
-	--menu = display.newImage( "menu.png", display.contentCenterX*0.60, display.contentCenterY*1.0 )
-	--sceneGroup:insert(menu)
-	--menu:addEventListener("tap", menu)
+	
 	
 local Login = widget.newButton(
     {
@@ -84,8 +78,6 @@ local SignUp = widget.newButton(
 )
 sceneGroup:insert(SignUp)
 SignUp:addEventListener("tap", signup)
-
-
 
 
 

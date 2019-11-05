@@ -11,29 +11,18 @@ local scene = composer.newScene()
 local widget = require ("widget")
 
 
-local function networkListener(event)
- if ( event.isError ) then
-        print( "Network error: ", event.response )
- elseif (event.response=="-1") then
-	    print ("error inserting dog details")
- else
- 	    print(event.response)
-	    customParams={ownerID=event.response}
-	    composer.gotoScene("dogProfile2",{effect = "slideLeft", time = 500, params=customParams})
- end
-end
-
-
 local function Next()
-	local headers = {}
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept-Language"] = "en-US"	
-	local body="DogName="..name.text.."&Age="..age.text.."&Breed="..breed.text.."&Sex="..sex.text.."&Desexed="..on.."&DOB="..DOB.text
-	.."&HowLongOwned="..dn.text.."&OwnerID="..OwnerID
-	local params = {}
-    params.headers = headers
-    params.body = body
-	network.request( "http://192.168.123.109:2431/pup/dog_insert.php", "POST", networkListener, params)
+	    customParams={DogName=name.text,
+	    Age=age.text,
+	    Breed=breed.text,
+	    Sex=sex.text,
+	    Desexed=on,
+	    DOB=DOB.text,
+	    HowLongOwned=dn.text,
+	    ownerID=OwnerID,
+	    address=ipAddress
+	    }
+	    composer.gotoScene("dogProfile2",{effect = "slideLeft", time = 500, params=customParams})
  
 end
 
@@ -61,6 +50,8 @@ end
 -- create()
 function scene:create( event )
  
+
+    print("create")
     local sceneGroup = self.view
     params=event.params
     OwnerID=params.OwnerID
@@ -198,6 +189,7 @@ end
  
 -- show()
 function scene:show( event )
+	print("show")
  
     local sceneGroup = self.view
 	local scrollView = self.view

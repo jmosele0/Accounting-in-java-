@@ -37,7 +37,7 @@ local function submit()
 	local params = {}
     params.headers = headers
     params.body = body
-	network.request( "http://192.168.123.109:2431/pup/generalinfo2.php", "POST", networkListener, params)
+	network.request( ipAddress.."generalinfo2.php", "POST", networkListener, params)
 
 end
 
@@ -72,6 +72,8 @@ function scene:create( event )
     ParentSiblingSighted=params.parentSiblingSighted
     PersonalityConcerns=params.personalityConcerns
     FirstMet=params.firstMet
+    ipAddress=params.address
+    OwnerID=params.ownerID
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	

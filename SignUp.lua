@@ -7,57 +7,15 @@
 local composer = require( "composer" )
  
 local scene = composer.newScene()
- 
-
-local Welcome
 
 local widget = require ("widget")
 
-local function onSwitchPress1( event )
-    local switch = event.target
-    on1=switch.id
-end
 
-local function onSwitchPress2(event)
-    local switch=event.target
-	on2=switch.id
-end	
  
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
- local function home ()	
-	composer.gotoScene("home",{effect = "slideLeft", time = 500})
-end
-
-
-local function networkListener(event)
- if ( event.isError ) then
-        print( "Network error: ", event.response )
- else
-    if (event.response=='-1') then
-    		print ('email has already been taken')
-    else
-    	print(event.response)
-    	local customParams={OwnerID=event.response}
-    	composer.gotoScene("InQue",{effect = "slideLeft", time = 500, params=customParams})
-    end
-end
-end
-
-
-local function ques ()	
-    local headers = {}
-    headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept-Language"] = "en-US"	
-	local body="Email="..email.text.."&FirstName="..username.text.."&password="..pw.text.."&Gender="..on1.."&AgeRange="..on2.."&PostCode="..postcode.text
-	local params = {}
-    params.headers = headers
-    params.body = body
-	network.request( "http://192.168.123.109:2431/pup/insert.php", "POST", networkListener, params)
-	
-end
 
 
 -- -----------------------------------------------------------------------------------
@@ -68,20 +26,25 @@ end
 function scene:create( event )
  
     local sceneGroup = self.view
+
+
+    local params=event.params
+    local ipAddress=params.address
+    
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Welcome",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
+	local Welcome = display.newText("Welcome",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(Welcome)
 	
-	username = native.newTextField(160,100,180,30)
+	local username = native.newTextField(160,100,180,30)
 	username.placeholder = "First name"
 	sceneGroup:insert(username)
 
 
 	
-	pw = native.newTextField(160,140,180,30)
+	local pw = native.newTextField(160,140,180,30)
 	pw.placeholder = "password"
 	pw.isSecure=true
 	sceneGroup:insert(pw)
@@ -97,18 +60,18 @@ function scene:create( event )
 	local radioGroup = display.newGroup()
  
 -- Create two associated radio buttons (inserted into the same display group)
-    female = widget.newSwitch(
+    local female = widget.newSwitch(
 		{
 			left = 150,
 			top = 190,
 			style = "radio",
 			id = "female",
 			initialSwitchState = true,
-			onPress = onSwitchPress1,
+			onPress = onSwitchPress
 		
 		}	
 	)
-	on1=female.id
+	local on1=female.id
 	radioGroup:insert( female )
 	sceneGroup:insert(radioGroup)
 	
@@ -117,13 +80,13 @@ function scene:create( event )
 	sceneGroup:insert(Text)
  
  
-	male = widget.newSwitch(
+	local male = widget.newSwitch(
 		{
 			left = 250,
 			top = 190,
 			style = "radio",
 			id = "male",
-			onPress = onSwitchPress1,
+			onPress = onSwitchPress
 			
 			
 		}
@@ -145,11 +108,11 @@ function scene:create( event )
 			style = "radio",
 			id = "under 18",
 			initialSwitchState = true,
-			onPress = onSwitchPress2,
+			onPress = onSwitchPress
 		
 		}
 	)
-	on2=under18.id
+	local on2=under18.id
 	rGroup:insert( under18 )
 	sceneGroup:insert(rGroup)
 	
@@ -162,7 +125,7 @@ function scene:create( event )
 			top = 260,
 			style = "radio",
 			id = "bet18to30",
-			onPress = onSwitchPress2,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -178,7 +141,7 @@ function scene:create( event )
 			top = 295,
 			style = "radio",
 			id = "bet30to50",
-			onPress = onSwitchPress2,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -195,7 +158,7 @@ function scene:create( event )
 			top = 330,
 			style = "radio",
 			id = "over50",
-			onPress = onSwitchPress2,
+			onPress = onSwitchPress
 		
 		}
 	)
@@ -205,12 +168,12 @@ function scene:create( event )
 	local over50 = display.newText( " 50 + ", display.contentCenterX*1.0, display.contentCenterY*1.436, native.systemFont, 18 )
 	sceneGroup:insert(over50)
 	
-    email = native.newTextField(160,390,180,30)
+    local email = native.newTextField(160,390,180,30)
 	email.placeholder = "email"
 	sceneGroup:insert(email)
 	
 	
-	postcode = native.newTextField(160,430,180,30)
+	local postcode = native.newTextField(160,430,180,30)
 	postcode.placeholder = "postcode"
 	sceneGroup:insert(postcode)
 
@@ -275,6 +238,8 @@ end
 )
 SignUp:addEventListener("tap", ques) 
 sceneGroup:insert(SignUp)
+
+
 
 end
  
