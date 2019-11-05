@@ -38,7 +38,7 @@ local function Next()
 end
 
 local function menu ()	
-	composer.gotoScene("Menu",{effect = "slideRight", time = 500})
+	composer.gotoScene("dogList",{effect = "slideRight", time = 500})
 end
 
 
@@ -47,9 +47,6 @@ local function onSwitchPress( event )
     on=switch.id
 end
 
- local function home ()	
-	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
-end 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -66,8 +63,8 @@ function scene:create( event )
  
     local sceneGroup = self.view
     params=event.params
-    OwnerID=params.ownerID
-	
+    OwnerID=params.OwnerID
+	ipAddress=params.address
 	
 	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
 	bg:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
@@ -87,7 +84,7 @@ function scene:create( event )
 	sceneGroup:insert(Welcome)
 
 	
-	 m = display.newImage("menu.png", 30, -17 )
+	 m = display.newImage("back.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
 

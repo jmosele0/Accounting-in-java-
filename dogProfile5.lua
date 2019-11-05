@@ -20,8 +20,10 @@ local function networkListener(event)
     elseif (event.response=="-1") then
 	    print ("error inserting details")
 	else    
-	    customParams={dogID=DogID}
-	    composer.gotoScene("dogProfile6",{effect = "slideLeft", time = 500, params=customParams})
+	    customParams={dogID=DogID,
+	                  address=ipAddress,
+	                  ownerID=OwnerID}
+	    composer.gotoScene("doglike",{effect = "slideLeft", time = 500, params=customParams})
     end
 end
 

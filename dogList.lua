@@ -12,6 +12,18 @@ local scene = composer.newScene()
 end
 
 
+local function location(event)
+  local scroll=event.target
+  print(event.x.." "..event.y)
+end
+
+
+local function groups(event)
+  local group=event.target
+  print(group.id)
+end
+
+
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -33,6 +45,56 @@ function scene:create( event )
     local params=event.params
     local OwnerID=params.ownerID
     local ipAddress=params.address
+    local x=0
+
+    display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 ) 
+
+    local function dog()
+      local customParams={OwnerID=OwnerID,
+                          address=ipAddress}
+      composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500, params=customParams})
+    end
+
+
+
+    local function scrollListener( event )
+ 
+    local phase = event.phase
+    local direction = event.direction
+  
+  -- If the scrollview has reached it's scroll limit.
+  if event.limitReached then
+    if "up"== direction then
+      print("Reached Top Limit")
+    elseif "down" == direction then
+      print("Reached Bottom Limit")
+    end
+  end
+  
+  return true
+end
+
+
+
+    local scrollView = widget.newScrollView(
+    {
+      top = 0,
+      left = 0,
+      width = display.contentWidth,
+      height = display.contentHeight,
+      topPadding = 0,
+      bottomPadding = 0,
+      horizontalScrollDisabled = true,
+      verticalScrollDisabled = false,
+      listener = scrollListener,
+      backgroundColor = {1, 1, 1 },
+    }
+  )
+
+    sceneGroup:insert(scrollView)
+    x=x+1
+    print("scrollView x="..x)
+    print("scrollView added")
 
 
 
@@ -43,26 +105,36 @@ function scene:create( event )
                print ("error loading dogs")
           else
                local index
-               local fields={"DogName", "Age", "Breed", "Sex", "Desexed", "DOB", "HowLongOwned", "VaccinationStatus", "DogOrigin"}
+               local fields={"DogName", "Age", "Breed"}
                local index2
                local fieldLength=#fields
-               local y=0.2
+               local y=160
                print(event.response)
                local dogs=json.decode(event.response)
                print(dogs)
                local length=#dogs 
                print(length)
                for index=1, length, 1 do
+                local group=display.newGroup()
+                group.id=dogs[index]["DogName"]
+                group.x=160
+                group.y=y
+                group:addEventListener("tap", groups)
+                local offset=-10
                 for index2=1, fieldLength, 1 do
                 local value=dogs[index][fields[index2]]
-                  local displayValue = display.newText(value,display.contentCenterX,display.contentCenterY*y, "Bahnschrift SemiCondensed", 24)
+                  local displayValue = display.newText(value, 0, offset, "Bahnschrift SemiCondensed", 24)
                   displayValue:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-                  sceneGroup:insert(displayValue)
-                  y=y+0.2
-                end             
+                  group:insert(displayValue)
+                  scrollView:insert(group)
+                  offset=offset+30
+                end
+                y=y+130             
                end
           end
     end
+
+    scrollView:addEventListener("tap", location)
 
 
     local function loadData(Id, address)
@@ -78,15 +150,7 @@ function scene:create( event )
 
 
     loadData(OwnerID, ipAddress)
-
-
-
-    display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
     
-    
-    bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-    bg:setFillColor(255,255,255)
-    sceneGroup:insert(bg)
     
     bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
     bgr:setFillColor(255,255,255)
@@ -100,6 +164,26 @@ function scene:create( event )
      m = display.newImage("menu.png", 30, -17 )
     sceneGroup:insert(m)
     m:addEventListener("tap", menu )
+
+    local dogP = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 200,
+        top = 50,
+        id = "dogP",
+        label = "add dog +",
+        width='100',
+        height='35',
+       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={0,0,0}, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+
+    sceneGroup:insert(dogP)
+    x=x+1
+    print("button x="..x)
+    print("button added")
+    dogP:addEventListener("tap", dog)
     -- Code here runs when the scene is first created but has not yet appeared on screen
  
 end

@@ -28,6 +28,11 @@ local function help()
  composer.gotoScene("category",{effect = "slideLeft", time = 500})
 end 
 
+local function onSwitchPress( event )
+    local switch = event.target
+    on=switch.id
+end
+
 --local function Onclick(avg)
       -- Print ("average")
 --end
@@ -44,6 +49,7 @@ end
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
+    local radioGroup=display.newGroup()
 	--adding background
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647)
 	
@@ -69,9 +75,9 @@ function scene:create( event )
 	sceneGroup:insert(Welcome)
 	
 	
-	local notes = native.newTextField(160,150,280,30)
-	notes.placeholder = "Experience"
-	sceneGroup:insert(notes)
+	local exp = native.newTextField(160,150,280,30)
+	exp.placeholder = "Experience"
+	sceneGroup:insert(exp)
 	
 	
 	
@@ -85,120 +91,117 @@ function scene:create( event )
     m = display.newImage("menu.png", 30, -19)
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
+
+
+	sceneGroup:insert(radioGroup)
 	
     
 	 
 	
-    Excellent = widget.newButton(
+    local happy = widget.newSwitch(
+		{
+			left = 40,
+			top = 210,
+			style = "radio",
+			id = "Happy",
+			initialSwitchState = false,
+			onPress = onSwitchPress,
+		
+		}
+	)
+	 radioGroup:insert(happy)
+
+	 on=happy.id
+
+	local happyText = display.newText("Happy",120, 225, "Bahnschrift SemiCondensed", 20)
+	happyText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	sceneGroup:insert(happyText)
+	
+	
+	local startedNervous = widget.newSwitch(
+		{
+			left = 40,
+			top = 250,
+			style = "radio",
+			id = "startedNervous",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	 radioGroup:insert(startedNervous)
+
+	 local startedNervousText = display.newText("Started off nervous",172, 265, "Bahnschrift SemiCondensed", 20)
+	startedNervousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	sceneGroup:insert(startedNervousText)
+	
+	
+	
+	local mildlyNervous = widget.newSwitch(
+		{
+			left = 40,
+			top = 290,
+			style = "radio",
+			id = "mildlyNervous",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	 radioGroup:insert(mildlyNervous)
+
+	 local mildlyNervousText = display.newText("Mildly nervous",154.5, 305, "Bahnschrift SemiCondensed", 20)
+	 mildlyNervousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	 sceneGroup:insert(mildlyNervousText)
+
+	local moderatelyAnxious = widget.newSwitch(
+		{
+			left = 40,
+			top = 330,
+			style = "radio",
+			id = "moderatelyAnxious",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	 radioGroup:insert(moderatelyAnxious)
+
+	  local moderatelyAnxiousText = display.newText("Moderately anxious",172, 345, "Bahnschrift SemiCondensed", 20)
+	 moderatelyAnxiousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	 sceneGroup:insert(moderatelyAnxiousText)
+
+	 local extremelyAnxious = widget.newSwitch(
+		{
+			left = 40,
+			top = 370,
+			style = "radio",
+			id = "extremelyAnxious",
+			onPress = onSwitchPress,
+		
+		}
+	)
+	 radioGroup:insert(extremelyAnxious)
+
+	 local extremelyAnxiousText = display.newText("Extremely anxious",172, 385, "Bahnschrift SemiCondensed", 20)
+	 extremelyAnxiousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	 sceneGroup:insert(extremelyAnxiousText)
+     
+
+     local Submit = widget.newButton(
     {
-        shape = "roundedRect",
-        left = 13,
-        top = 180,
-        id = "review",
-        label = "Excellent",
-		value = "25",
-        onEvent = myeventListener,
-        fillColor = { default={ 0.4117647059, 0.6823529412, 0.92941176471 }, over={0,0,0} },
-        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
+       shape = "roundedRect",
+        left = 120,
+        top = 460,
+        id = "Submit",
+        label = "Submit",
+		width='98',
+		height='30',
+        onEvent = userSubmit,
+       fillColor = { default={  255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647}, over={ 2, 5, 1.5, 2.2 } },
+
     }
-    )	
-	 sceneGroup:insert(Excellent)
-	
-	
-	good = widget.newButton(
-    {
-        shape = "roundedRect",
-        left = 13,
-        top = 240,
-        id = "review",
-        label = "Good",
-		value = "25",
-        onEvent = myeventListener,
-        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={0,0,0} },
-        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
-    }
-    )
-	 sceneGroup:insert(good)
-	
-	
-	
-	average = widget.newButton(
-    {
-        shape = "roundedRect",
-        left = 13,
-        top = 300,
-        id = "review",
-        label = "Average",
-		value = "25",
-        onEvent = myeventListener,
-        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647}, over={ 0,0,0 } },
-        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
-    }
-    )
-    sceneGroup:insert(average)
+)
 
-	poor = widget.newButton(
-    {
-        shape = "roundedRect",
-        left = 13,
-        top = 360,
-        id = "review",
-        label = "Poor",
-		value = "25",
-        onEvent = myeventListener,
-        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 0,0,0} },
-        labelColor = { default={ 2, 4, 1.5 }, over={ 2, 5, 1.5, 2.2 } },
-    }
-    )
-	sceneGroup:insert(poor)
-	
-	
-
-function Excellent:touch( event )
-  	if event.phase == "began" then
-	ex = display.newText("Happy dog!",display.contentCenterX*1.60,display.contentCenterY*0.90, "Comic Sans MS", 20)
-	ex:setFillColor( 0, 0, 1 )
-	sceneGroup:insert(ex)
-	return true
-    end
-end
- 
-Excellent:addEventListener( "touch", Excellent )
-
-function good: touch( event )
-  	if event.phase == "began" then
-	go = display.newText("Good dog!",display.contentCenterX*1.60,display.contentCenterY*1.1, "Comic Sans MS", 20)
-	go:setFillColor( 0, 0, 1 )
-	sceneGroup:insert(go)
-	return true
-    end
-end
- 
-good:addEventListener( "touch", good)
-
-
-function average: touch( event )
-  	if event.phase == "began" then
-	avg = display.newText("Average!",display.contentCenterX*1.60,display.contentCenterY*1.3, "Comic Sans MS", 20)
-	avg:setFillColor( 0, 0, 1 )
-	sceneGroup:insert(avg)
-	return true
-    end
-end
- 
-average:addEventListener( "touch", average)
-
-
-function poor: touch( event )
-  	if event.phase == "began" then
-	poor = display.newText("Sad dog!",display.contentCenterX*1.60,display.contentCenterY*1.5, "Comic Sans MS", 20)
-	poor:setFillColor( 0, 0, 1 )
-	sceneGroup:insert(poor)
-	return true
-    end
-end
- 
-poor:addEventListener( "touch", poor)
+     sceneGroup:insert(Submit)
 
 --average:addEventListener("tap", Onclick)
 

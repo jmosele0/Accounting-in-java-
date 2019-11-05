@@ -30,6 +30,7 @@ local function networkListener( event )
     else
 	  if (event.response=="") then
 	  	  print ("email or password invalid")
+		  native.showAlert( "Corona", "Invalid email or password.", { "OK" } )
 
 	  else
 	  	  print(event.response)
@@ -166,6 +167,8 @@ scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
  
 return scene
+
+
 
 
 

@@ -37,6 +37,14 @@ end
  composer.gotoScene("SignUp",{effect = "slideLeft", time = 500, params=customParams})
  end
 
+ local function slider()
+ 	local customParams={}
+ 	customParams["address"]=ipAddress
+ 	customParams["OwnerID"]=7
+ 	customParams["dogID"]=44
+ composer.gotoScene("dogdislike",{effect = "slideLeft", time = 500, params=customParams})
+ end
+
 	
 	
 display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
@@ -76,6 +84,11 @@ local SignUp = widget.newButton(
 )
 sceneGroup:insert(SignUp)
 SignUp:addEventListener("tap", signup)
+
+
+
+
+
 
 
 end

@@ -24,12 +24,15 @@ local widget = require( "widget" )
 end
 
  local function dog ()
-    local customParams={ownerID=OwnerID}	
-	composer.gotoScene("Profile",{effect = "slideLeft", time = 500, params=customParams})
+    local customParams={ownerID=OwnerID,
+                  address=ipAddress}  
+    composer.gotoScene("dogList",{effect = "slideLeft", time = 500, params=customParams})
 end
 
- local function Tracr ()	
-	composer.gotoScene("Tracker",{effect = "slideLeft", time = 500})
+ local function Tracr ()
+    local customParams={ownerID=OwnerID,
+                        address=ipAddress}	
+	composer.gotoScene("Tracker",{effect = "slideLeft", time = 500, params=customParams})
 end
  
 
@@ -47,7 +50,7 @@ end
 end 
 
  local function hyperLink()
-  system.openURL("https://www.youtube.com/channel/UCY_FKzvY-gmO-wOMmI9xAZg/featured?disable_polymer=1")
+  composer.gotoScene("channel",{effect = "slideLeft", time = 500})
 end
  
 -- create()

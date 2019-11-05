@@ -12,8 +12,8 @@ $Sex=$_POST['Sex'];
 $Desexed=$_POST['Desexed'];
 $DOB=$_POST['DOB'];
 $HowLongOwned=$_POST['HowLongOwned'];
-$VaccinationStatus=NULL;
-$DogOrigin=NULL;
+$VaccinationStatus=$_POST['VaccinationStatus'];
+$DogOrigin=$_POST['DogOrigin'];
 $OwnerID=$_POST['OwnerID'];
 
 
@@ -30,7 +30,12 @@ if (!$insert_statement)
 }
 else
 {
-    echo $OwnerID;
+	$select_query=$dbase->prepare("SELECT MAX(DogID) FROM dog WHERE OwnerID=?");
+    $select_query->bind_param("s", $OwnerID);
+    $select_query->execute();
+    $select_query->bind_result($DogID);
+    $select_query->fetch();
+    echo $DogID;
 }
 
 ?>

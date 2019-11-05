@@ -78,6 +78,8 @@ function scene:create( event )
 	username = native.newTextField(160,100,180,30)
 	username.placeholder = "First name"
 	sceneGroup:insert(username)
+
+
 	
 	pw = native.newTextField(160,140,180,30)
 	pw.placeholder = "password"
@@ -151,7 +153,7 @@ function scene:create( event )
 	rGroup:insert( under18 )
 	sceneGroup:insert(rGroup)
 	
-	local u18 = display.newText( " > 18", display.contentCenterX*1.0, display.contentCenterY*1.007, native.systemFont, 18 )
+	local u18 = display.newText( " < 18", display.contentCenterX*1.0, display.contentCenterY*1.007, native.systemFont, 18 )
 	sceneGroup:insert(u18)
 	
 	local bet18to30 = widget.newSwitch(
@@ -211,6 +213,52 @@ function scene:create( event )
 	postcode = native.newTextField(160,430,180,30)
 	postcode.placeholder = "postcode"
 	sceneGroup:insert(postcode)
+
+
+	local function onSwitchPress( event )
+        local switch = event.target
+        if (switch.id=="male" or switch.id=="female") then
+            on1=switch.id
+        elseif(switch.id=="under 18" or switch.id=="bet18to30" or switch.id=="bet30to50" or switch.id=="over50") then
+            on2=switch.id    
+        end
+    end
+
+local function onSwitchPress2(event)
+    local switch=event.target
+	on2=switch.id
+    end	
+
+local function home ()	
+	composer.gotoScene("home",{effect = "slideLeft", time = 500})
+end
+
+
+    local function ques ()	
+    	print(email.text)
+		if username.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif pw.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif email.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif postcode.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	else
+	local customParams={Email=email.text,
+    	                    FirstName=username.text,
+    	                    password=pw.text,
+    	                    Gender=on1,
+    	                    AgeRange=on2,
+    	                    PostCode=postcode.text,
+    	                    address=ipAddress}
+    	composer.gotoScene("InQue",{effect = "slideLeft", time = 500, params=customParams})
+    end
+end
 	
 	
 	local SignUp = widget.newButton(
@@ -283,5 +331,3 @@ scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
  
 return scene
-
-

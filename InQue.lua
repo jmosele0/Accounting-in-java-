@@ -14,21 +14,38 @@ local Welcome
 local widget = require ("widget")
 
 local function skip()
- composer.gotoScene("Login",{effect = "slideLeft", time = 500})
+	local customParams={address=ipAddress}
+ composer.gotoScene("Login",{effect = "slideLeft", time = 500, params=customParams})
 end
 
-local function networkListener(event)
- if ( event.isError ) then
-        print( "Network error: ", event.response )
-    else
-    	if (event.response=='-1')then
-	        print ("error adding details")
-	    else    
-	        customParams={OwnerID=event.response}
-	        composer.gotoScene("Menu",{effect = "slideLeft", time = 500, params=customParams})
-	    end    
- end
-end
+-- -----------------------------------------------------------------------------------
+-- Code outside of the scene event functions below will only be executed ONCE unless
+-- the scene is removed entirely (not recycled) via "composer.removeScene()"
+-- -----------------------------------------------------------------------------------
+
+-- -----------------------------------------------------------------------------------
+-- Scene event functions
+-- -----------------------------------------------------------------------------------
+ 
+-- create()
+function scene:create( event )
+ 
+    local sceneGroup = self.view
+
+local on1
+local on2
+local on3
+local on4
+
+local params=event.params
+    local Email=params.Email
+    local FirstName=params.FirstName
+    local password=params.password
+    local Gender=params.Gender
+    local AgeRange=params.AgeRange
+    local PostCode=params.PostCode
+    ipAddress=params.address
+    
 
 
 local function submit()
