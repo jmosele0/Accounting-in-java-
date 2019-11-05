@@ -44,7 +44,7 @@ local params=event.params
     local Gender=params.Gender
     local AgeRange=params.AgeRange
     local PostCode=params.PostCode
-    local ipAddress=params.address
+    ipAddress=params.address
 
 
 

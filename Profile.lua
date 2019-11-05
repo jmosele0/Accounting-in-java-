@@ -53,7 +53,6 @@ function scene:create( event )
 	    print ("error inserting details")
 	else    
 		print(event.response)
-<<<<<<< HEAD
 	    details=json.decode(event.response)
 	    email=details.Email
 	    print (email)

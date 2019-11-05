@@ -27,6 +27,7 @@ end
     local customParams={ownerID=OwnerID,
                         address=ipAddress}	
 	composer.gotoScene("Tracker",{effect = "slideLeft", time = 500, params=customParams})
+end
 
  local function profile ()
     local customParams={ownerID=OwnerID,
