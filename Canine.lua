@@ -8,6 +8,7 @@ local composer = require( "composer" )
  
 local scene = composer.newScene()
 local widget = require( "widget" )
+local json=require("json")
 
 local function menu()
  composer.gotoScene("Menu",{effect = "slideRight", time = 500})
@@ -17,6 +18,9 @@ end
 local function home ()	
 	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
 end  
+
+
+
  -- ScrollView listener
 local function scrollListener( event )
  
@@ -84,98 +88,52 @@ function scene:create( event )
 		}
 	)
 	sceneGroup:insert(scrollView)
-	
-	local text = [[
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	CANINE ENRICHMENT:
-	We all know we need to walk, run or play with our dogs, to help keep them physically fit and active. 
-    But what about their brains? 
-    Like us, dogs like to use their brains on a daily basis, usually to find food or toys! Enriching your dog’s environment may also stop them from performing unwanted, destructive behaviours. 
-    Use the following tips and tricks to keep your dog’s brain active and focused. 
 
 
-	GET RID OF FOOD BOWL!:
-		■ Dogs are scavengers by nature, therefore they are built to work for their food
-        ■ Using a food bowl does not enrich your dog. It does not have to think about how to get the food
-		■ There are very simple ways of providing mental stimulation to your dog during meal times
-		■ The action of licking and chewing are also  a calming behaviour
-		■ Kong products are amazing commercial products to feed your dog from
-		■ If your dog is new to working for their food, start simple, as you do not want them to get frustrated
-		■ Beginners
-			■ Smear some peanut butter or cream cheese inside your dog’s Kong
-		■ Intermediates
-            ■ Fill your dog’s Kong with biscuits and pack the end with wet food
-        ■ Advanced
-		    ■ Fill the whole toy with wet food
-			■ Tightly pack a combination of wet and dry food
-			■ Freeze your packed Kong
-			
-	MAKE YOUR DOG'S DINNER INTERESTING! 
-        ■ Give them new foods to try in their Kong, like peanut butter, cream cheese, different types of meats, berries or different vegetables
-	DRY FOOD TUMBLERS
-        ■ Tumblers are a great way to give your dog their biscuits
-        ■ Kong and Rogz have variations of tumblers
-	DIY OPTIONS
-		■ Place your dog’s food in a size appropriate cardboard box that they can shred up to get their food
-        ■ You can also smear peanut butter or cream cheese inside the box to keep them interested
-        ■ Place biscuits in muffin tins
-        ■ Smear peanut butter, cream cheese or Kong filler onto their plastic toys
+	
+local function networkListener(event)
+	if ( event.isError ) then
+        print( "Network error: ", event.response )
+    elseif (event.response=='-1')then
+	     print ("error adding details")
+	else    
+	     local index
+         local fields={"CanineTitle", "CanineContent"}
+         local index2
+         local fieldLength=#fields
+         print(event.response)
+         local enrichment=json.decode(event.response)
+         print(enrichment)
+         local length=#enrichment 
+         local y=20
+         for index=1, length, 1 do
+         	for index2=1, fieldLength, 1 do
+         		local value=enrichment[index][fields[index2]]
+         		local text = display.newText(value,display.contentCenterX,y,270,0,"Arial", 15)
+         		text:setTextColor(0)
+         		scrollView:insert(text)
+         		y=y+20
+         	end
+         	y=y+40
+         end
+     end 
+ end   
+	
 
-	USE THAT NOSE! 
-        ■ Sniffing burns more calories than walking for dogs
-        ■ It also provides excellent mental stimulation
-        ■ For dogs that love to follow a scent, make a scent trail for then in the backyard
-        ■ Use juice from a tuna, salmon or wet food can
-        ■ Keep your dog inside, trace a scent trail around the yard 
-        ■ Place small pieces of food along the trail to keep your dog invested
-        ■ Let your dog outside and watch them work! 
+
+local function loadCanine()
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"	
+	local params = {}
+    params.headers = headers
+	network.request(ipAddress.."canineenrichment.php", "POST", networkListener, params)
+end
 
 
 
+loadCanine()			
 
----------------------------End-------------------------]]
-local text = display.newText(text,0,10,270,0,"Arial", 15)
-text:setTextColor(0)
-text.x = display.contentCenterX
-scrollView:insert(text)
  
  end
 -- show()

@@ -52,6 +52,9 @@ local function login ()
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     headers["Accept-Language"] = "en-US"
 	local body="Email="..username.text.."&password="..pw.text
+	print(username.text)
+	print(pw.text)
+	print(ipAddress)
 	local params = {}
     params.headers = headers
     params.body = body
