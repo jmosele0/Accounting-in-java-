@@ -54,9 +54,6 @@ end
 	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
 end 
 
- local function hyperLink()
-  composer.gotoScene("channel",{effect = "slideLeft", time = 500})
-end
  
 -- create()
 function scene:create( event )
@@ -158,7 +155,7 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 60,
-        top = 300,
+        top = 350,
         id = "logT",
         label = "Logout",
 		width='200',
@@ -175,9 +172,9 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 60,
-        top = 350,
+        top = 300,
         id = "T",
-        label = "YouTube Channel",
+        label = "Training",
 		width='200',
 		height='35',
 	    onEvent = userChannel,
@@ -187,7 +184,7 @@ function scene:create( event )
 )
 	
 	sceneGroup:insert(T)
-	T:addEventListener("tap", hyperLink)
+	T:addEventListener("tap", Training)
 	
 	
 end

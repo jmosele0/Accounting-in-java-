@@ -139,10 +139,20 @@ function scene:create( event )
 			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647 },
 		}
 	)
+	sceneGroup: insert(scrollView)
 
 
+		--add border
+	local rect = display.newRect( 162, 282, 280, 480 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	scrollView:insert(rect)
+	
 	scrollView:insert(radioGroup1)
 	scrollView:insert(radioGroup2)
+	
+
 
 	local doglikes={}
 	local dogthings={}

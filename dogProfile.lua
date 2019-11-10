@@ -50,6 +50,7 @@ end
 -- create()
 function scene:create( event )
  
+--adding border 
 
     print("create")
     local sceneGroup = self.view
@@ -57,15 +58,9 @@ function scene:create( event )
     OwnerID=params.OwnerID
 	ipAddress=params.address
 	
-	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-	bg:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
-	sceneGroup:insert(bg)
+	
 
-	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-	bg:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
-	sceneGroup:insert(bg)
-
-	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
+	bgr=display.newRect(display.contentCenterX,display.contentCenterY*1.0,display.contentWidth,display.contentHeight*1.0)
 	bgr:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(bgr)
 	
@@ -78,6 +73,30 @@ function scene:create( event )
 	 m = display.newImage("back.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
+	
+	
+	-- Create the widget for scroll view
+	local scrollView = widget.newScrollView(
+		{
+			top = 50,
+			left = 0,
+			width = display.contentWidth,
+			height = display.contentHeight,
+			topPadding = 0,
+			bottomPadding = 70,
+			horizontalScrollDisabled = true,
+			verticalScrollDisabled = false,
+			listener = scrollListener,
+			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647 },
+		}
+	)
+	sceneGroup:insert(scrollView)
+	
+	local rect = display.newRect( 165, 320, 210, 150 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	scrollView:insert(rect)
 
 	--Writing Message "About"
 	--Adding Message
@@ -86,22 +105,22 @@ function scene:create( event )
 
 	name = native.newTextField(160,100,180,30)
 	name.placeholder = "Name"
-	sceneGroup:insert(name)
+	scrollView:insert(name)
 	
 	age = native.newTextField(160,140,180,30)
 	age.placeholder = "Age"
-	sceneGroup:insert(age)
+	scrollView:insert(age)
 	
 	breed = native.newTextField(160,180,180,30)
 	breed.placeholder = "Breed"
-	sceneGroup:insert(breed)
+	scrollView:insert(breed)
 	
 	sex = native.newTextField(160,220,180,30)
 	sex.placeholder = "Sex"
-	sceneGroup:insert(sex)
+	scrollView:insert(sex)
 	
 	local Text = display.newText( "* Desexed?", display.contentCenterX*0.7, display.contentCenterY*1.09, native.systemFont, 18 )
-	sceneGroup:insert(Text)
+	scrollView:insert(Text)
 	
 	local radioGroup = display.newGroup()
  
@@ -119,10 +138,10 @@ function scene:create( event )
 	)
 	radioGroup:insert( yes )
 	on=yes.id
-	sceneGroup:insert(radioGroup)
+	scrollView:insert(radioGroup)
 	
 	local y = display.newText( "Yes", display.contentCenterX*0.55, display.contentCenterY*1.25, native.systemFont, 18 )
-	sceneGroup:insert(y)
+	scrollView:insert(y)
  
 	no = widget.newSwitch(
 		{
@@ -138,7 +157,7 @@ function scene:create( event )
 	radioGroup:insert( no )
 	
 	local n = display.newText( "No", display.contentCenterX*0.55, display.contentCenterY*1.38, native.systemFont, 18 )
-	sceneGroup:insert(n)
+	scrollView:insert(n)
 	
 	plan = widget.newSwitch(
 		{
@@ -156,15 +175,15 @@ function scene:create( event )
 	
 	
 	local p = display.newText( "Planning to when \n old enough", display.contentCenterX*0.92, display.contentCenterY*1.55, native.systemFont, 18 )
-	sceneGroup:insert(p)
+	scrollView:insert(p)
 	
 	DOB = native.newTextField(160,420,180,30)
 	DOB.placeholder = "Date of birth"
-	sceneGroup:insert(DOB)
+	scrollView:insert(DOB)
 	
 	dn = native.newTextField(160,460,180,30)
 	dn.placeholder = "How long have you had"
-	sceneGroup:insert(dn)
+	scrollView:insert(dn)
 	
 	
 	 local nxt = widget.newButton(
@@ -181,7 +200,7 @@ function scene:create( event )
         labelColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647}, over={ 2, 5, 1.5, 2.2 } },
     }
 )
-sceneGroup:insert(nxt)
+scrollView:insert(nxt)
 nxt:addEventListener("tap", Next )
 
 end

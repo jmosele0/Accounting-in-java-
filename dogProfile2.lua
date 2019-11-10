@@ -71,6 +71,13 @@ function scene:create( event )
 
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
+	--add border
+	local rect = display.newRect( 162, 255, 275, 280 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	sceneGroup:insert(rect)
+	
 	--Adding Message
 	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(msg)

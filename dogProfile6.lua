@@ -76,8 +76,38 @@ function scene:create( event )
 	sceneGroup:insert(backImage)
 	backImage:addEventListener("tap", back)
 	
+	-- Create the widget for scroll view
+	local scrollView = widget.newScrollView(
+		{
+			top = 70,
+			left = 0,
+			width = display.contentWidth,
+			height = display.contentHeight,
+			topPadding = 0,
+			bottomPadding = 70,
+			horizontalScrollDisabled = true,
+			verticalScrollDisabled = false,
+			listener = scrollListener,
+			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647 },
+		}
+	)
+	sceneGroup:insert(scrollView)
+	--add border
+	local r = display.newRect( 160, 140, 290, 40)
+	r:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	r:setStrokeColor(255,255,255 )
+	r.strokeWidth = 2
+	scrollView:insert(r)
+	
+	--add border
+	local rect = display.newRect( 160, 310, 290, 165)
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	scrollView:insert(rect)
+	
 	local txt = display.newText( "* Were the parents or siblings sighted?", display.contentCenterX*1.0, display.contentCenterY*0.4, native.systemFont, 18 )
-	sceneGroup:insert(txt)
+	scrollView:insert(txt)
 	
 	local rG = display.newGroup()
  
@@ -95,10 +125,10 @@ function scene:create( event )
 	)
 	on=yes.id
 	rG:insert( yes )
-	sceneGroup:insert(rG)
+	scrollView:insert(rG)
 	
 	local yn = display.newText( "Yes              No", display.contentCenterX*0.8, display.contentCenterY*0.58, native.systemFont, 18 )
-	sceneGroup:insert(yn)
+	scrollView:insert(yn)
  
 	local no = widget.newSwitch(
 		{
@@ -114,7 +144,7 @@ function scene:create( event )
 	rG:insert( no )
 	
 	local cp = display.newText( "* If yes, did you have any concerns\n  about thier personalities?", display.contentCenterX*1.0, display.contentCenterY*0.8, native.systemFont, 18 )
-	sceneGroup:insert(cp)
+	scrollView:insert(cp)
  
     local rp = display.newGroup()
 	
@@ -131,10 +161,10 @@ function scene:create( event )
 	)
     on2=Friendly.id
 	rp:insert( Friendly )
-	sceneGroup:insert(rp)
+	scrollView:insert(rp)
 	
 	local VF = display.newText( "Very Friendly", display.contentCenterX*0.7, display.contentCenterY*1.03, native.systemFont, 18 )
-	sceneGroup:insert(VF)
+	scrollView:insert(VF)
 	
 	local Standoffish = widget.newSwitch(
 		{
@@ -150,7 +180,7 @@ function scene:create( event )
 
 
 	local SO = display.newText( "Little Stand-offish", display.contentCenterX*0.8, display.contentCenterY*1.2, native.systemFont, 18 )
-	sceneGroup:insert(SO)
+	scrollView:insert(SO)
 	
 	local Visitors = widget.newSwitch(
 		{
@@ -166,31 +196,15 @@ function scene:create( event )
 
 	
 	local VS = display.newText( "Did not like visitors", display.contentCenterX*0.84, display.contentCenterY*1.36, native.systemFont, 18 )
-	sceneGroup:insert(VS)
+	scrollView:insert(VS)
 
 
-
-    local Other = widget.newSwitch(
-		{
-			left = 262,
-			top = 350,
-			style = "radio",
-			id = "Other",
-			onPress = onSwitchPress2
-		
-		}
-	)
-	rp:insert(Other)
-
-
-	local OtherText = display.newText( "Other", display.contentCenterX*0.5, display.contentCenterY*1.53, native.systemFont, 18 )
-	sceneGroup:insert(OtherText)
 
 
 	
-	Others = native.newTextField(130,411,140,30)
+	local Others = native.newTextField(165,370,160,30)
 	Others.placeholder = "Other"
-	sceneGroup:insert(Others)
+	scrollView:insert(Others)
 	
 	
     local nxt = widget.newButton(
@@ -208,7 +222,7 @@ function scene:create( event )
 
     }
 )
-sceneGroup:insert(nxt)
+scrollView:insert(nxt)
 nxt:addEventListener("tap", Next )
 	
 

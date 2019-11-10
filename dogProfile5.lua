@@ -114,6 +114,13 @@ function scene:create( event )
 	sceneGroup:insert(backImage)
 	backImage:addEventListener("tap", back)
 	
+	--add border
+	local rect = display.newRect( 165, 220, 190, 200 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	sceneGroup:insert(rect)
+	
 	local txt = display.newText( "* Who else do I live with?", display.contentCenterX*1.0, display.contentCenterY*0.4, native.systemFont, 18 )
 	sceneGroup:insert(txt)
 	
