@@ -26,7 +26,7 @@ end
  local function Tracr ()
     local customParams={ownerID=OwnerID,
                         address=ipAddress}	
-	composer.gotoScene("Tracker",{effect = "slideLeft", time = 500, params=customParams})
+	composer.gotoScene("experience_list",{effect = "slideLeft", time = 500, params=customParams})
 end
 
  local function profile ()

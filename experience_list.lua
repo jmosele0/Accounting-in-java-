@@ -10,6 +10,10 @@ local scene = composer.newScene()
 
 local widget = require ("widget")
 
+local ipAddress
+
+local ownerID
+
 local json=require("json")
 
 local function submit()
@@ -24,6 +28,13 @@ end
 local function back ()	
 	composer.gotoScene("Menu",{effect = "slideRight", time = 500})
 end 
+
+local function addExperience()
+	local customParams={ownerID=ownerID,
+	                    address=ipAddress}
+	composer.gotoScene("Tracker", {effect = "slideLeft", time = 500, params=customParams})
+end
+
 
 
 
@@ -47,8 +58,8 @@ function scene:create( event )
     local sceneGroup = self.view
 
     local params=event.params
-    local ipAddress=params.address
-    local ownerID=params.ownerID
+    ipAddress=params.address
+    ownerID=params.ownerID
 
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
@@ -61,6 +72,22 @@ function scene:create( event )
 	--myImage:translate(140,450)
 	sceneGroup:insert(backImage)
 	backImage:addEventListener("tap", back)
+
+	    local experience = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 200,
+        top = 50,
+        id = "dogP",
+        label = "add experience +",
+        onPress=addExperience,
+        width='100',
+        height='35',
+       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={0,0,0}, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+	    sceneGroup:insert(experience)
 	
 	-- Create the widget for scroll view
 	local scrollView = widget.newScrollView(
