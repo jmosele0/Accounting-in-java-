@@ -59,30 +59,54 @@ local function onSwitchPress(event)
  display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
 	
-local bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-	bg:setFillColor(255,255,255)
-	sceneGroup:insert(bg)
+
 	
-	local bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
-	bgr:setFillColor(255,255,255)
-	sceneGroup:insert(bgr)
+	--Adding Message
+	msg = display.newText("Edit Profile",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
+	msg:setFillColor(255,255,255)
+	sceneGroup:insert(msg)
+	
+		-- Create the widget for scroll view
+	local scrollView = widget.newScrollView(
+		{
+			top = 70,
+			left = 0,
+			width = display.contentWidth,
+			height = display.contentHeight,
+			topPadding = 0,
+			bottomPadding = 70,
+			horizontalScrollDisabled = true,
+			verticalScrollDisabled = false,
+			listener = scrollListener,
+			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647 },
+		}
+	)
+	sceneGroup:insert(scrollView)
+	
   
 		local displaymail = display.newText('Email -',display.contentCenterX*0.38,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 30)
-	    displaymail:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	    sceneGroup:insert(displaymail)
+	    displaymail:setFillColor( 255,255,255 )
+	    scrollView:insert(displaymail)
 	    local displayEmail =  native.newTextField(200,100,120,30)
 	    displayEmail.text = email
-	    sceneGroup:insert(displayEmail)
+	    scrollView:insert(displayEmail)
 		local displayame=display.newText('Name -',display.contentCenterX*0.38,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
-	    displayame:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	    sceneGroup:insert(displayame)
+	    displayame:setFillColor(255,255,255)
+	    scrollView:insert(displayame)
 		local displayName = native.newTextField(200,50,120,30)
 		displayName.text = firstname
-	    sceneGroup:insert(displayName)
+	    scrollView:insert(displayName)
 		local displayge=display.newText('AgeRange -',display.contentCenterX,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 30)
-	    displayge:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	    sceneGroup:insert(displayge)
+	    displayge:setFillColor( 255,255,255)
+	    scrollView:insert(displayge)
 		local rGroup = display.newGroup()
+		
+		
+	local rect = display.newRect( 165, 250, 220, 155 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	scrollView:insert(rect)
 	
 	local under18 = widget.newSwitch(
 		{
@@ -97,11 +121,11 @@ local bg=display.newRect(display.contentCenterX,display.contentCenterY,display.c
 	)
 	on1=under18.id
 	rGroup:insert( under18 )
-	sceneGroup:insert(rGroup)
+	scrollView:insert(rGroup)
 	
 	local u18 = display.newText( " > 18", display.contentCenterX*1.0, display.contentCenterY*0.80, native.systemFont, 18 )
-	u18:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	sceneGroup:insert(u18)
+	u18:setFillColor( 255,255,255 )
+	scrollView:insert(u18)
 	
 	local bet18to30 = widget.newSwitch(
 		{
@@ -117,8 +141,8 @@ local bg=display.newRect(display.contentCenterX,display.contentCenterY,display.c
 	
 	
 	local bet18to30 = display.newText( " 18-30 ", display.contentCenterX*1.0, display.contentCenterY*0.95, native.systemFont, 18 )
-	bet18to30:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	sceneGroup:insert(bet18to30)
+	bet18to30:setFillColor( 255,255,255)
+	scrollView:insert(bet18to30)
 	
 	local bet30to50 = widget.newSwitch(
 		{
@@ -134,8 +158,8 @@ local bg=display.newRect(display.contentCenterX,display.contentCenterY,display.c
 	
 	
 	local bet30to50 = display.newText( " 30-50 ", display.contentCenterX*1.0, display.contentCenterY*1.10, native.systemFont, 18 )
-	bet30to50:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	sceneGroup:insert(bet30to50)
+	bet30to50:setFillColor(255,255,255 )
+	scrollView:insert(bet30to50)
 	
 	
 	local over50 = widget.newSwitch(
@@ -152,14 +176,14 @@ local bg=display.newRect(display.contentCenterX,display.contentCenterY,display.c
 	
 	
 	local over50 = display.newText( " 50 + ", display.contentCenterX*1.0, display.contentCenterY*1.25, native.systemFont, 18 )
-	over50:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	sceneGroup:insert(over50)
+	over50:setFillColor( 255,255,255 )
+	scrollView:insert(over50)
 		local displayode=display.newText('Postcode -',display.contentCenterX*0.48,display.contentCenterY*1.45, "Bahnschrift SemiCondensed", 30)
-	    displayode:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
-	    sceneGroup:insert(displayode)
+	    displayode:setFillColor(255,255,255 )
+	    scrollView:insert(displayode)
 		local displayCode = native.newTextField(210,350,140,30)
 	    displayCode.text= postcode
-	    sceneGroup:insert(displayCode)
+	    scrollView:insert(displayCode)
 	
 
    
@@ -210,12 +234,12 @@ end
         id = "update",
         label = "Update",
         onEvent = ProfileUpdate,
-        fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={  0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } }
+        fillColor = { default={255,255,255}, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={0.4117647059, 0.6823529412, 0.9294117647 }, over={ 2, 5, 1.5, 2.2 } },
     }
 )
 upProfile:addEventListener("tap", update) 
-sceneGroup:insert(upProfile)
+scrollView:insert(upProfile)
 		
 
 

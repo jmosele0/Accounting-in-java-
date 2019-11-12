@@ -83,6 +83,13 @@ function scene:create( event )
 	ipAddress=params.address
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
 	
+	--add border
+	local rect = display.newRect( 162, 275, 232, 330 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	sceneGroup:insert(rect)
+	
 	--Adding Message
 	msg = display.newText("Dog Profile",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(msg)
@@ -95,6 +102,8 @@ function scene:create( event )
 	
 	local txt = display.newText( "* Where did I come from?", display.contentCenterX*1.0, display.contentCenterY*0.4, native.systemFont, 18 )
 	sceneGroup:insert(txt)
+	
+	
 	
 	local rg = display.newGroup()
 	

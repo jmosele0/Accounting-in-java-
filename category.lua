@@ -51,7 +51,7 @@ function scene:create( event )
     local sceneGroup = self.view
 	local sceneGroup = self.view
 	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight*1.20)
-	bg:setFillColor( 0.26666666666, 0.44705882352 ,0.76862745098)
+	bg:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(bg)
 	
 	--back button

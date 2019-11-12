@@ -61,17 +61,17 @@ function scene:create( event )
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
 	sceneGroup:insert(Welcome)
 	
-	y = display.newText("Find Dog Training Videos on\n  our YouTube Channel",170,80, "Bahnschrft SemiCondensed",20)
+	y = display.newText("Follow us on Facebook ",170,80, "Forte",20)
 	y:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(y)
 	
-	i = display.newText("Upload Your Dog Photos with\n#pawsitivebehavior in caption\n          on Instagram",170,280, "Bahnschrft SemiCondensed",20)
+	i = display.newText("Upload Your Dog Photos with\n #pawsitivebehavior in caption\n          on Instagram",170,280, "Forte",20)
 	i:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(i)
 	
 
 	
-	 m = display.newImage("menu.png", 30, -17 )
+	m = display.newImage("menu.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
 	
@@ -82,8 +82,8 @@ function scene:create( event )
        shape = "roundedRect",
         left = 25,
         top = 120,
-        id = "Youtube ",
-        label = "YouTube Channel",
+        id = "Facebook ",
+        label = "Facebook",
 		width='270',
 		height='30',
         onEvent = userChannel,
