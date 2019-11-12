@@ -34,6 +34,12 @@ function scene:create( event )
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	
+	local rect = display.newRect( 160, 265, 250, 205 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	sceneGroup:insert(rect)
+	
 	--Adding Welcome Message
 	local Welcome = display.newText("Welcome",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
 	sceneGroup:insert(Welcome)
@@ -124,7 +130,7 @@ function scene:create( event )
 			left = 205,
 			top = 260,
 			style = "radio",
-			id = "bet18to30",
+			id = "18-30",
 			onPress = onSwitchPress
 		
 		}
@@ -140,7 +146,7 @@ function scene:create( event )
 			left = 205,
 			top = 295,
 			style = "radio",
-			id = "bet30to50",
+			id = "30-50",
 			onPress = onSwitchPress
 		
 		}
@@ -157,7 +163,7 @@ function scene:create( event )
 			left = 205,
 			top = 330,
 			style = "radio",
-			id = "over50",
+			id = "over 50",
 			onPress = onSwitchPress
 		
 		}

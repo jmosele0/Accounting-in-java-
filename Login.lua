@@ -104,6 +104,8 @@ function scene:create( event )
 	pw.isSecure=true
 	pw.hasBackground=true
 	sceneGroup:insert(pw)
+	
+
  
  local Login = widget.newButton(
     {

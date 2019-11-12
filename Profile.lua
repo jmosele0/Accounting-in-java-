@@ -60,41 +60,49 @@ function scene:create( event )
 	    gender=details.Gender
 	    agerange=details.AgeRange
 	    postcode=details.PostCode
-		local displaymail = display.newText('Email -',display.contentCenterX*0.38,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 30)
-	    displaymail:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		local displaymail = display.newText('Email ',display.contentCenterX*0.45,display.contentCenterY*0.50, "Bahnschrift SemiCondensed", 17)
+	    displaymail:setFillColor(255,255,255 )
 	    sceneGroup:insert(displaymail)
-	    local displayEmail = display.newText(email,display.contentCenterX*1.2,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 24)
-	    displayEmail:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	    local displayEmail = display.newText(email,display.contentCenterX*0.56,display.contentCenterY*0.65, "Bahnschrift SemiCondensed", 24)
+	    displayEmail:setFillColor(255,255,255 )
+		displayEmail.anchorX = 0.2
 	    sceneGroup:insert(displayEmail)
-		local displayame=display.newText('Name -',display.contentCenterX*0.38,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
-	    displayame:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		local displayame=display.newText('Name ',display.contentCenterX*0.45,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 17)
+	    displayame:setFillColor( 255,255,255 )
 	    sceneGroup:insert(displayame)
-		 local displayName=display.newText(firstname,display.contentCenterX*1.2,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 24)
-	    displayName:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		 local displayName=display.newText(firstname,display.contentCenterX*0.55,display.contentCenterY*0.35, "Bahnschrift SemiCondensed", 24)
+	    displayName:setFillColor( 255,255,255 )
+		displayName.anchorX = 0.2
 	    sceneGroup:insert(displayName)
-		local displayender=display.newText('Gender -',display.contentCenterX*0.40,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 30)
-	    displayender:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		local displayender=display.newText('Gender ',display.contentCenterX*0.48,display.contentCenterY*0.80, "Bahnschrift SemiCondensed", 17)
+	    displayender:setFillColor( 255,255,255 )
 	    sceneGroup:insert(displayender)
-	    local displayGender=display.newText(gender,display.contentCenterX*1.2,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 24)
-	    displayGender:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+	    local displayGender=display.newText(gender,display.contentCenterX*0.52,display.contentCenterY*0.95, "Bahnschrift SemiCondensed", 24)
+	    displayGender:setFillColor(255,255,255 )
+		displayGender.anchorX = 0.2
 	    sceneGroup:insert(displayGender)
-		local displayge=display.newText('AgeRange -',display.contentCenterX*0.48,display.contentCenterY*0.80, "Bahnschrift SemiCondensed", 30)
-	    displayge:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		local displayge=display.newText('AgeRange',display.contentCenterX*0.52,display.contentCenterY*1.10, "Bahnschrift SemiCondensed", 17)
+	    displayge:setFillColor(255,255,255 )
 	    sceneGroup:insert(displayge)
-		local displayAge=display.newText(agerange,display.contentCenterX*1.2,display.contentCenterY*0.80, "Bahnschrift SemiCondensed", 24)
-	    displayAge:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		local displayAge=display.newText(agerange,display.contentCenterX*0.47,display.contentCenterY*1.25, "Bahnschrift SemiCondensed", 24)
+	    displayAge:setFillColor( 255,255,255)
+		displayAge.anchorX = 0.1
 	    sceneGroup:insert(displayAge)
-		local displayode=display.newText('Postcode -',display.contentCenterX*0.46,display.contentCenterY*1.0, "Bahnschrift SemiCondensed", 30)
-	    displayode:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		local displayode=display.newText('Postcode',display.contentCenterX*0.50,display.contentCenterY*1.40, "Bahnschrift SemiCondensed", 17)
+	    displayode:setFillColor( 255,255,255 )
 	    sceneGroup:insert(displayode)
-		local displayCode=display.newText(postcode,display.contentCenterX*1.2,display.contentCenterY*1.0, "Bahnschrift SemiCondensed", 24)
-	    displayCode:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+		local displayCode=display.newText(postcode,display.contentCenterX*0.45,display.contentCenterY*1.55, "Bahnschrift SemiCondensed", 24)
+	    displayCode:setFillColor( 255,255,255)
+		displayCode.anchorX = 0.1
 	    sceneGroup:insert(displayCode)
 
+	
+
 
 end
-end
 
+
+end
 
 
 local function loadData(Id)
@@ -122,15 +130,23 @@ end
 	
 	
 bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-	bg:setFillColor(255,255,255)
+	bg:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(bg)
 	
 	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
-	bgr:setFillColor(255,255,255)
+	bgr:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(bgr)
 
-	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
+	display.setDefault( "background",0.4117647059, 0.6823529412, 0.9294117647)
 	
+	
+	local rect = display.newRect( 162, 210, 300, 390 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	sceneGroup:insert(rect)
+	
+
 	--Adding Welcome Message
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
 	sceneGroup:insert(Welcome)
@@ -155,13 +171,13 @@ end
 	local EDITP = widget.newButton(
     {
         shape = "roundedRect",
-        left = 120,
-        top = 300,
+        left = 70,
+        top = 420,
         id = "edit",
         label = "Edit details",
         onEvent = userSignUp,
-        fillColor = { default={ 255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={  0.26666666666, 0.44705882352, 0.76862745098}, over={ 2, 5, 1.5, 2.2 } }
+        fillColor = { default={255,255,255}, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={0.4117647059, 0.6823529412, 0.9294117647 }, over={ 2, 5, 1.5, 2.2 } },
     }
 )
 EDITP:addEventListener("tap", edit) 

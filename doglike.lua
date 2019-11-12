@@ -61,6 +61,13 @@ function scene:create( event )
 	)
 	sceneGroup:insert(scrollView)
 	
+	--add border
+	local rect = display.newRect( 162, 282, 280, 480 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	scrollView:insert(rect)
+	
 	local txt = display.newText( "* What does your dog like?", display.contentCenterX*1.0, display.contentCenterY*0.1, native.systemFont, 18 )
 	scrollView:insert(txt)
 	

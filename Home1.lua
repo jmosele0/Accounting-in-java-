@@ -37,7 +37,6 @@ end
  composer.gotoScene("SignUp",{effect = "slideLeft", time = 500, params=customParams})
  end
 
-
     
     local sceneGroup = self.view
 
@@ -46,7 +45,8 @@ end
 display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
 	--adding background
 	
-	
+background = display.newImage( "Puppy1.png", display.contentCenterX, display.contentCenterY*0.6 )
+	sceneGroup:insert(background)
 	
 local Login = widget.newButton(
     {

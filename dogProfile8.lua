@@ -87,6 +87,7 @@ function scene:create( event )
 	sceneGroup:insert(backImage)
 	backImage:addEventListener("tap", back)
 	
+	
 	-- Create the widget for scroll view
 	local scrollView = widget.newScrollView(
 		{
@@ -103,6 +104,14 @@ function scene:create( event )
 		}
 	)
 	sceneGroup:insert(scrollView)
+	
+	
+	--add border
+	local rect = display.newRect( 158, 320, 305, 560 )
+	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
+	rect:setStrokeColor(255,255,255 )
+	rect.strokeWidth = 2
+	scrollView:insert(rect)
 	
 	local txt = display.newText( "* Why did you pick this pet?", display.contentCenterX*1.0, display.contentCenterY*0.1, native.systemFont, 18 )
 	scrollView:insert(txt)
@@ -335,7 +344,7 @@ function scene:create( event )
 	local ab = display.newText( "Always had that breed", display.contentCenterX*0.65, display.contentCenterY*2.42, native.systemFont, 18 )
 	scrollView:insert(ab)
 	
-	local Ots = native.newTextField(110,630,150,30)
+	local Ots = native.newTextField(165,630,160,30)
 	Ots.placeholder = "Other"
 	scrollView:insert(Ots)
 	
@@ -388,6 +397,7 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
 	        composer.removeScene("SignUp")
+			composer.removeScene("Ots")
         -- Code here runs immediately after the scene goes entirely off screen
  
     end

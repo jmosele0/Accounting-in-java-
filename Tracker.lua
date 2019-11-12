@@ -111,6 +111,7 @@ function scene:create( event )
     sceneGroup = self.view
     local radioGroup=display.newGroup()
 
+<<<<<<< HEAD
     local params=event.params
     ownerID=params.ownerID
     ipAddress=params.address
@@ -177,6 +178,7 @@ function scene:create( event )
     end
 
     loadDogs()
+
 	--adding background
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647)
 	
@@ -188,6 +190,13 @@ function scene:create( event )
 	bgr:setFillColor(255,155,255)
 	sceneGroup:insert(bgr)
 	
+		
+		local rect = display.newRect( 165, 300, 275, 220 )
+	rect:setFillColor( 255,255,255 ) 
+	rect:setStrokeColor(0.4117647059, 0.6823529412, 0.9294117647 )
+	rect.strokeWidth = 2
+	sceneGroup:insert(rect)
+	
 	--Adding Welcome Message
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
 	sceneGroup:insert(Welcome)
@@ -197,12 +206,12 @@ function scene:create( event )
  
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Experience:",display.contentCenterX*0.58,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 40)
+	Welcome = display.newText("Experience:",display.contentCenterX*0.78,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 40)
 	Welcome:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	sceneGroup:insert(Welcome)
 	
 	
-	local exp = native.newTextField(160,150,280,30)
+	local exp = native.newTextField(164,150,275,30)
 	exp.placeholder = "Experience"
 	sceneGroup:insert(exp)
 	
@@ -322,8 +331,8 @@ function scene:create( event )
 		width='98',
 		height='30',
         onEvent = userSubmit,
-       fillColor = { default={  255,255,255 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647}, over={ 2, 5, 1.5, 2.2 } },
+       fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
 
     }
 )

@@ -16,9 +16,7 @@ local function menu()
  composer.gotoScene("Menu",{effect = "slideRight", time = 500})
 end
 
-local function home ()	
-	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
-end 
+
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -28,18 +26,8 @@ end
 --	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
 --end
 
- local function dog ()	
-	composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500})
-end
- 
 
- local function hyperLink()
-  system.openURL("https://www.youtube.com/channel/UCY_FKzvY-gmO-wOMmI9xAZg/featured?disable_polymer=1")
-end
 
- local function hyperL()
-  system.openURL("https://www.instagram.com/explore/tags/pawsitivebehavior/?hl=en")
-end
   
   
 -- create()
@@ -50,66 +38,26 @@ function scene:create( event )
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647)
 	
 	bg=display.newRect(display.contentCenterX,display.contentCenterY,display.contentWidth,display.contentHeight)
-	bg:setFillColor(255,255,255)
+	bg:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(bg)
 	
 	bgr=display.newRect(display.contentCenterX,display.contentCenterY*3.0,display.contentWidth,display.contentHeight)
-	bgr:setFillColor(255,155,255)
+	bgr:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(bgr)
 	
 	--Adding Welcome Message
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
 	sceneGroup:insert(Welcome)
 	
-	y = display.newText("Find Dog Training Videos on\n  our YouTube Channel",170,80, "Bahnschrft SemiCondensed",20)
-	y:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
-	sceneGroup:insert(y)
-	
-	i = display.newText("Upload Your Dog Photos with\n#pawsitivebehavior in caption\n          on Instagram",170,280, "Bahnschrft SemiCondensed",20)
-	i:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
-	sceneGroup:insert(i)
 	
 
 	
-	 m = display.newImage("menu.png", 30, -17 )
+	m = display.newImage("menu.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
 	
 	
-	
-	local Channel = widget.newButton(
-    {
-       shape = "roundedRect",
-        left = 25,
-        top = 120,
-        id = "Youtube ",
-        label = "YouTube Channel",
-		width='270',
-		height='30',
-        onEvent = userChannel,
-       fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
-    }
-)
-sceneGroup:insert(Channel)
-Channel:addEventListener("tap", hyperLink)
-	
-		local insta = widget.newButton(
-		{
-		   shape = "roundedRect",
-			left = 25,
-			top = 330,
-			id = "Instagram ",
-			label = "Instagram",
-			width='270',
-			height='30',
-			onEvent = userinsta,
-		   fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 1, 0.5, 0.8, 4 } },
-			labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
-		}
-     )
-sceneGroup:insert(insta)
-insta:addEventListener("tap", hyperL)
+
 	
 end
 
