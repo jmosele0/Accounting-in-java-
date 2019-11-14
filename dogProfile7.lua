@@ -144,9 +144,22 @@ function scene:create( event )
 	local vs = display.newText( "Did not like visitors", display.contentCenterX*0.84, display.contentCenterY*1.0, native.systemFont, 18 )
 	scrollView:insert(vs)
 	
-	local Others = native.newTextField(165,300,160,30)
+	local Others = native.newTextField(133,290,150,30)
 	Others.placeholder = "Other"
 	scrollView:insert(Others)
+	
+	local Ots = widget.newSwitch(
+		{
+			left = 262,
+			top = 275,
+			style = "radio",
+			id = "Others",
+			onPress = onSwitchPress2
+		
+		}
+	)
+	rGp:insert( Ots )
+	scrollView:insert(Ots)
 	
 	
     local nxt = widget.newButton(

@@ -107,7 +107,7 @@ function scene:create( event )
 	
 	
 	--add border
-	local rect = display.newRect( 158, 320, 305, 560 )
+	local rect = display.newRect( 158, 345, 305, 615 )
 	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
 	rect:setStrokeColor(255,255,255 )
 	rect.strokeWidth = 2
@@ -344,8 +344,21 @@ function scene:create( event )
 	local ab = display.newText( "Always had that breed", display.contentCenterX*0.65, display.contentCenterY*2.42, native.systemFont, 18 )
 	scrollView:insert(ab)
 	
-	local Ots = native.newTextField(165,630,160,30)
-	Ots.placeholder = "Other"
+	local Others = native.newTextField(86,630,150,30)
+	Others.placeholder = "Other"
+	scrollView:insert(Others)
+	
+	local Ots = widget.newSwitch(
+		{
+			left = 262,
+			top = 605,
+			style = "radio",
+			id = "Others",
+			onPress = onSwitchPress2
+		
+		}
+	)
+	rG:insert( Ots )
 	scrollView:insert(Ots)
 	
 	
@@ -396,8 +409,7 @@ function scene:hide( event )
         -- Code here runs when the scene is on screen (but is about to go off screen)
  
     elseif ( phase == "did" ) then
-	        composer.removeScene("SignUp")
-			composer.removeScene("Ots")
+			composer.removeScene("dogProfile8")
         -- Code here runs immediately after the scene goes entirely off screen
  
     end

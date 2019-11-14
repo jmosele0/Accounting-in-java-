@@ -5,7 +5,11 @@
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
+
+
 local scene = composer.newScene()
+
+
 local widget = require( "widget" )
  
 local function menu()
@@ -19,16 +23,20 @@ end
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
+ 
+-- local function Canine ()	
+--	composer.gotoScene("Canine",{effect = "slideLeft", time = 500})
+--end
 
  local function dog ()	
 	composer.gotoScene("dogProfile",{effect = "slideLeft", time = 500})
 end
  
---facebook link
+
  local function hyperLink()
   system.openURL("https://www.facebook.com/devinelife.petservices/?modal=admin_todo_tour")
 end
---instagram link
+
  local function hyperL()
   system.openURL("https://www.instagram.com/pawsitivebehaviour.app/")
 end
@@ -53,19 +61,20 @@ function scene:create( event )
 	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
 	sceneGroup:insert(Welcome)
 	
-	--Adding Facebook
 	y = display.newText("Follow us on Facebook ",170,80, "Forte",20)
 	y:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(y)
 	
-	--Adding Instagram
 	i = display.newText("Upload Your Dog Photos with\n #pawsitivebehavior in caption\n          on Instagram",170,280, "Forte",20)
 	i:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(i)
 	
+
+	
 	m = display.newImage("menu.png", 30, -17 )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
+	
 	
 	
 	local Channel = widget.newButton(
@@ -104,6 +113,8 @@ insta:addEventListener("tap", hyperL)
 	
 end
 
+
+ 
 -- show()
 function scene:show( event )
  
@@ -148,6 +159,7 @@ function scene:destroy( event )
  
 end
  
+ 
 -- -----------------------------------------------------------------------------------
 -- Scene event function listeners
 -- -----------------------------------------------------------------------------------
@@ -158,5 +170,4 @@ scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
  
 return scene
-
 
