@@ -34,11 +34,11 @@ end
  
 
  local function hyperLink()
-  system.openURL("https://www.youtube.com/channel/UCY_FKzvY-gmO-wOMmI9xAZg/featured?disable_polymer=1")
+  system.openURL("https://www.facebook.com/devinelife.petservices/?modal=admin_todo_tour")
 end
 
  local function hyperL()
-  system.openURL("https://www.instagram.com/explore/tags/pawsitivebehavior/?hl=en")
+  system.openURL("https://www.instagram.com/pawsitivebehaviour.app/")
 end
   
   
