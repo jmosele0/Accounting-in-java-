@@ -56,7 +56,29 @@ function scene:create( event )
 	sceneGroup:insert(m)
 	m:addEventListener("tap", menu )
 	
+	local msg = native.newTextField(110,490,200,30)
+	msg.placeholder = "Send Message"
+	sceneGroup:insert(msg)
 	
+	
+	
+	local Submit = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 220,
+        top = 476,
+        id = "Send",
+        label = "Send",
+		width='90',
+		height='27',
+        onEvent = userSubmit,
+       fillColor = { default={255,255,255}, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 2, 5, 1.5, 2.2 } },
+
+    }
+)
+
+     sceneGroup:insert(Submit)
 
 	
 end
