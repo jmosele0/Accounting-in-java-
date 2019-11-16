@@ -12,6 +12,9 @@ local widget = require( "widget" )
 local json=require("json")
  
 
+local function back ()	
+	composer.gotoScene("Home1",{effect = "slideRight", time = 500})
+end
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -82,6 +85,13 @@ function scene:create( event )
 	
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
+	
+		
+--back button
+	backImage = display.newImage("back.png", 30, -7 )
+	--myImage:translate(140,450)
+	sceneGroup:insert(backImage)
+	backImage:addEventListener("tap", back)
 	
 	
 	--Adding Welcome Message

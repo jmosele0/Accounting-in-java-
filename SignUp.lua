@@ -27,6 +27,9 @@ local function onSwitchPress( event )
     end
 
 
+local function back ()	
+	composer.gotoScene("Home1",{effect = "slideRight", time = 500})
+end
  
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -92,6 +95,14 @@ function scene:create( event )
 	pw.placeholder = "password"
 	pw.isSecure=true
 	scrollView:insert(pw)
+	
+			
+--back button
+	backImage = display.newImage("back.png", 30, -7 )
+	--myImage:translate(140,450)
+	sceneGroup:insert(backImage)
+	backImage:addEventListener("tap", back)
+	
 	
 	--local gender = native.newTextField(160,180,180,30)
 	--gender.placeholder = "gender"

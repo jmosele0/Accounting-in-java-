@@ -202,9 +202,22 @@ function scene:create( event )
 
 
 	
-	local Others = native.newTextField(165,370,160,30)
+	local Others = native.newTextField(133,370,150,30)
 	Others.placeholder = "Other"
 	scrollView:insert(Others)
+	
+	local Ots = widget.newSwitch(
+		{
+			left = 262,
+			top = 350,
+			style = "radio",
+			id = "Others",
+			onPress = onSwitchPress2
+		
+		}
+	)
+	rp:insert( Ots )
+	scrollView:insert(Ots)
 	
 	
     local nxt = widget.newButton(
