@@ -48,13 +48,22 @@ end
 end
 
 
- local function Training ()	
-	composer.gotoScene("Training",{effect = "slideLeft", time = 500})
+ local function Social ()	
+	composer.gotoScene("Social",{effect = "slideLeft", time = 500})
+end
+
+ local function Message ()	
+	composer.gotoScene("Message",{effect = "slideLeft", time = 500})
 end
  
  local function home ()	
 	composer.gotoScene("Slider",{effect = "slideLeft", time = 500})
 end 
+
+ local function hyperLink()
+  system.openURL("https://www.youtube.com/channel/UCY_FKzvY-gmO-wOMmI9xAZg/featured?disable_polymer=1")
+end
+
 
  
 -- create()
@@ -84,7 +93,7 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 60,
-        top = 100,
+        top = 70,
         id = "userP",
         label = "Profile",
         width='200',
@@ -104,9 +113,9 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 60,
-        top = 150,
+        top = 120,
         id = "dogP",
-        label = "dogs",
+        label = "Dogs",
         width='200',
         height='35',
        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
@@ -124,7 +133,7 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 60,
-        top = 200,
+        top = 170,
         id = "Tracker",
         label = "Experience Tracker",
 		width='200',
@@ -140,7 +149,7 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 60,
-        top = 250,
+        top = 220,
         id = "Can",
         label = "Canine Enrichment",
 		width='200',
@@ -152,12 +161,64 @@ function scene:create( event )
 	sceneGroup:insert(Can)
 	Can:addEventListener("tap", Canine )
 	
+		local msg = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 60,
+        top = 270,
+        id = "msg",
+        label = "My Messages",
+		width='200',
+		height='35',
+       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+	sceneGroup:insert(msg)
+	msg:addEventListener("tap", Message )
+	
+			local T = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 60,
+        top = 320,
+        id = "T",
+        label = "Training videos",
+		width='200',
+		height='35',
+	    onEvent = userChannel,
+        fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+	
+	sceneGroup:insert(T)
+	T:addEventListener("tap", hyperLink)
+	
+	
+			local s = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 60,
+        top = 370,
+        id = "s",
+        label = "Social",
+		width='200',
+		height='35',
+       fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647  }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+
+	sceneGroup:insert(s)
+	s:addEventListener("tap", Social)
+	
 	
 		local logT = widget.newButton(
     {
        shape = "roundedRect",
         left = 60,
-        top = 350,
+        top = 420,
         id = "logT",
         label = "Logout",
 		width='200',
@@ -170,23 +231,7 @@ function scene:create( event )
 	sceneGroup:insert(logT)
 	logT:addEventListener("tap", logout)
 	
-		local T = widget.newButton(
-    {
-       shape = "roundedRect",
-        left = 60,
-        top = 300,
-        id = "T",
-        label = "Training",
-		width='200',
-		height='35',
-	    onEvent = userChannel,
-        fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
-    }
-)
-	
-	sceneGroup:insert(T)
-	T:addEventListener("tap", Training)
+
 	
 	
 end

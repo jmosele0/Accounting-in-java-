@@ -11,20 +11,7 @@ local scene = composer.newScene()
 local widget = require ("widget")
 
 
-local function Next()
-	    customParams={DogName=name.text,
-	    Age=age.text,
-	    Breed=breed.text,
-	    Sex=sex.text,
-	    Desexed=on,
-	    DOB=DOB.text,
-	    HowLongOwned=dn.text,
-	    ownerID=OwnerID,
-	    address=ipAddress
-	    }
-	    composer.gotoScene("dogProfile2",{effect = "slideLeft", time = 500, params=customParams})
- 
-end
+
 
 local function menu ()	
 	composer.gotoScene("dogList",{effect = "slideRight", time = 500})
@@ -186,6 +173,43 @@ function scene:create( event )
 	scrollView:insert(dn)
 	
 	
+    local function valid ()	
+    	print(name.text)
+		if name.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif age.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif breed.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif sex.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif DOB.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	elseif dn.text == "" then
+    native.showAlert( "Corona", "one of the field is empty", { "OK" } )
+    print("Textbox is empty")
+	else 
+	local customParams={DogName=name.text,
+	    Age=age.text,
+	    Breed=breed.text,
+	    Sex=sex.text,
+	    Desexed=on,
+	    DOB=DOB.text,
+	    HowLongOwned=dn.text,
+	    ownerID=OwnerID,
+	    address=ipAddress
+	    }
+	    composer.gotoScene("dogProfile2",{effect = "slideLeft", time = 500, params=customParams})
+ 
+end
+	
+end	
+	
 	 local nxt = widget.newButton(
     {
        shape = "roundedRect",
@@ -201,7 +225,7 @@ function scene:create( event )
     }
 )
 scrollView:insert(nxt)
-nxt:addEventListener("tap", Next )
+nxt:addEventListener("tap", valid )
 
 end
  
