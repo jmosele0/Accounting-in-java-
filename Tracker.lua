@@ -24,6 +24,10 @@ local dogsDisplay
 local height
 local dogArray={}
 local transitions
+local status
+local expName
+local exp
+local on
 
 local y
 
@@ -48,7 +52,7 @@ end
 local function listener1(obj)
 	dogsDisplay=display.newGroup()
 	local i
-	local yy=85
+	local yy=186
 	local length=#dogArray
 	for i=2, length, 1 do
 		local dog=display.newText(dogArray[i], display.contentCenterX, yy, "Bahnschrift SemiCondensed", 18)
@@ -69,37 +73,57 @@ end
 function transitions(event)
 	local chev=event.target
 	print("hi")	
-	if (chev.status==0) then
-		print("descend")
+	if (status==0) then
+		status=1
 		transition.to(square, {time=100, y=y, height=height, onComplete=listener1})
-		chev.status=1
+		
 	else
-		print("ascend")
 		print(chev.pos)
-		transition.to(square, {time=100, y=50, height=25})
+		transition.to(square, {time=100, y=151, height=25})
 		dogsDisplay:removeSelf()
         if (chev.id) then
         	selected:removeSelf()
-        	selected=display.newText(chev.label, display.contentCenterX, 50, "Bahnschrift SemiCondensed", 18)
+        	selected=display.newText(chev.label, display.contentCenterX, 151, "Bahnschrift SemiCondensed", 18)
         	selected:setFillColor(0,0,0)
         	selected.id=chev.id
         	selected.label=chev.label
-        	selected:addEventListener("tap", transitions)
         	sceneGroup:insert(selected)
         	local temp=dogArray[1]
         	dogArray[1]=dogArray[chev.pos]
         	dogArray[chev.pos]=temp
         end
-        chev.status=0
+        status=0
     end
 end
---local function Onclick(avg)
-      -- Print ("average")
---end
 
---local function poor()
-      -- Print ("Poor")
---end
+local function networkListener2(event)
+	         print("response"..event.response)
+	         if ( event.isError ) then
+               print( "Network error: ", event.response )
+          elseif (event.response=='-1') then
+               print ("error inserting experience")
+          elseif (event.response=='1') then
+          	   print("you made it")
+          	   composer.removeScene("experience_list")
+          	   local customParams={address=ipAddress,
+          	                       ownerID=ownerID}
+          	   composer.gotoScene("experience_list", {effect = "slideLeft", time = 500, params=customParams})                    
+          end
+   end   
+
+local function insertExperience()
+	local headers = {}
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    headers["Accept-Language"] = "en-US"    
+    local body="ExperienceName="..expName.text.."&ExperienceNotes="..exp.text.."&DogID="..selected.id.."&CatDesc="..on
+    local params = {}
+    params.headers = headers
+    params.body = body
+    print("here 2")
+    print(ipAddress)
+    network.request( ipAddress.."experience_insert.php", "POST", networkListener2, params)
+    end
+
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -111,7 +135,6 @@ function scene:create( event )
     sceneGroup = self.view
     local radioGroup=display.newGroup()
 
-<<<<<<< HEAD
     local params=event.params
     ownerID=params.ownerID
     ipAddress=params.address
@@ -131,16 +154,16 @@ function scene:create( event )
                local dogLength=#dogs
                height=(dogLength-1)*35+45
                local middle=height/2
-               y=middle+37.5
+               y=middle+138.5
 
-          	   square=display.newRect( display.contentCenterX, 50, 150, 25 )
+          	   square=display.newRect( display.contentCenterX, 151, 150, 25 )
           	   square:setFillColor(1,1,1)
           	   local paint={0,0,0}
           	   square.strokeWidth=1
           	   square.stroke=paint
           	   sceneGroup:insert(square)
           	   print(dogs[1]["DogName"])
-          	   selected=display.newText(dogs[1]["DogName"], display.contentCenterX, 50, "Bahnschrift SemiCondensed", 18)
+          	   selected=display.newText(dogs[1]["DogName"], display.contentCenterX, 151, "Bahnschrift SemiCondensed", 18)
           	   selected:setFillColor(0,0,0)
           	   selected.id=dogs[1]["DogID"]
           	   selected.pos=1
@@ -151,10 +174,10 @@ function scene:create( event )
                	dogArray[i]=dogs[i]["DogName"]
                end	
           	   local vertices={-5, -5, 0, 5, 5, -5}
-               local chevron=display.newPolygon(97, 52, vertices)
+               local chevron=display.newPolygon(97, 153, vertices)
                chevron:setFillColor(0,0,0)
                chevron:addEventListener("tap", transitions)
-               chevron.status=0
+               status=0
                sceneGroup:insert(chevron)
 
           	   
@@ -191,7 +214,7 @@ function scene:create( event )
 	sceneGroup:insert(bgr)
 	
 		
-		local rect = display.newRect( 165, 300, 275, 220 )
+		local rect = display.newRect( 165, 396, 275, 220 )
 	rect:setFillColor( 255,255,255 ) 
 	rect:setStrokeColor(0.4117647059, 0.6823529412, 0.9294117647 )
 	rect.strokeWidth = 2
@@ -206,19 +229,32 @@ function scene:create( event )
  
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Experience:",display.contentCenterX*0.78,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 40)
+	Welcome = display.newText("Experience tracker:",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 32)
 	Welcome:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	sceneGroup:insert(Welcome)
+
+	local expNameText = display.newText("Experience name",110, 151, "Bahnschrift SemiCondensed", 20)
+    expNameText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+    sceneGroup:insert(expNameText)
+
+	expName = native.newTextField(164,181,275,30)
+	expName.placeholder = "Experience name"
+	sceneGroup:insert(expName)
 	
 	
-	local exp = native.newTextField(164,150,275,30)
+
+    local expNotes = display.newText("Experience description",110, 216, "Bahnschrift SemiCondensed", 20)
+    expNotes:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
+    sceneGroup:insert(expNotes)
+
+	exp = native.newTextField(164,246,275,30)
 	exp.placeholder = "Experience"
 	sceneGroup:insert(exp)
 	
 	
 	
 	--Adding Welcome Message
-	Help = display.newText("Need help?",display.contentCenterX*1.60,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 20)
+	Help = display.newText("Need help?",display.contentCenterX*1.60,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 20)
 	Help:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	sceneGroup:insert(Help)
 	Help:addEventListener("tap", help)
@@ -237,9 +273,9 @@ function scene:create( event )
     local happy = widget.newSwitch(
 		{
 			left = 40,
-			top = 210,
+			top = 306,
 			style = "radio",
-			id = "Happy",
+			id = "Happy and relaxed",
 			initialSwitchState = false,
 			onPress = onSwitchPress,
 		
@@ -249,7 +285,7 @@ function scene:create( event )
 
 	 on=happy.id
 
-	local happyText = display.newText("Happy",120, 225, "Bahnschrift SemiCondensed", 20)
+	local happyText = display.newText("Happy",120, 321, "Bahnschrift SemiCondensed", 20)
 	happyText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	sceneGroup:insert(happyText)
 	
@@ -257,16 +293,16 @@ function scene:create( event )
 	local startedNervous = widget.newSwitch(
 		{
 			left = 40,
-			top = 250,
+			top = 346,
 			style = "radio",
-			id = "startedNervous",
+			id = "Started off nervous, but became more comfortable",
 			onPress = onSwitchPress,
 		
 		}
 	)
 	 radioGroup:insert(startedNervous)
 
-	 local startedNervousText = display.newText("Started off nervous",172, 265, "Bahnschrift SemiCondensed", 20)
+	 local startedNervousText = display.newText("Started off nervous",172, 361, "Bahnschrift SemiCondensed", 20)
 	startedNervousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	sceneGroup:insert(startedNervousText)
 	
@@ -275,48 +311,48 @@ function scene:create( event )
 	local mildlyNervous = widget.newSwitch(
 		{
 			left = 40,
-			top = 290,
+			top = 386,
 			style = "radio",
-			id = "mildlyNervous",
+			id = "Mildly nervous",
 			onPress = onSwitchPress,
 		
 		}
 	)
 	 radioGroup:insert(mildlyNervous)
 
-	 local mildlyNervousText = display.newText("Mildly nervous",154.5, 305, "Bahnschrift SemiCondensed", 20)
+	 local mildlyNervousText = display.newText("Mildly nervous",154.5, 401, "Bahnschrift SemiCondensed", 20)
 	 mildlyNervousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	 sceneGroup:insert(mildlyNervousText)
 
 	local moderatelyAnxious = widget.newSwitch(
 		{
 			left = 40,
-			top = 330,
+			top = 426,
 			style = "radio",
-			id = "moderatelyAnxious",
+			id = "Moderatelt nervous",
 			onPress = onSwitchPress,
 		
 		}
 	)
 	 radioGroup:insert(moderatelyAnxious)
 
-	  local moderatelyAnxiousText = display.newText("Moderately anxious",172, 345, "Bahnschrift SemiCondensed", 20)
+	  local moderatelyAnxiousText = display.newText("Moderately anxious",172, 441, "Bahnschrift SemiCondensed", 20)
 	 moderatelyAnxiousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	 sceneGroup:insert(moderatelyAnxiousText)
 
 	 local extremelyAnxious = widget.newSwitch(
 		{
 			left = 40,
-			top = 370,
+			top = 466,
 			style = "radio",
-			id = "extremelyAnxious",
+			id = "Extremely nervous",
 			onPress = onSwitchPress,
 		
 		}
 	)
 	 radioGroup:insert(extremelyAnxious)
 
-	 local extremelyAnxiousText = display.newText("Extremely anxious",172, 385, "Bahnschrift SemiCondensed", 20)
+	 local extremelyAnxiousText = display.newText("Extremely anxious",172, 481, "Bahnschrift SemiCondensed", 20)
 	 extremelyAnxiousText:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 )
 	 sceneGroup:insert(extremelyAnxiousText)
      
@@ -330,7 +366,7 @@ function scene:create( event )
         label = "Submit",
 		width='98',
 		height='30',
-        onEvent = userSubmit,
+        onPress = insertExperience,
        fillColor = { default={0.4117647059, 0.6823529412, 0.9294117647}, over={ 1, 0.5, 0.8, 4 } },
         labelColor = { default={255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
 

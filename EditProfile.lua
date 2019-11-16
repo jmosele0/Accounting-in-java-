@@ -43,6 +43,7 @@ function scene:create( event )
     local ipAddress=params.address
     local email=params.email
     local firstname=params.firstname
+    local lastname=params.lastname
     local gender=params.gender
     local agerange=params.agerange
     local postcode=params.postcode
@@ -84,10 +85,10 @@ local function onSwitchPress(event)
 	sceneGroup:insert(scrollView)
 	
   
-		local displaymail = display.newText('Email -',display.contentCenterX*0.38,display.contentCenterY*0.40, "Bahnschrift SemiCondensed", 30)
+		local displaymail = display.newText('Email -',display.contentCenterX*0.38,150, "Bahnschrift SemiCondensed", 30)
 	    displaymail:setFillColor( 255,255,255 )
 	    scrollView:insert(displaymail)
-	    local displayEmail =  native.newTextField(200,100,120,30)
+	    local displayEmail =  native.newTextField(200,150,120,30)
 	    displayEmail.text = email
 	    scrollView:insert(displayEmail)
 		local displayame=display.newText('Name -',display.contentCenterX*0.38,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
@@ -96,13 +97,23 @@ local function onSwitchPress(event)
 		local displayName = native.newTextField(200,50,120,30)
 		displayName.text = firstname
 	    scrollView:insert(displayName)
-		local displayge=display.newText('AgeRange -',display.contentCenterX,display.contentCenterY*0.60, "Bahnschrift SemiCondensed", 30)
+
+        local displayLastame=display.newText('Last Name -',display.contentCenterX*0.38,100, "Bahnschrift SemiCondensed", 30)
+	    displayLastame:setFillColor(255,255,255)
+	    scrollView:insert(displayLastame)
+
+	    local displayLastName = native.newTextField(200,100,120,30)
+		displayLastName.text = lastname
+	    scrollView:insert(displayLastName)
+
+
+		local displayge=display.newText('AgeRange -',display.contentCenterX,200, "Bahnschrift SemiCondensed", 30)
 	    displayge:setFillColor( 255,255,255)
 	    scrollView:insert(displayge)
 		local rGroup = display.newGroup()
 		
 		
-	local rect = display.newRect( 165, 250, 220, 155 )
+	local rect = display.newRect( 165, 300, 220, 155 )
 	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
 	rect:setStrokeColor(255,255,255 )
 	rect.strokeWidth = 2
@@ -111,7 +122,7 @@ local function onSwitchPress(event)
 	local under18 = widget.newSwitch(
 		{
 			left = 205,
-			top = 175,
+			top = 225,
 			style = "radio",
 			id = agerange,
 			initialSwitchState = true,
@@ -123,14 +134,14 @@ local function onSwitchPress(event)
 	rGroup:insert( under18 )
 	scrollView:insert(rGroup)
 	
-	local u18 = display.newText( " > 18", display.contentCenterX*1.0, display.contentCenterY*0.80, native.systemFont, 18 )
+	local u18 = display.newText( " < 18", display.contentCenterX*1.0, 242, native.systemFont, 18 )
 	u18:setFillColor( 255,255,255 )
 	scrollView:insert(u18)
 	
 	local bet18to30 = widget.newSwitch(
 		{
 			left = 205,
-			top = 210,
+			top = 260,
 			style = "radio",
 			id = "bet18to30",
 			onPress = onSwitchPress
@@ -140,14 +151,14 @@ local function onSwitchPress(event)
 	rGroup:insert( bet18to30 )
 	
 	
-	local bet18to30 = display.newText( " 18-30 ", display.contentCenterX*1.0, display.contentCenterY*0.95, native.systemFont, 18 )
+	local bet18to30 = display.newText( " 18-30 ",160, 278, native.systemFont, 18 )
 	bet18to30:setFillColor( 255,255,255)
 	scrollView:insert(bet18to30)
 	
 	local bet30to50 = widget.newSwitch(
 		{
 			left = 205,
-			top = 245,
+			top = 295,
 			style = "radio",
 			id = "bet30to50",
 			onPress = onSwitchPress
@@ -157,7 +168,7 @@ local function onSwitchPress(event)
 	rGroup:insert( bet30to50 )
 	
 	
-	local bet30to50 = display.newText( " 30-50 ", display.contentCenterX*1.0, display.contentCenterY*1.10, native.systemFont, 18 )
+	local bet30to50 = display.newText( " 30-50 ", display.contentCenterX*1.0, 314, native.systemFont, 18 )
 	bet30to50:setFillColor(255,255,255 )
 	scrollView:insert(bet30to50)
 	
@@ -165,7 +176,7 @@ local function onSwitchPress(event)
 	local over50 = widget.newSwitch(
 		{
 			left = 205,
-			top = 280,
+			top = 330,
 			style = "radio",
 			id = "over50",
 			onPress = onSwitchPress
@@ -175,13 +186,13 @@ local function onSwitchPress(event)
 	rGroup:insert( over50 )
 	
 	
-	local over50 = display.newText( " 50 + ", display.contentCenterX*1.0, display.contentCenterY*1.25, native.systemFont, 18 )
+	local over50 = display.newText( " 50 + ", display.contentCenterX*1.0, 350, native.systemFont, 18 )
 	over50:setFillColor( 255,255,255 )
 	scrollView:insert(over50)
-		local displayode=display.newText('Postcode -',display.contentCenterX*0.48,display.contentCenterY*1.45, "Bahnschrift SemiCondensed", 30)
+		local displayode=display.newText('Postcode -',display.contentCenterX*0.48, 398, "Bahnschrift SemiCondensed", 30)
 	    displayode:setFillColor(255,255,255 )
 	    scrollView:insert(displayode)
-		local displayCode = native.newTextField(210,350,140,30)
+		local displayCode = native.newTextField(210,400,140,30)
 	    displayCode.text= postcode
 	    scrollView:insert(displayCode)
 	
@@ -215,7 +226,7 @@ local function onSwitchPress(event)
     local headers = {}
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     headers["Accept-Language"] = "en-US"	
-	local body="Email="..displayEmail.text.."&FirstName="..displayName.text.."&AgeRange="..on1.."&OwnerID="..OwnerID.."&PostCode="..
+	local body="Email="..displayEmail.text.."&FirstName="..displayName.text.."&LastName="..displayLastName.text.."&AgeRange="..on1.."&OwnerID="..OwnerID.."&PostCode="..
 	displayCode.text
 	local params = {}
     params.headers = headers

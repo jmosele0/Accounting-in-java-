@@ -10,6 +10,22 @@ local scene = composer.newScene()
 
 local widget = require ("widget")
 
+local on1
+local on2
+local on3
+
+local function onSwitchPress( event )
+        local switch = event.target
+        if (switch.id=="male" or switch.id=="female") then
+            on1=switch.id
+        elseif(switch.id=="yes" or switch.id=="no") then
+            on2=switch.id      
+        elseif(switch.id=="under 18" or switch.id=="18-30" or switch.id=="30-50" or switch.id=="over 50") then
+            on3=switch.id    
+          
+        end
+    end
+
 
  
 -- -----------------------------------------------------------------------------------
@@ -33,35 +49,56 @@ function scene:create( event )
     
 	
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 )
+
+	local scrollView = widget.newScrollView(
+		{
+			top = 0,
+			left = 0,
+			width = display.contentWidth,
+			height = display.contentHeight,
+			topPadding = 0,
+			bottomPadding = 0,
+			horizontalScrollDisabled = true,
+			verticalScrollDisabled = false,
+			listener = scrollListener,
+			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647 },
+		}
+	)
+	sceneGroup:insert(scrollView)
 	
-	local rect = display.newRect( 160, 265, 250, 205 )
+	local rect = display.newRect( 160, 338.6, 250, 272.2 )
 	rect:setFillColor( 0.4117647059, 0.6823529412, 0.9294117647 ) 
 	rect:setStrokeColor(255,255,255 )
 	rect.strokeWidth = 2
-	sceneGroup:insert(rect)
+	scrollView:insert(rect)
 	
 	--Adding Welcome Message
 	local Welcome = display.newText("Welcome",display.contentCenterX,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 30)
-	sceneGroup:insert(Welcome)
+	scrollView:insert(Welcome)
 	
 	local username = native.newTextField(160,100,180,30)
 	username.placeholder = "First name"
-	sceneGroup:insert(username)
+	scrollView:insert(username)
+
+
+
+	local LastName = native.newTextField(160,140,180,30)
+	LastName.placeholder = "last name"
+	scrollView:insert(LastName)
 
 
 	
-	local pw = native.newTextField(160,140,180,30)
+	local pw = native.newTextField(160,180,180,30)
 	pw.placeholder = "password"
 	pw.isSecure=true
-	sceneGroup:insert(pw)
+	scrollView:insert(pw)
 	
 	--local gender = native.newTextField(160,180,180,30)
 	--gender.placeholder = "gender"
 	--sceneGroup:insert(gender)
 	
-	local gender = display.newText("gender:", display.contentCenterX*0.6, display.contentCenterY*0.72, "Bahnschrift SemiCondensed", 20)
-	gender.placeholder = "gender"
-	sceneGroup:insert(gender)
+	local gender = display.newText("gender:", display.contentCenterX*0.6, 212.8, "Bahnschrift SemiCondensed", 20)
+	scrollView:insert(gender)
 	
 	local radioGroup = display.newGroup()
  
@@ -69,7 +106,7 @@ function scene:create( event )
     local female = widget.newSwitch(
 		{
 			left = 150,
-			top = 190,
+			top = 230,
 			style = "radio",
 			id = "female",
 			initialSwitchState = true,
@@ -77,19 +114,19 @@ function scene:create( event )
 		
 		}	
 	)
-	local on1=female.id
+	on1=female.id
 	radioGroup:insert( female )
-	sceneGroup:insert(radioGroup)
+	scrollView:insert(radioGroup)
 	
 	
-	local Text = display.newText( "Female             Male", display.contentCenterX*1.0, display.contentCenterY*0.85, native.systemFont, 18 )
-	sceneGroup:insert(Text)
+	local Text = display.newText( "Female             Male", display.contentCenterX*1.0, 244, native.systemFont, 18 )
+	scrollView:insert(Text)
  
  
 	local male = widget.newSwitch(
 		{
 			left = 250,
-			top = 190,
+			top = 230,
 			style = "radio",
 			id = "male",
 			onPress = onSwitchPress
@@ -99,18 +136,56 @@ function scene:create( event )
 	)
 	--sceneGroup:insert(male)
 	radioGroup:insert( male )
-	
-	
-	local age = display.newText("age:", display.contentCenterX*0.53, display.contentCenterY*1.0, "Bahnschrift SemiCondensed", 20)
+
+
+
+    local rGroup2=display.newGroup()
+    scrollView:insert(rGroup2)
+
+	local couple = display.newText("couple?", display.contentCenterX*0.6, 275.2, "Bahnschrift SemiCondensed", 20)
+	scrollView:insert(couple)
+
+	local Text = display.newText( "Yes             No", display.contentCenterX*1.0, 306.4, native.systemFont, 18 )
+	scrollView:insert(Text)
+
+	local yes = widget.newSwitch(
+		{
+			left = 150,
+			top = 292.4,
+			style = "radio",
+			id = "yes",
+			onPress = onSwitchPress
+			
+			
+		}
+	)
+	on2=yes.id
+	rGroup2:insert(yes)
+
+	local no = widget.newSwitch(
+		{
+			left = 250,
+			top = 292.4,
+			style = "radio",
+			id = "no",
+			onPress = onSwitchPress
+			
+			
+		}
+	)
+
+	rGroup2:insert(no)
+
+	local age = display.newText("age:", display.contentCenterX*0.53, 347.2, "Bahnschrift SemiCondensed", 20)
 	age.placeholder = "age"
-	sceneGroup:insert(age)
+	scrollView:insert(age)
 	
 	local rGroup = display.newGroup()
 	
 	local under18 = widget.newSwitch(
 		{
 			left = 205,
-			top = 225,
+			top = 332.2,
 			style = "radio",
 			id = "under 18",
 			initialSwitchState = true,
@@ -118,17 +193,17 @@ function scene:create( event )
 		
 		}
 	)
-	local on2=under18.id
+	on3=under18.id
 	rGroup:insert( under18 )
-	sceneGroup:insert(rGroup)
+	scrollView:insert(rGroup)
 	
-	local u18 = display.newText( " < 18", display.contentCenterX*1.0, display.contentCenterY*1.007, native.systemFont, 18 )
-	sceneGroup:insert(u18)
+	local u18 = display.newText( " < 18", display.contentCenterX*1.0, 348.88, native.systemFont, 18 )
+	scrollView:insert(u18)
 	
 	local bet18to30 = widget.newSwitch(
 		{
 			left = 205,
-			top = 260,
+			top = 367.2,
 			style = "radio",
 			id = "18-30",
 			onPress = onSwitchPress
@@ -138,13 +213,13 @@ function scene:create( event )
 	rGroup:insert( bet18to30 )
 	
 	
-	local bet18to30 = display.newText( " 18-30 ", display.contentCenterX*1.0, display.contentCenterY*1.15, native.systemFont, 18 )
-	sceneGroup:insert(bet18to30)
+	local bet18to30 = display.newText( " 18-30 ", display.contentCenterX*1.0, 383.2, native.systemFont, 18 )
+	scrollView:insert(bet18to30)
 	
 	local bet30to50 = widget.newSwitch(
 		{
 			left = 205,
-			top = 295,
+			top = 402.2,
 			style = "radio",
 			id = "30-50",
 			onPress = onSwitchPress
@@ -154,14 +229,14 @@ function scene:create( event )
 	rGroup:insert( bet30to50 )
 	
 	
-	local bet30to50 = display.newText( " 30-50 ", display.contentCenterX*1.0, display.contentCenterY*1.293, native.systemFont, 18 )
-	sceneGroup:insert(bet30to50)
+	local bet30to50 = display.newText( " 30-50 ", display.contentCenterX*1.0, 417.52, native.systemFont, 18 )
+	scrollView:insert(bet30to50)
 	
 	
 	local over50 = widget.newSwitch(
 		{
 			left = 205,
-			top = 330,
+			top = 437.2,
 			style = "radio",
 			id = "over 50",
 			onPress = onSwitchPress
@@ -171,27 +246,19 @@ function scene:create( event )
 	rGroup:insert( over50 )
 	
 	
-	local over50 = display.newText( " 50 + ", display.contentCenterX*1.0, display.contentCenterY*1.436, native.systemFont, 18 )
-	sceneGroup:insert(over50)
+	local over50 = display.newText( " 50 + ", display.contentCenterX*1.0, 451.84, native.systemFont, 18 )
+	scrollView:insert(over50)
 	
-    local email = native.newTextField(160,390,180,30)
+    local email = native.newTextField(160,497.2,180,30)
 	email.placeholder = "email"
-	sceneGroup:insert(email)
+	scrollView:insert(email)
 	
 	
-	local postcode = native.newTextField(160,430,180,30)
+	local postcode = native.newTextField(160,537.2,180,30)
 	postcode.placeholder = "postcode"
-	sceneGroup:insert(postcode)
+	scrollView:insert(postcode)
 
 
-	local function onSwitchPress( event )
-        local switch = event.target
-        if (switch.id=="male" or switch.id=="female") then
-            on1=switch.id
-        elseif(switch.id=="under 18" or switch.id=="bet18to30" or switch.id=="bet30to50" or switch.id=="over50") then
-            on2=switch.id    
-        end
-    end
 
 local function onSwitchPress2(event)
     local switch=event.target
@@ -218,11 +285,16 @@ end
     native.showAlert( "Corona", "one of the field is empty", { "OK" } )
     print("Textbox is empty")
 	else
+		print(on1)
+		print(on2)
+		print(on3)
 	local customParams={Email=email.text,
     	                    FirstName=username.text,
+    	                    LastName=LastName.text,
     	                    password=pw.text,
     	                    Gender=on1,
-    	                    AgeRange=on2,
+    	                    Couple=on2,
+    	                    AgeRange=on3,
     	                    PostCode=postcode.text,
     	                    address=ipAddress}
     	composer.gotoScene("InQue",{effect = "slideLeft", time = 500, params=customParams})
@@ -234,7 +306,7 @@ end
     {
         shape = "roundedRect",
         left = 70,
-        top = 460,
+        top = 567.2,
         id = "SignUp",
         label = "SignUp",
         onEvent = userSignUp,
@@ -243,7 +315,7 @@ end
     }
 )
 SignUp:addEventListener("tap", ques) 
-sceneGroup:insert(SignUp)
+scrollView:insert(SignUp)
 
 
 

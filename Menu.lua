@@ -53,7 +53,11 @@ end
 	composer.gotoScene("Training",{effect = "slideLeft", time = 500})
 end
 
- 
+local function message()
+    local customParams={ownerID=OwnerID,
+                        address=ipAddress}
+    composer.gotoScene("Message",{effect = "slideLeft", time = 500, params=customParams})
+end
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
@@ -148,13 +152,30 @@ function scene:create( event )
 )
 	sceneGroup:insert(Can)
 	Can:addEventListener("tap", Canine )
+
+
+        local messages = widget.newButton(
+    {
+       shape = "roundedRect",
+        left = 60,
+        top = 300,
+        id = "Can",
+        label = "Messages",
+        width='200',
+        height='35',
+       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
+        labelColor = { default={ 255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
+    }
+)
+    sceneGroup:insert(messages)
+    messages:addEventListener("tap", message )
 	
 	
 		local logT = widget.newButton(
     {
        shape = "roundedRect",
         left = 60,
-        top = 350,
+        top = 400,
         id = "logT",
         label = "Logout",
 		width='200',
@@ -171,7 +192,7 @@ function scene:create( event )
     {
        shape = "roundedRect",
         left = 60,
-        top = 300,
+        top = 350,
         id = "T",
         label = "Training",
 		width='200',

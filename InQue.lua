@@ -13,6 +13,8 @@ local Welcome
 
 local widget = require ("widget")
 
+local ipAddress
+
 local function skip()
 	local customParams={address=ipAddress}
  composer.gotoScene("Login",{effect = "slideLeft", time = 500, params=customParams})
@@ -40,8 +42,10 @@ local on4
 local params=event.params
     local Email=params.Email
     local FirstName=params.FirstName
+    local LastName=params.LastName
     local password=params.password
     local Gender=params.Gender
+    local Couple=params.Couple
     local AgeRange=params.AgeRange
     local PostCode=params.PostCode
     ipAddress=params.address
@@ -75,7 +79,8 @@ end
         print( "Network error: ", event.response )
     elseif (event.response=='-1')then
 	     print ("error adding details")
-	else    
+	else   
+	     print(event.response) 
 	     customParams={OwnerID=event.response,
 	                   address=ipAddress
 	                  }
@@ -89,12 +94,12 @@ local function submit()
 	local headers = {}
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     headers["Accept-Language"] = "en-US"	
-	local body="Email="..Email.."&FirstName="..FirstName.."&password="..password.."&Gender="..Gender.."&AgeRange="..AgeRange.."&PostCode="..
-	PostCode.."&PrePets="..on1.."&PrePetsList="..on2.."&ObedientDog="..on3.."&ExpectedOutcomes="..on4
+	local body="Email="..Email.."&FirstName="..FirstName.."&LastName="..LastName.."&password="..password.."&Gender="..Gender.."&Couple="..Couple.."&AgeRange="..AgeRange.."&PostCode="..
+	PostCode.."&PrePets="..on1.."&PrePetsList="..on2.."&ObiedientDog="..on3.."&ExpectedOutcomes="..on4
 	local params = {}
     params.headers = headers
     params.body = body
-	network.request(ipAddress.."insert.php", "POST", networkListener, params)
+	network.request(ipAddress.."signup.php", "POST", networkListener, params)
 end
 
 	

@@ -36,7 +36,7 @@ local function Next()
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     headers["Accept-Language"] = "en-US"	
 	local body="DogName="..DogName.."&Age="..Age.."&Breed="..Breed.."&Sex="..Sex.."&Desexed="..Desexed.."&DOB="..DOB..
-	"&HowLongOwned="..HowLongOwned.."&VaccinationStatus="..VaccinationStatus.."&DogOrigin="..on.."&OwnerID="..OwnerID
+	"&HowLongOwned="..HowLongOwned.."&VacinationStatus="..VaccinationStatus.."&DogOrigin="..on.."&OwnerID="..OwnerID
 	local params = {}
     params.headers = headers
     params.body = body
@@ -78,7 +78,7 @@ function scene:create( event )
     Desexed=params.desexed
     DOB=params.dob
     HowLongOwned=params.howlongowned
-    VaccinationStatus=params.VaccinationStatus
+    VaccinationStatus=params.VacinationStatus
 	OwnerID=params.ownerID
 	ipAddress=params.address
 	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )

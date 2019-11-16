@@ -20,7 +20,7 @@ local function Next()
 	 desexed=Desexed,
 	 dob=DOB,
 	 howlongowned=HowLongOwned,
-	 VaccinationStatus=on,
+	 VacinationStatus=on,
 	 ownerID=OwnerID,
 	 address=ipAddress
 	}

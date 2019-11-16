@@ -57,6 +57,7 @@ function scene:create( event )
 	    email=details.Email
 	    print (email)
 	    firstname=details.FirstName
+	    lastname=details.LastName
 	    gender=details.Gender
 	    agerange=details.AgeRange
 	    postcode=details.PostCode
@@ -67,10 +68,10 @@ function scene:create( event )
 	    displayEmail:setFillColor(255,255,255 )
 		displayEmail.anchorX = 0.2
 	    sceneGroup:insert(displayEmail)
-		local displayame=display.newText('Name ',display.contentCenterX*0.45,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 17)
+		local displayame=display.newText('Full name ',display.contentCenterX*0.45,display.contentCenterY*0.20, "Bahnschrift SemiCondensed", 17)
 	    displayame:setFillColor( 255,255,255 )
 	    sceneGroup:insert(displayame)
-		 local displayName=display.newText(firstname,display.contentCenterX*0.55,display.contentCenterY*0.35, "Bahnschrift SemiCondensed", 24)
+		 local displayName=display.newText(firstname.." "..lastname,display.contentCenterX*0.55,display.contentCenterY*0.35, "Bahnschrift SemiCondensed", 24)
 	    displayName:setFillColor( 255,255,255 )
 		displayName.anchorX = 0.2
 	    sceneGroup:insert(displayName)
@@ -162,6 +163,7 @@ bg=display.newRect(display.contentCenterX,display.contentCenterY,display.content
                         address=ipAddress,
                         email=email,
                         firstname=firstname,
+                        lastname=lastname,
                         gender=gender,
                         agerange=agerange,
                         postcode=postcode}

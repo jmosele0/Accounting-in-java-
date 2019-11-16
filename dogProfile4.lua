@@ -19,7 +19,8 @@ local function networkListener(event)
         print( "Network error: ", event.response )
     elseif (event.response=="-1") then
 	    print ("error inserting details")
-	else    
+	else
+	    print(event.response)    
 	    customParams={dogID=DogID,
 	                  address=ipAddress,
 	                  ownerID=OwnerID}

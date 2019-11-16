@@ -124,7 +124,7 @@ function scene:create( event )
 	    	local exp2=#experiences[i]
 	    	for j=1, exp2, 1 do
 	    		for k=1, #columns, 1 do
-	    		    local text=display.newText(experiences[i][j][columns[k]],display.contentCenterX+20,display.contentCenterY*y, "Bahnschrift SemiCondensed", 24, "center")
+	    		    local text=display.newText(experiences[i][j][columns[k]],display.contentCenterX,display.contentCenterY*y, "Bahnschrift SemiCondensed", 24, "center")
 	    		    text.width=250
 	    		    scrollView:insert(text)
 	    		    y=y+0.2
