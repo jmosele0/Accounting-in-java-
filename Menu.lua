@@ -93,7 +93,7 @@ function scene:create( event )
 	sceneGroup:insert(bgr)
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
+	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte-dv0E",22)
 	sceneGroup:insert(Welcome)
 	--Writing Message "About"
 
@@ -170,21 +170,6 @@ function scene:create( event )
 	Can:addEventListener("tap", Canine )
 
 
-        local messages = widget.newButton(
-    {
-       shape = "roundedRect",
-        left = 60,
-        top = 300,
-        id = "Can",
-        label = "Messages",
-        width='200',
-        height='35',
-       fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={ 255,255,255 }, over={ 2, 5, 1.5, 2.2 } },
-    }
-)
-    sceneGroup:insert(messages)
-    messages:addEventListener("tap", message )
 	
 		local msg = widget.newButton(
     {
@@ -200,7 +185,7 @@ function scene:create( event )
     }
 )
 	sceneGroup:insert(msg)
-	msg:addEventListener("tap", Message )
+	msg:addEventListener("tap", message )
 	
 			local T = widget.newButton(
     {

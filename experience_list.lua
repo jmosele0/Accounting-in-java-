@@ -61,14 +61,20 @@ function scene:create( event )
     ipAddress=params.address
     ownerID=params.ownerID
 
-	display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647  )
+	display.setDefault( "background",0.4117647059, 0.6823529412, 0.9294117647 )
+
+	bgr=display.newRect(display.contentCenterX,-0,display.contentWidth,80)
+    bgr:setFillColor(255,255,255)
+    bgr.anchorY=0
+    
 	
 	--Adding Message
-	msg = display.newText("Dog experiences:",display.contentCenterX,display.contentCenterY*0.20, "Forte", 30)
+	msg = display.newText("Pawsitive behaviour:",display.contentCenterX,-20, "Forte-dv0E", 22)
+	msg:setFillColor(1,1,1)
 	sceneGroup:insert(msg)
 	
 	--back button
-	backImage = display.newImage("back.png", 30, -7 )
+	backImage = display.newImage("menu.png", 30, -14 )
 	--myImage:translate(140,450)
 	sceneGroup:insert(backImage)
 	backImage:addEventListener("tap", back)
@@ -76,36 +82,37 @@ function scene:create( event )
 	    local experience = widget.newButton(
     {
        shape = "roundedRect",
-        left = 200,
-        top = 50,
+        left = 170,
+        top = 30,
         id = "dogP",
         label = "add experience +",
         onPress=addExperience,
-        width='100',
+        width='135',
         height='35',
        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={0,0,0}, over={ 2, 5, 1.5, 2.2 } },
+        labelColor = { default={1,1,1}, over={ 2, 5, 1.5, 2.2 } },
     }
 )
-	    sceneGroup:insert(experience)
+	   
 	
 	-- Create the widget for scroll view
 	local scrollView = widget.newScrollView(
 		{
-			top = 70,
+			top = 0,
 			left = 0,
 			width = display.contentWidth,
-			height = display.contentHeight,
+			height = display.contentHeight+120,
 			topPadding = 0,
-			bottomPadding = 70,
+			bottomPadding = 0,
 			horizontalScrollDisabled = true,
 			verticalScrollDisabled = false,
 			listener = scrollListener,
-			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647},
+			backgroundColor = {1,1,1},
 		}
 	)
 	sceneGroup:insert(scrollView)
-
+    sceneGroup:insert(bgr)
+    sceneGroup:insert(experience)
 
 	local function addText(experiences)
 
@@ -118,18 +125,29 @@ function scene:create( event )
 	    local j
 	    local k
 	    local columns={"DogName", "ExperienceName", "ExperienceNotes", "CatDesc"}
-	    y=0.2
+	    local y=192
 	    local exp=#experiences
 	    for i=1, exp, 1 do
 	    	local exp2=#experiences[i]
 	    	for j=1, exp2, 1 do
 	    		for k=1, #columns, 1 do
-	    		    local text=display.newText(experiences[i][j][columns[k]],display.contentCenterX,display.contentCenterY*y, "Bahnschrift SemiCondensed", 24, "center")
-	    		    text.width=250
+	    			local options = {
+                       text = experiences[i][j][columns[k]],
+                       x = 160,
+                       y = y,
+                       width = 200,
+                       --height = 200,
+                       fontSize = 18,
+                       align="center"
+                       }
+	    		    local text=display.newText(options)
+	    		    text.anchorX=0.5
+	    		    text.anchorY=0  
+	    		    text:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	    		    scrollView:insert(text)
-	    		    y=y+0.2
+	    		    y=y+text.contentHeight+24
 	    		end
-	    		y=y+0.2
+	    		y=y+48
 	    	end	    
 	    end
 	end

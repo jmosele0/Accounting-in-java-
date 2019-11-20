@@ -58,14 +58,14 @@ function scene:create( event )
 	sceneGroup:insert(bgr)
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
+	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte-dv0E",22)
 	sceneGroup:insert(Welcome)
 	
-	y = display.newText("Follow us on Facebook ",170,80, "Forte",20)
+	y = display.newText("Follow us on Facebook ",170,80, "Forte-dvoE",20)
 	y:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(y)
 	
-	i = display.newText("Upload Your Dog Photos with\n #pawsitivebehavior in caption\n          on Instagram",170,280, "Forte",20)
+	i = display.newText("Upload Your Dog Photos with\n #pawsitivebehavior in caption\n          on Instagram",170,280, "Forte-dv0E",20)
 	i:setFillColor(0.4117647059, 0.6823529412, 0.9294117647)
 	sceneGroup:insert(i)
 	

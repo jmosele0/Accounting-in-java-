@@ -11,18 +11,28 @@ local scene = composer.newScene()
 
 local Welcome
 
+local rp=display.newGroup()
+
 local widget = require ("widget")
+
+local on
+
+local on2
 
 
 
 local function Next()
 
-    
+    if (on=="no") then
+    	on2=""
+    else	
 	if (on2=="Other") then
 		on2=Others.text
+	end
 	end	
 	local customParams={dogID=DogID, ParentSiblingSighted=on, PersonalityConcerns=on2, address=ipAddress, ownerID=OwnerID}
-    composer.gotoScene("dogProfile7",{effect = "slideLeft", time = 500, params=customParams})              
+    composer.gotoScene("dogProfile7",{effect = "slideLeft", time = 500, params=customParams})    
+          
 	
 	
 end
@@ -34,12 +44,24 @@ end
 
 local function onSwitchPress( event )
     local switch = event.target
+    if (switch.id=="yes") then
+    	rp.alpha=1
+    	rp.disabled=false
+    elseif (switch.id=="no") then
+    	rp.alpha=0.4
+    	rp.disabled=true	
+    end
     on=switch.id
 end
 
 local function onSwitchPress2( event )
     local switch = event.target
-    on2=switch.id
+    if (rp.disabled==true) then
+    	switch:setState({isOn=false})
+    else
+    on2=switch.id	
+    end
+
     
 end
 
@@ -110,6 +132,7 @@ function scene:create( event )
 	scrollView:insert(txt)
 	
 	local rG = display.newGroup()
+	print(rG.alpha)
  
 -- Create two associated radio buttons (inserted into the same display group)
     local yes = widget.newSwitch(
@@ -118,12 +141,10 @@ function scene:create( event )
 			top = 125,
 			style = "radio",
 			id = "yes",
-			initialSwitchState = true,
 			onPress = onSwitchPress
 		
 		}
 	)
-	on=yes.id
 	rG:insert( yes )
 	scrollView:insert(rG)
 	
@@ -136,17 +157,25 @@ function scene:create( event )
 			top = 125,
 			style = "radio",
 			id = "no",
+			initialSwitchState = true,
 			onPress = onSwitchPress
 			
 			
 		}
 	)
+	on=no.id
 	rG:insert( no )
+
+    rp.alpha=0.4
+    print(rp.alpha)
+    --rp.disabled=true
+    
 	
 	local cp = display.newText( "* If yes, did you have any concerns\n  about thier personalities?", display.contentCenterX*1.0, display.contentCenterY*0.8, native.systemFont, 18 )
-	scrollView:insert(cp)
+	rp:insert(cp)
+	scrollView:insert(rp)
  
-    local rp = display.newGroup()
+ 
 	
 	local Friendly = widget.newSwitch(
 		{
@@ -154,17 +183,15 @@ function scene:create( event )
 			top = 230,
 			style = "radio",
 			id = "Friendly",
-			initialSwitchState = true,
 			onPress = onSwitchPress2
 		
 		}
 	)
-    on2=Friendly.id
+
 	rp:insert( Friendly )
-	scrollView:insert(rp)
 	
 	local VF = display.newText( "Very Friendly", display.contentCenterX*0.7, display.contentCenterY*1.03, native.systemFont, 18 )
-	scrollView:insert(VF)
+	rp:insert(VF)
 	
 	local Standoffish = widget.newSwitch(
 		{
@@ -180,7 +207,7 @@ function scene:create( event )
 
 
 	local SO = display.newText( "Little Stand-offish", display.contentCenterX*0.8, display.contentCenterY*1.2, native.systemFont, 18 )
-	scrollView:insert(SO)
+	rp:insert(SO)
 	
 	local Visitors = widget.newSwitch(
 		{
@@ -196,7 +223,7 @@ function scene:create( event )
 
 	
 	local VS = display.newText( "Did not like visitors", display.contentCenterX*0.84, display.contentCenterY*1.36, native.systemFont, 18 )
-	scrollView:insert(VS)
+	rp:insert(VS)
 
 
 
@@ -217,7 +244,9 @@ function scene:create( event )
 		}
 	)
 	rp:insert( Ots )
-	scrollView:insert(Ots)
+	print(rp.alpha)
+
+
 	
 	
     local nxt = widget.newButton(

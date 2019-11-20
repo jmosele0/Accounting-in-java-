@@ -10,6 +10,7 @@ local scene = composer.newScene()
 
 local widget = require( "widget" )
 local json=require("json")
+
  
 
 local function back ()	
@@ -36,12 +37,13 @@ local function networkListener( event )
 		  native.showAlert( "Corona", "Invalid email or password.", { "OK" } )
 
 	  else
-	  	  print(event.response)
-	  	  local customParams={OwnerID=event.response,
+	  	  local details=json.decode(event.response)
+	  	  email=details.Email
+	  	  local customParams={OwnerID=details.OwnerID,
 	  	                      address=ipAddress}
 	  	  composer.gotoScene("Menu",{effect = "slideUp", time = 500, params=customParams})	  
-	  end      
-    end
+	  end 
+	  end     
 end
 
 
@@ -102,7 +104,7 @@ function scene:create( event )
 	
 	
 	username = native.newTextField(160,200,180,30)
-	username.placeholder = "Username"
+	username.placeholder = "Email address"
 	username.hasBackground=true
 	sceneGroup:insert(username)
 	

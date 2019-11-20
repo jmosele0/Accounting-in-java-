@@ -124,12 +124,15 @@ local function onSwitchPress(event)
 			left = 205,
 			top = 225,
 			style = "radio",
-			id = agerange,
-			initialSwitchState = true,
+			id = "under 18",
 			onPress = onSwitchPress
 		
 		}
 	)
+
+	if (agerange=="under 18") then
+		under18:setState({isOn=true})
+	end	
 	on1=under18.id
 	rGroup:insert( under18 )
 	scrollView:insert(rGroup)
@@ -143,11 +146,14 @@ local function onSwitchPress(event)
 			left = 205,
 			top = 260,
 			style = "radio",
-			id = "bet18to30",
+			id = "18-30",
 			onPress = onSwitchPress
 		
 		}
 	)
+	if (agerange=="18-30") then
+		bet18to30:setState({isOn=true})
+	end
 	rGroup:insert( bet18to30 )
 	
 	
@@ -160,11 +166,14 @@ local function onSwitchPress(event)
 			left = 205,
 			top = 295,
 			style = "radio",
-			id = "bet30to50",
+			id = "30-50",
 			onPress = onSwitchPress
 		
 		}
 	)
+	if (agerange=="30-50") then
+		bet30to50:setState({isOn=true})
+	end	
 	rGroup:insert( bet30to50 )
 	
 	
@@ -178,11 +187,14 @@ local function onSwitchPress(event)
 			left = 205,
 			top = 330,
 			style = "radio",
-			id = "over50",
+			id = "over 50",
 			onPress = onSwitchPress
 		
 		}
 	)
+	if (agerange=="over 50") then
+		over50:setState({isOn=true})
+	end	
 	rGroup:insert( over50 )
 	
 	
@@ -261,7 +273,7 @@ scrollView:insert(upProfile)
 	--adding background
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
+	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte-dv0E",22)
 	sceneGroup:insert(Welcome)
 	--Writing Message "About"
 	

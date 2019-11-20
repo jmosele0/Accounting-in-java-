@@ -6,6 +6,9 @@ local json=require("json")
  
 local scene = composer.newScene()
 
+local ipAddress
+
+local OwnerID
 
  local function menu()
  composer.gotoScene("Menu",{effect = "slideRight", time = 500})
@@ -20,7 +23,20 @@ end
 
 local function groups(event)
   local group=event.target
-  print(group.id)
+  local customParams={
+    DogID=group.id,
+    DogName=group.name,
+    Age=group.age,
+    Breed=group.breed,
+    Sex=group.sex,
+    Desexed=group.desexed,
+    DOB=group.dob,
+    HowLongOwned=group.howlongowned,
+    VacinationStatus=group.vaccinationstatus,
+    address=ipAddress,
+    OwnerID=OwnerID
+  }
+  composer.gotoScene("viewdogProfile", {effect="slideLeft", time=500, params=customParams})
 end
 
 
@@ -42,8 +58,9 @@ function scene:create( event )
     local sceneGroup = self.view
 
     local params=event.params
-    local OwnerID=params.ownerID
-    local ipAddress=params.address
+    OwnerID=params.ownerID
+    ipAddress=params.address
+    print(ipAddress)
     local x=0
 
     display.setDefault( "background", 0.4117647059, 0.6823529412, 0.9294117647 ) 
@@ -115,7 +132,16 @@ end
                print(length)
                for index=1, length, 1 do
                 local group=display.newGroup()
-                group.id=dogs[index]["DogName"]
+                group.id=dogs[index]["DogID"]
+                group.name=dogs[index]["DogName"]
+                group.age=dogs[index]["Age"]
+                group.breed=dogs[index]["Breed"]
+                group.sex=dogs[index]["Sex"]
+                group.desexed=dogs[index]["Desexed"]
+                group.dob=dogs[index]["DOB"]
+                group.howlongowned=dogs[index]["HowLongOwned"]
+                group.vaccinationstatus=dogs[index]["VaccinationStatus"]
+                group.dogorigin=dogs[index]["DogOrigin"]
                 group.x=160
                 group.y=y
                 group:addEventListener("tap", groups)
@@ -139,7 +165,8 @@ end
     local function loadData(Id, address)
     local headers = {}
     headers["Content-Type"] = "application/x-www-form-urlencoded"
-    headers["Accept-Language"] = "en-US"    
+    headers["Accept-Language"] = "en-US"
+    print(Id)    
     local body="OwnerID="..Id
     local params = {}
     params.headers = headers
@@ -156,7 +183,7 @@ end
     sceneGroup:insert(bgr)
     
     --Adding Welcome Message
-    Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
+    Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte-dv0E",22)
     sceneGroup:insert(Welcome)
     --Writing Message "About"
     
@@ -174,7 +201,7 @@ end
         width='100',
         height='35',
        fillColor = { default={ 0.4117647059, 0.6823529412, 0.9294117647 }, over={ 1, 0.5, 0.8, 4 } },
-        labelColor = { default={0,0,0}, over={ 2, 5, 1.5, 2.2 } },
+        labelColor = { default={1,1,1}, over={ 2, 5, 1.5, 2.2 } },
     }
 )
 

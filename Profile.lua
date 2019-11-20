@@ -149,7 +149,7 @@ bg=display.newRect(display.contentCenterX,display.contentCenterY,display.content
 	
 
 	--Adding Welcome Message
-	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
+	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte-dv0E",22)
 	sceneGroup:insert(Welcome)
 	--Writing Message "About"
 	

@@ -52,7 +52,7 @@ function scene:create( event )
 	sceneGroup:insert(bgr)
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
+	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte-dv0E",22)
 	
 	sceneGroup:insert(Welcome)
 
@@ -165,7 +165,7 @@ function scene:create( event )
 	scrollView:insert(p)
 	
 	DOB = native.newTextField(160,420,180,30)
-	DOB.placeholder = "Date of birth"
+	DOB.placeholder = "yyyy/mm/dd"
 	scrollView:insert(DOB)
 	
 	dn = native.newTextField(160,460,180,30)

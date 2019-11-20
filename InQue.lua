@@ -7,6 +7,8 @@
 local composer = require( "composer" )
  
 local scene = composer.newScene()
+
+local json=require("json")
  
 
 local Welcome
@@ -15,10 +17,61 @@ local widget = require ("widget")
 
 local ipAddress
 
+local rg
+
+local on1
+local on2
+local on3
+local on4
+local other
+local Others
+local otherOn=1
+local scrollView
+
 local function skip()
 	local customParams={address=ipAddress}
  composer.gotoScene("Login",{effect = "slideLeft", time = 500, params=customParams})
 end
+
+
+local function onSwitchPress( event )
+    local switch = event.target
+    if (switch.id=="yes") then
+        on1=switch.id
+        if (rg.disabled==true) then
+        	rg.disabled=false
+        	rg.alpha=1
+        end
+    elseif(switch.id=="no") then
+    	on1=switch.id
+        if (rg.disabled==false) then
+            rg.disabled=true
+            rg.alpha=0.4
+            on2=""
+        end    	
+
+    elseif (switch.id=="dogs" or switch.id=="cats") then
+        on2=switch.id
+
+    elseif (switch.id=="basic" or switch.id=="listens" or switch.id=="jump" or switch.id=="walks" or switch.id=="submissive"
+    	or switch.id=="mannered") then
+    	on3=switch.id 
+
+    elseif (switch.id=="dogout" or switch.id=="willlistens" or switch.id=="charge" or switch.id=="wmannered"
+        or switch.id=="communicate" or switch.id=="other") then
+        on4=switch.id	       
+    end
+
+end    
+
+local function onSwitchPress2(event)
+	local switch=event.target
+	if (rg.disabled==true) then
+		switch:setState({isOn=false})
+	else
+	    on2=switch.id	
+	end
+end	    
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -34,10 +87,6 @@ function scene:create( event )
  
     local sceneGroup = self.view
 
-local on1
-local on2
-local on3
-local on4
 
 local params=event.params
     local Email=params.Email
@@ -52,36 +101,15 @@ local params=event.params
 
 
 
-
-
-local function onSwitchPress( event )
-    local switch = event.target
-    if (switch.id=="yes" or switch.id=="no") then
-        on1=switch.id
-
-    elseif (switch.id=="dogs" or switch.id=="cats") then
-        on2=switch.id
-
-    elseif (switch.id=="basic" or switch.id=="listens" or switch.id=="jump" or switch.id=="walks" or switch.id=="submissive"
-    	or switch.id=="mannered") then
-    	on3=switch.id 
-
-    elseif (switch.id=="dogout" or switch.id=="willlistens" or switch.id=="charge" or switch.id=="wmannered"
-        or switch.id=="communicate") then
-        on4=switch.id	       
-    end
-
-end    
-
-
     local function networkListener(event)
  if ( event.isError ) then
         print( "Network error: ", event.response )
     elseif (event.response=='-1')then
 	     print ("error adding details")
-	else   
-	     print(event.response) 
-	     customParams={OwnerID=event.response,
+	else
+	     print(event.response)   
+	     email=details.Email
+	     customParams={OwnerID=details.OwnerID,
 	                   address=ipAddress
 	                  }
 	     composer.gotoScene("Menu",{effect = "slideLeft", time = 500, params=customParams})
@@ -92,6 +120,14 @@ end
 
 local function submit()
 	local headers = {}
+	if (on2=="other") then
+		on2=other.text
+		print(on2)
+	end
+	if (on4=="other") then
+	    on4=Others.text
+	    print(on4)
+	end    	
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     headers["Accept-Language"] = "en-US"	
 	local body="Email="..Email.."&FirstName="..FirstName.."&LastName="..LastName.."&password="..password.."&Gender="..Gender.."&Couple="..Couple.."&AgeRange="..AgeRange.."&PostCode="..
@@ -129,7 +165,7 @@ Skip:addEventListener("tap", skip )
 
 
 	-- Create the widget for scroll view
-	local scrollView = widget.newScrollView(
+	scrollView = widget.newScrollView(
 		{
 			top = 70,
 			left = 0,
@@ -139,10 +175,11 @@ Skip:addEventListener("tap", skip )
 			bottomPadding = 70,
 			horizontalScrollDisabled = true,
 			verticalScrollDisabled = false,
-			listener = scrollListener,
 			backgroundColor = {0.4117647059, 0.6823529412, 0.9294117647 },
 		}
 	)
+
+	--scrollView:addEventListener("touch", myTouchListener)
 	sceneGroup:insert(scrollView)
 	
 	local Text = display.newText( "Have you had pets before?", display.contentCenterX*0.9, display.contentCenterY*0.4, native.systemFont, 18 )
@@ -190,49 +227,66 @@ Skip:addEventListener("tap", skip )
 	local t = display.newText( "If Yes then ?", display.contentCenterX*0.9, display.contentCenterY*0.7, native.systemFont, 18 )
 	scrollView:insert(t)
 	
-	local rg = display.newGroup()
+	rg = display.newGroup()
+	rg.alpha=0.4
+	rg.disabled=true
  
 -- Create two associated radio buttons (inserted into the same display group)
     local dogs = widget.newSwitch(
 		{
-			left = 135,
+			left = 190,
 			top = 180,
 			style = "radio",
 			id = "dogs",
-			initialSwitchState = true,
-			onPress = onSwitchPress
+			onPress = onSwitchPress2
 		
 		}
 	)
-	on2=dogs.id
 	rg:insert( dogs )
 	scrollView:insert(rg)
 	
-	local dogs = display.newText( "Dogs", display.contentCenterX*0.6, display.contentCenterY*0.8, native.systemFont, 18 )
+	local dogs = display.newText( "Dogs", 151, display.contentCenterY*0.8, native.systemFont, 18 )
 	scrollView:insert(dogs)
  
 	local cats = widget.newSwitch(
 		{
-			left = 135,
+			left = 190,
 			top = 215,
 			style = "radio",
 			id = "cats",
-			onPress = onSwitchPress
+			onPress = onSwitchPress2
 			
 			
 		}
 	)
-	rg:insert( cats )
+
+	rg:insert(cats)
+
+	local otherSelect = widget.newSwitch(
+		{
+			left = 190,
+			top = 250,
+			style = "radio",
+			id = "other",
+			onPress = onSwitchPress2
+			
+			
+		}
+	)
+	rg:insert( otherSelect )
 	
 	
-	local cats = display.newText( "Cats", display.contentCenterX*0.6, display.contentCenterY*0.95, native.systemFont, 18 )
+	local cats = display.newText( "Cats", 151, display.contentCenterY*0.95, native.systemFont, 18 )
 	scrollView:insert(cats)
 	
-	other = native.newTextField(160,270,180,30)
+	other = native.newTextField(160,300,90,30)
 	other.placeholder = "Other"
 	scrollView:insert(other)
+
+	local otherText = display.newText( "Other", 151, 264, native.systemFont, 18 )
+	scrollView:insert(otherText)
 	
-	local info = display.newText( "What is an obedient dog to you ?", display.contentCenterX*1.0, display.contentCenterY*1.3, native.systemFont, 18 )
+	local info = display.newText( "What is an obedient dog to you ?", display.contentCenterX*1.0, 342, native.systemFont, 18 )
 	scrollView:insert(info)
 	
 	local rGroup = display.newGroup()
@@ -240,7 +294,7 @@ Skip:addEventListener("tap", skip )
 	local basic = widget.newSwitch(
 		{
 			left = 262,
-			top = 330,
+			top = 360,
 			style = "radio",
 			id = "basic",
 			initialSwitchState = true,
@@ -252,13 +306,13 @@ Skip:addEventListener("tap", skip )
 	rGroup:insert( basic )
 	scrollView:insert(rGroup)
 	
-	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, display.contentCenterY*1.45, native.systemFont, 18 )
+	local b = display.newText( "- Knows basic commands", display.contentCenterX*0.9, 378, native.systemFont, 18 )
 	scrollView:insert(b)
 	
 	local listens = widget.newSwitch(
 		{
 			left = 262,
-			top = 380,
+			top = 410,
 			style = "radio",
 			id = "listens",
 			onPress = onSwitchPress
@@ -267,13 +321,13 @@ Skip:addEventListener("tap", skip )
 	)
 	rGroup:insert( listens )
 	
-	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, display.contentCenterY*1.65, native.systemFont, 18 )
+	local l = display.newText( "- Listens to my commands \n  and follows them ", display.contentCenterX*0.9, 426, native.systemFont, 18 )
 	scrollView:insert(l)
 	
 	local jump = widget.newSwitch(
 		{
 			left = 262,
-			top = 430,
+			top = 460,
 			style = "radio",
 			id = "jump",
 			onPress = onSwitchPress
@@ -282,13 +336,13 @@ Skip:addEventListener("tap", skip )
 	)
 	rGroup:insert( jump )
 	
-	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, display.contentCenterY*1.88, native.systemFont, 18 )
+	local j = display.newText( "- Does not jump up \n on people ", display.contentCenterX*0.75, 481.2, native.systemFont, 18 )
 	scrollView:insert(j)
 	
 	local walks = widget.newSwitch(
 		{
 			left = 262,
-			top = 480,
+			top = 510,
 			style = "radio",
 			id = "walks",
 			onPress = onSwitchPress
@@ -297,13 +351,13 @@ Skip:addEventListener("tap", skip )
 	)
 	rGroup:insert( walks )
 	
-	local w = display.newText( "- Walks on the lead well", display.contentCenterX*0.85, display.contentCenterY*2.08, native.systemFont, 18 )
+	local w = display.newText( "- Walks on the lead well", display.contentCenterX*0.85, 529.2, native.systemFont, 18 )
 	scrollView:insert(w)
 	
 	local submissive = widget.newSwitch(
 		{
 			left = 262,
-			top = 525,
+			top = 555,
 			style = "radio",
 			id = "submissive",
 			onPress = onSwitchPress
@@ -312,13 +366,13 @@ Skip:addEventListener("tap", skip )
 	)
 	rGroup:insert( submissive )
 	
-	local s = display.newText( "- Submissive", display.contentCenterX*0.55, display.contentCenterY*2.25, native.systemFont, 18 )
+	local s = display.newText( "- Submissive", display.contentCenterX*0.55, 570, native.systemFont, 18 )
 	scrollView:insert(s)
 	
 	local mannered = widget.newSwitch(
 		{
 			left = 262,
-			top = 570,
+			top = 600,
 			style = "radio",
 			id = "mannered",
 			onPress = onSwitchPress
@@ -327,10 +381,10 @@ Skip:addEventListener("tap", skip )
 	)
 	rGroup:insert( mannered )
 	
-	local m = display.newText( "- Is well mannered in lots\n  of situations", display.contentCenterX*0.85, display.contentCenterY*2.45, native.systemFont, 18 )
+	local m = display.newText( "- Is well mannered in lots\n  of situations", display.contentCenterX*0.85, 618, native.systemFont, 18 )
 	scrollView:insert(m)
 	
-	local imp = display.newText( "Important outcomes of dog training ?", display.contentCenterX*1.0, display.contentCenterY*2.70, native.systemFont, 18 )
+	local imp = display.newText( "Important outcomes of dog training ?", display.contentCenterX*1.0, 678, native.systemFont, 18 )
 	scrollView:insert(imp)
 	
 	local rgrp = display.newGroup()
@@ -338,7 +392,7 @@ Skip:addEventListener("tap", skip )
 	local dogout = widget.newSwitch(
 		{
 			left = 262,
-			top = 670,
+			top = 700,
 			style = "radio",
 			id = "dogout",
 			initialSwitchState = true,
@@ -350,13 +404,13 @@ Skip:addEventListener("tap", skip )
 	rgrp:insert( dogout )
 	scrollView:insert(rgrp)
 	
-	local dg = display.newText( "- So I can take my dog out \n  and about with me", display.contentCenterX*0.8, display.contentCenterY*2.90, native.systemFont, 18 )
+	local dg = display.newText( "- So I can take my dog out \n  and about with me", display.contentCenterX*0.8, 726, native.systemFont, 18 )
 	scrollView:insert(dg)
 	
 	local willlistens = widget.newSwitch(
 		{
 			left = 262,
-			top = 725,
+			top = 755,
 			style = "radio",
 			id = "willlistens",
 			onPress = onSwitchPress,
@@ -365,13 +419,13 @@ Skip:addEventListener("tap", skip )
 	)
 	rgrp:insert( willlistens )
 	
-	local wl = display.newText( "- So they will listens to me", display.contentCenterX*0.8, display.contentCenterY*3.10, native.systemFont, 18 )
+	local wl = display.newText( "- So they will listens to me", display.contentCenterX*0.8, 774, native.systemFont, 18 )
 	scrollView:insert(wl)
 	
 	local charge = widget.newSwitch(
 		{
 			left = 262,
-			top = 775,
+			top = 805,
 			style = "radio",
 			id = "charge",
 			onPress = onSwitchPress
@@ -380,13 +434,13 @@ Skip:addEventListener("tap", skip )
 	)
 	rgrp:insert( charge )
 	
-	local c = display.newText( "- So I can be in charge \n  of my dog ", display.contentCenterX*0.72, display.contentCenterY*3.30, native.systemFont, 18 )
+	local c = display.newText( "- So I can be in charge \n  of my dog ", display.contentCenterX*0.72, 822, native.systemFont, 18 )
 	scrollView:insert(c)
 	
 	local wmannered = widget.newSwitch(
 		{
 			left = 262,
-			top = 830,
+			top = 860,
 			style = "radio",
 			id = "wmannered",
 			onPress = onSwitchPress
@@ -395,13 +449,13 @@ Skip:addEventListener("tap", skip )
 	)
 	rgrp:insert( wmannered )
 	
-	local wm = display.newText( "- So they will be well mann-\n  ered in different situations", display.contentCenterX*0.8, display.contentCenterY*3.55, native.systemFont, 18 )
+	local wm = display.newText( "- So they will be well mann-\n  ered in different situations", display.contentCenterX*0.8, 882, native.systemFont, 18 )
 	scrollView:insert(wm)
 	
 	communicate = widget.newSwitch(
 		{
 			left = 262,
-			top = 885,
+			top = 915,
 			style = "radio",
 			id = "communicate",
 			onPress = onSwitchPress
@@ -410,18 +464,34 @@ Skip:addEventListener("tap", skip )
 	)
 	rgrp:insert( communicate )
 	
-	local cm = display.newText( "- To allow me to communicate\n  well with my dog", display.contentCenterX*0.84, display.contentCenterY*3.80, native.systemFont, 18 )
+	local cm = display.newText( "- To allow me to communicate\n  well with my dog", display.contentCenterX*0.84, 942, native.systemFont, 18 )
 	scrollView:insert(cm)
+
+	local other2 = widget.newSwitch(
+		{
+			left = 262,
+			top = 970,
+			style = "radio",
+			id = "other",
+			onPress = onSwitchPress
+		
+		}
+	)
+
+	local other2Text = display.newText( "- Other", 40, 997, native.systemFont, 18 )
+	scrollView:insert(other2Text)
+
+	rgrp:insert(other2)
 	
-	local Other = native.newTextField(120,970,150,30)
-	Other.placeholder = "Other"
-	scrollView:insert(Other)
+	Others = native.newTextField(120,1030,150,30)
+	Others.placeholder = "Other"
+	scrollView:insert(Others)
 	
 	local Submit = widget.newButton(
     {
        shape = "roundedRect",
         left = 100,
-        top = 1000,
+        top = 1060,
         id = "Submit",
         label = "Submit",
 		width='98',

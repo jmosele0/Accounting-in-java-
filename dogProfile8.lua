@@ -20,7 +20,17 @@ local function networkListener(event)
 	else    
 		 local customParams={ownerID=OwnerID,
 		                     address=ipAddress}
-		 composer.removeScene("dogList", true)                    
+		 composer.removeScene("dogList", true)
+		 composer.removeScene("dogProfile") 
+		 composer.removeScene("dogProfile2") 
+		 composer.removeScene("dogProfile3")
+		 composer.removeScene("dogProfile4")
+		 composer.removeScene("dogProfile5")
+		 composer.removeScene("dogProfile6")
+		 composer.removeScene("dogProfile7")
+		 composer.removeScene("dogProfile8")
+		 composer.removeScene("doglike") 
+		 composer.removeScene("dogdislike")                 
 	     composer.gotoScene("dogList",{effect = "slideLeft", time = 500, params=customParams})
     end
 end

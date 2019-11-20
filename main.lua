@@ -9,6 +9,7 @@ local composer = require( "composer" )
 local path = system.pathForFile( "ip-address.txt", system.ResourceDirectory )
 
 local file, errorString=io.open(path, "r")
+email=""
 
 if not file then
 	print("File error: " .. errorString)

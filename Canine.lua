@@ -64,7 +64,7 @@ function scene:create( event )
 	sceneGroup:insert(bgr)
 	
 	--Adding Welcome Message
-	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte",22)
+	Welcome = display.newText("Pawsitive Behaviour",170,-17, "Forte-dv0E",22)
 	sceneGroup:insert(Welcome)
 	--Writing Message "About"
 	
@@ -80,7 +80,7 @@ function scene:create( event )
 			left = 0,
 			width = display.contentWidth,
 			height = display.contentHeight,
-			topPadding = 500,
+			topPadding = 50,
 			bottomPadding = 70,
 			horizontalScrollDisabled = true,
 			verticalScrollDisabled = false,
@@ -100,6 +100,7 @@ local function networkListener(event)
 	     local index
          local fields={"CanineTitle", "CanineContent"}
          local index2
+         local height
          local fieldLength=#fields
          print(event.response)
          local enrichment=json.decode(event.response)
@@ -110,9 +111,11 @@ local function networkListener(event)
          	for index2=1, fieldLength, 1 do
          		local value=enrichment[index][fields[index2]]
          		local text = display.newText(value,display.contentCenterX,y,270,0,"Arial", 15)
+         		text.anchorY=0
          		text:setTextColor(0)
          		scrollView:insert(text)
-         		y=y+20
+         		height=text.contentHeight
+         		y=y+30+height
          	end
          	y=y+40
          end
